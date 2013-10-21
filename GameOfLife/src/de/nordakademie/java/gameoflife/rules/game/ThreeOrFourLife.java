@@ -3,7 +3,7 @@ package de.nordakademie.java.gameoflife.rules.game;
 public class ThreeOrFourLife implements GameRule {
 
 	@Override
-	public boolean iaCellStayingAlive(Integer numberOfNeighbours) {
+	public boolean isCellStayingAlive(Integer numberOfNeighbours) {
 		return (numberOfNeighbours == 4 || numberOfNeighbours == 3);
 	}
 

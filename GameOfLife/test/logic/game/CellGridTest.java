@@ -28,7 +28,7 @@ public class CellGridTest {
 	
 	@Test
 	public void cellsInitinalized(){
-		Cell[][] cellArray = cellGrid.getCellArray();
+		Cell[][] cellArray = cellGrid.getCellGrid();
 		
 		for(int row = 0; row < cellGrid.getRowCount(); row++){
 			for(int column = 0; column < cellGrid.getColumnCount(); column++){
@@ -37,10 +37,24 @@ public class CellGridTest {
 		}
 	}
 	
+	@Test
+	public void shouldGetAllCells(){
+		assertTrue(cellGrid.getCells().size() == 12);
+	}
+	
+	@Test
+	public void shouldGetRightCell(){
+		int row = 2;
+		int column = 3;
+		
+		Cell[][] cellArray = cellGrid.getCellGrid();
+		
+		assertTrue(cellArray[2][3] == cellGrid.getCellAtPosition(row, column));
+	}
 	
 	@Test
 	public void shouldBearCells(){
-		Cell[][] cellArray = cellGrid.getCellArray();
+		Cell[][] cellArray = cellGrid.getCellGrid();
 		Cell cell1 = cellArray[0][1];
 		Cell cell2 = cellArray[1][2];
 		Cell cell3 = cellArray[2][0];
@@ -71,7 +85,7 @@ public class CellGridTest {
 	
 	@Test
 	public void shouldKillCells(){
-		Cell[][] cellArray = cellGrid.getCellArray();
+		Cell[][] cellArray = cellGrid.getCellGrid();
 		Cell cell1 = cellArray[0][1];
 		Cell cell2 = cellArray[1][2];
 		Cell cell3 = cellArray[2][0];
@@ -88,6 +102,53 @@ public class CellGridTest {
 				assertFalse(cellArray[row][column].isAlive());
 			}
 		}
+	}
+	
+	@Test
+	public void shouldFindNeighboursInTheMiddle(){
+		Cell[][] cellArray = cellGrid.getCellGrid();
+
+		Cell cell = cellArray[1][1];
+		
+		assertTrue(cellGrid.getNeighbours(cell, false).size() == 8);
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[0][0]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[1][0]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[2][0]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[0][1]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[2][1]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[0][2]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[1][2]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[2][2]));
+	}
+	
+	@Test
+	public void shouldFindNeighboursOnTheBorderWithWallOfDeath(){
+		Cell[][] cellArray = cellGrid.getCellGrid();
+
+		Cell cell = cellArray[0][0];
+		
+		assertTrue(cellGrid.getNeighbours(cell, false).size() == 8);
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[0][1]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[1][0]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(cellArray[1][1]));
+		assertTrue(cellGrid.getNeighbours(cell, false).contains(null));
+	}
+	
+	@Test
+	public void shouldFindNeighboursOnTheBorderWithPacman(){
+		Cell[][] cellArray = cellGrid.getCellGrid();
+
+		Cell cell = cellArray[0][0];
+		
+		assertTrue(cellGrid.getNeighbours(cell, true).size() == 8);
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[0][1]));
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[1][0]));
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[1][1]));
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[0][3]));
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[1][3]));
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[2][0]));
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[2][1]));
+		assertTrue(cellGrid.getNeighbours(cell, true).contains(cellArray[2][3]));
 	}
 	
 
