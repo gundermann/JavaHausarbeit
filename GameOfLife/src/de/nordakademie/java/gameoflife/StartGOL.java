@@ -11,9 +11,11 @@ public class StartGOL {
 		StartMenuGui gui = new StartMenuGui();
 		gui.initStartMenuGUI();
 		ErrorGui error = new ErrorGui();
-		error.initErrorGui("Test Fehlertext");
+		error.initErrorGui(" Dies ist ein etwas längerer Test Fehlertext. \n da muss noch was hin, und noch ein bisschen ...");
 		GameFieldGui gameField = new GameFieldGui();
+		gameField.setCellGeneration(3);
 		gameField.initGameFieldGui();
+		
 	}
 	
 }

@@ -1,49 +1,52 @@
 package de.nordakademie.java.gameoflife.gui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.border.EtchedBorder;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JSlider;
 
 public class GameFieldGui {
+	
+	private int cellGeneration;
 	
 	public void initGameFieldGui(){
 		JFrame frame = new JFrame("Game Of Life");
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 800);
-		frame.setVisible(true);
-		frame.setLayout(new BorderLayout());
-		
-		JPanel menuPanel = new JPanel();
-		menuPanel.setLayout(new GridLayout(1,4));
-		menuPanel.setBorder(new EtchedBorder(Color.black, Color.blue));
-		
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.add(new JButton("Beenden"));
-		menuPanel.add(buttonPanel);
-		
-		JPanel title = new JPanel();
-		title.add(new JLabel("Game Of Life"));
-		menuPanel.add(title);
-		
-		JPanel gameSpeed = new JPanel();
-		gameSpeed.add(new JLabel("Spielgeschwindigkeit"));
-		menuPanel.add(gameSpeed);
-		
-		JPanel generation = new JPanel();
-		generation.add(new JLabel("Zellengeneration"));
-		menuPanel.add(generation);
-		
-		JPanel gameFieldPanel = new JPanel();
+				
+		frame.setJMenuBar(createJMenuBar());
 		JLabel testLabel = new JLabel("Hier kommt das Spielfeld hin!");
+		frame.add(testLabel);
 		
-		frame.add(menuPanel, BorderLayout.NORTH);
-		frame.add(testLabel, BorderLayout.CENTER);
+		setWindowIntoScreenCenter(frame);	
+		frame.setVisible(true);
+	}
+
+	private JMenuBar createJMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu options = new JMenu("Spieloptionen");
+		
+		options.add(new JMenuItem("Beenden"));
+		menuBar.add(options);
+		menuBar.add(new JLabel("     Spielgeschwindigkeit: "));
+		menuBar.add(new JSlider());
+		menuBar.add(new JLabel("Zellengeneration: "+ cellGeneration +" "));
+		
+		return menuBar;
+	}
+	
+	public void setCellGeneration(Integer currentCellGeneration){
+		cellGeneration = currentCellGeneration;
+	}
+	
+	private void setWindowIntoScreenCenter(JFrame frame) {
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation( (d.width- frame.getSize().width) /2,(d.height- frame.getSize().height) /2);
 	}
 
 }
