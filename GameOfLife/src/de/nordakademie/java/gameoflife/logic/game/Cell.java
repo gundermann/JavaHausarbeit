@@ -1,5 +1,10 @@
 package de.nordakademie.java.gameoflife.logic.game;
 
+/*
+ * Diese Klasse bildet eine Zelle ab.
+ * 
+ * @author niels.gundermann
+ */
 public class Cell{
 	
 	private boolean alive;

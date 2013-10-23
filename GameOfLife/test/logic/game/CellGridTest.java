@@ -2,37 +2,41 @@ package logic.game;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.logic.game.Cell;
 import de.nordakademie.java.gameoflife.logic.game.CellGrid;
+import de.nordakademie.java.gameoflife.logic.game.GamePad;
+import de.nordakademie.java.gameoflife.rules.border.PacmanStyle;
+import de.nordakademie.java.gameoflife.rules.border.WallOfDeath;
 
 public class CellGridTest {
 
-	CellGrid cellGrid;
 
 	@Before
 	public void setUp() {
-		cellGrid = new CellGrid(3, 4);
+		new CellGrid(3, 4);
 	}
 
 	@Test
 	public void cellGridDimension() {
-		assertTrue(cellGrid.getColumnCount() == 4);
-		assertTrue(cellGrid.getRowCount() == 3);
+		assertTrue(CellGrid.getColumnCount() == 4);
+		assertTrue(CellGrid.getRowCount() == 3);
 	}
 
 	@Test
 	public void cellsInitinalized() {
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		Cell[][] cellArray = CellGrid.getCellGrid();
 
-		for (int row = 0; row < cellGrid.getRowCount(); row++) {
-			for (int column = 0; column < cellGrid.getColumnCount(); column++) {
+		for (int row = 0; row < CellGrid.getRowCount(); row++) {
+			for (int column = 0; column < CellGrid.getColumnCount(); column++) {
 				assertTrue(cellArray[row][column] instanceof Cell);
 			}
 		}
@@ -40,7 +44,7 @@ public class CellGridTest {
 
 	@Test
 	public void shouldGetAllCells() {
-		assertTrue(cellGrid.getCells().size() == 12);
+		assertTrue(CellGrid.getCells().size() == 12);
 	}
 
 	@Test
@@ -48,14 +52,14 @@ public class CellGridTest {
 		int row = 2;
 		int column = 3;
 
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		Cell[][] cellArray = CellGrid.getCellGrid();
 
-		assertTrue(cellArray[2][3] == cellGrid.getCellAtPosition(row, column));
+		assertTrue(cellArray[2][3] == CellGrid.getCellAtPosition(row, column));
 	}
 
 	@Test
 	public void shouldBearCells() {
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		Cell[][] cellArray = CellGrid.getCellGrid();
 		Cell cell1 = cellArray[0][1];
 		Cell cell2 = cellArray[1][2];
 		Cell cell3 = cellArray[2][0];
@@ -65,7 +69,7 @@ public class CellGridTest {
 		cellsToBear.add(cell2);
 		cellsToBear.add(cell3);
 
-		cellGrid.bearCells(cellsToBear);
+		CellGrid.bearCells(cellsToBear);
 
 		// Muss nocheinaml hinzugefuegt werden, da die Liste nach bearCells leer
 		// ist
@@ -86,7 +90,7 @@ public class CellGridTest {
 
 	@Test
 	public void shouldKillCells() {
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		Cell[][] cellArray = CellGrid.getCellGrid();
 		Cell cell1 = cellArray[0][1];
 		Cell cell2 = cellArray[1][2];
 		Cell cell3 = cellArray[2][0];
@@ -96,7 +100,7 @@ public class CellGridTest {
 		cellsToKill.add(cell2);
 		cellsToKill.add(cell3);
 
-		cellGrid.killCells(cellsToKill);
+		CellGrid.killCells(cellsToKill);
 
 		for (int row = 0; row < cellArray.length; row++) {
 			for (int column = 0; column < cellArray[0].length; column++) {
@@ -107,9 +111,10 @@ public class CellGridTest {
 
 	@Test
 	public void shouldFindNeighboursInTheMiddle() {
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		GamePad.borderRules = new WallOfDeath();
+		Cell[][] cellArray = CellGrid.getCellGrid();
 		Cell cell = cellArray[1][1];
-		List<Cell> neighbours = cellGrid.getNeighbours(cell, false);
+		List<Cell> neighbours = CellGrid.getNeighbours(cell);
 
 		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellArray[0][0]));
@@ -123,38 +128,41 @@ public class CellGridTest {
 	}
 
 	@Test
-	public void shouldFindNeighboursInLessThanThreeRows() {
-		cellGrid = new CellGrid(1, 4);
-		Cell[][] cellArray = cellGrid.getCellGrid();
+	public void shouldFindNoNeighbours() {
+		new CellGrid(1, 1);
+		GamePad.borderRules = new PacmanStyle();
+		Cell[][] cellArray = CellGrid.getCellGrid(); //TODO Mockito
 		Cell cell = cellArray[0][0];
-		List<Cell> neighbours = cellGrid.getNeighbours(cell, true);
+		List<Cell> neighbours = CellGrid.getNeighbours(cell);
 
 		assertTrue(neighbours.size() == 8);
-		assertTrue(neighbours.contains(cellArray[0][1]));
-		assertTrue(neighbours.contains(cellArray[0][3]));
-		assertTrue(neighbours.contains(null));
+		for(Cell neighbour : neighbours){
+			assertFalse(neighbour.isAlive());
+		}
 	}
 
 	@Test
 	public void shouldFindNeighboursOnTheBorderWithWallOfDeath() {
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		GamePad.borderRules = new WallOfDeath();
+		Cell[][] cellArray = CellGrid.getCellGrid();
 		Cell cell = cellArray[0][0];
-		List<Cell> neighbours = cellGrid.getNeighbours(cell, false);
+		List<Cell> neighbours = CellGrid.getNeighbours(cell);
 
-		assertTrue(neighbours.size() == 8);
+		assertThat(neighbours.size(), Matchers.is(8));
 		assertTrue(neighbours.contains(cellArray[0][1]));
 		assertTrue(neighbours.contains(cellArray[1][0]));
 		assertTrue(neighbours.contains(cellArray[1][1]));
-		assertTrue(neighbours.contains(null));
+		assertFalse(neighbours.contains(cellArray[0][2]));
+		assertFalse(neighbours.contains(cellArray[1][2]));
 	}
 
 	@Test
 	public void shouldFindNeighboursOnTheBorderWithPacman() {
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		GamePad.borderRules = new PacmanStyle();
+		Cell[][] cellArray = CellGrid.getCellGrid();
 		Cell cell = cellArray[0][0];
-		List<Cell> neighbours = cellGrid.getNeighbours(cell, true);
+		List<Cell> neighbours = CellGrid.getNeighbours(cell);
 
-		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellArray[0][1]));
 		assertTrue(neighbours.contains(cellArray[1][0]));
 		assertTrue(neighbours.contains(cellArray[1][1]));
@@ -165,4 +173,7 @@ public class CellGridTest {
 		assertTrue(neighbours.contains(cellArray[2][3]));
 	}
 
+	@Test
+	public void shouldConvertToIntegerArray(){
+	}
 }
