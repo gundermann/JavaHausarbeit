@@ -1,5 +1,6 @@
 package de.nordakademie.java.gameoflife.gui;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -11,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.logic.game.Cell;
@@ -24,17 +26,38 @@ public class GameFieldGui {
 		JFrame frame = new JFrame("Game Of Life");
 		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
 		frame.setSize(800, 800);
-		frame.setJMenuBar(createJMenuBar());
-		setWindowIntoScreenCenter(frame);
+		frame.setLayout(new BorderLayout());
 		
-		gameFieldCanvas = new GameFieldCanvas(cellsAliveArray);		
-		frame.add(gameFieldCanvas);
+		setWindowIntoScreenCenter(frame);
+					
+		gameFieldCanvas = new GameFieldCanvas(cellsAliveArray);
+		gameFieldCanvas.setIgnoreRepaint(true);
+		gameFieldCanvas.setPreferredSize(getDimension(cellsAliveArray));
+		
+		JScrollPane gameFieldPanel = new JScrollPane();
+		gameFieldPanel.setViewportView(gameFieldCanvas);
+		gameFieldPanel.setVisible(true);
+		
+		frame.add(gameFieldPanel, BorderLayout.CENTER);
+		frame.add(createJMenuBar(), BorderLayout.NORTH);
+		frame.pack();
 		frame.setVisible(true);
+
 	}
 	
+	private Dimension getDimension(Integer[][] cellsAliveArray) {
+		int colums = cellsAliveArray.length;
+		  int rows=0;
+		  //TODO: wird im Uploader abgefangen, muss es falls unterwegs ein Fehler passiert trotzdem getestet werden?
+		  if(colums>0){ 
+			  rows = cellsAliveArray[0].length;
+		  }
+		return (new Dimension(colums, rows));
+	}
+
 	public void updateGameFieldGui(Integer [][] cellsAliveArray){
 		gameFieldCanvas.updateGameFieldCanvas(cellsAliveArray);
-		gameFieldCanvas.repaint();
+		gameFieldCanvas.paint(gameFieldCanvas.getGraphics());
 	}
 
 	private JMenuBar createJMenuBar() {
