@@ -12,13 +12,13 @@ import java.util.List;
  */
 public class CellGrid {
 	
-	private static int rows;
-	private static int columns;
-	private static Cell[][] cellArray;
+	private int rows;
+	private int columns;
+	private Cell[][] cellArray;
 	
 	public CellGrid(int rows, int columns) {
-		CellGrid.rows = rows;
-		CellGrid.columns = columns;
+		this.rows = rows;
+		this.columns = columns;
 		initCellGrid();
 	}
 
@@ -31,41 +31,44 @@ public class CellGrid {
 		}
 	}
 
-	public static void bearCells(List<Cell> cellsToBear) {
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-				if(cellsToBear.contains(cellArray[row][column])){
-					cellArray[row][column].bear();
-					cellsToBear.remove(cellArray[row][column]);
-				}
-			}
-		}
+//	
+//	
+//	public void killCells(List<Cell> cellsToKill) {
+//		for(int row = 0; row < rows; row++){
+//			for(int column = 0; column < columns; column++){
+//				if(cellsToKill.contains(cellArray[row][column])){
+//					cellArray[row][column].killYourself();
+//					cellsToKill.remove(cellArray[row][column]);
+//				}
+//			}
+//		}
+//	}
+	
+	public void killCell(Cell cell){
+		cell.killYourself();
 	}
 	
-	public static void killCells(List<Cell> cellsToKill) {
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-				if(cellsToKill.contains(cellArray[row][column])){
-					cellArray[row][column].killYourself();
-					cellsToKill.remove(cellArray[row][column]);
-				}
-			}
-		}
+	public void bearCell(Cell cell){
+		cell.bear();
 	}
-
-	public static int getColumnCount() {
+	
+	public boolean isCellAtPositionAlive(int row, int column){
+		return getCellAtPosition(row, column).isAlive();
+	}
+	
+	public int getColumnCount() {
 		return columns;
 	}
 
-	public static int getRowCount() {
+	public int getRowCount() {
 		return rows;
 	}
 
-	public static Cell[][] getCellGrid() {
+	public Cell[][] getCellGrid() {
 		return cellArray;
 	}
 
-	public static List<Cell> getCells() {
+	public List<Cell> getCellsAsList() {
 		List<Cell> cells = new ArrayList<Cell>();
 		for(int row = 0; row < rows; row++){
 			for(int column = 0; column < columns; column++){
@@ -75,7 +78,7 @@ public class CellGrid {
 		return cells;
 	}
 
-	public static Cell getCellAtPosition(int row, int column) throws ArrayIndexOutOfBoundsException{
+	public Cell getCellAtPosition(int row, int column) {
 		Cell cellAtPosition;
 		try {
 			cellAtPosition = cellArray[row][column];
@@ -84,91 +87,8 @@ public class CellGrid {
 		}
 		return cellAtPosition;
 	}
-
-	public static List<Cell> getNeighbours(Cell cell) {
-		List<Cell> neighbours = new ArrayList<Cell>();
-		
-		neighbours.add(getNeighbourAtNorth(cell));
-		neighbours.add(getNeighbourAtNorthEast(cell));
-		neighbours.add(getNeighbourAtEast(cell));
-		neighbours.add(getNeighbourAtSouthEast(cell));
-		neighbours.add(getNeighbourAtSouth(cell));
-		neighbours.add(getNeighbourAtSouthWest(cell));
-		neighbours.add(getNeighbourAtWest(cell));
-		neighbours.add(getNeighbourAtNorthWest(cell));
-
-		for(Cell neighbourCell : neighbours){
-			if(neighbourCell == null){
-				int currentIndex = neighbours.indexOf(neighbourCell);
-				neighbours.set(currentIndex, new Cell());
-			}
-		}
-		
-		return neighbours;
-	}
-
 	
-	private static Cell getNeighbourAtNorth(Cell cell) {
-		int row = getRowOfCell(cell);
-		int column = getColumnOfCell(cell);
-		Cell neighbour = getNeighbour(row-1, column, rows-1, column);
-		return neighbour == cell ? null : neighbour;
-	}
-	
-	private static Cell getNeighbourAtNorthEast(Cell cell) {
-		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
-		Cell neighbour = getNeighbourAtEast(neighbourAtNorth);
-		return neighbour;
-	}
-	
-	private static Cell getNeighbourAtEast(Cell cell) {
-		int row = getRowOfCell(cell);
-		int column = getColumnOfCell(cell);
-		Cell neighbour = getNeighbour(row, column+1, row, 0);
-		return neighbour == cell ? null : neighbour;
-	}
-	
-	private static Cell getNeighbourAtSouthEast(Cell cell) {
-		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
-		Cell neighbour = getNeighbourAtEast(neighbourAtSouth);
-		return neighbour;
-	}
-	
-	private static Cell getNeighbourAtSouth(Cell cell) {
-		int row = getRowOfCell(cell);
-		int column = getColumnOfCell(cell);
-		Cell neighbour = getNeighbour(row+1, column, 0, column);
-		return neighbour == cell ? null : neighbour;
-	}
-	
-	private static Cell getNeighbourAtSouthWest(Cell cell) {
-		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
-		Cell neighbour = getNeighbourAtWest(neighbourAtSouth);
-		return neighbour;
-	}
-	
-	private static Cell getNeighbourAtWest(Cell cell) {
-		int row = getRowOfCell(cell);
-		int column = getColumnOfCell(cell);
-		Cell neighbour = getNeighbour(row, column-1, row, columns-1);
-		return neighbour == cell ? null : neighbour;
-	}
-	
-	private static Cell getNeighbourAtNorthWest(Cell cell) {
-		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
-		Cell neighbour = getNeighbourAtWest(neighbourAtNorth);
-		return neighbour;
-	}
-	
-	private static Cell getNeighbour(int row, int column, int rowForBorderoverflow, int columnForBorderoverflow){
-		Cell neighbour = getCellAtPosition(row, column);
-		if(neighbour == null && !GamePad.borderRules.isGridBoarderDead()){
-			neighbour =  getCellAtPosition(rowForBorderoverflow, columnForBorderoverflow);
-		}
-		return neighbour;
-	}
-
-	private static int getColumnOfCell(Cell cell) {
+	public int getColumnOfCell(Cell cell) {
 		int columnOfCell = -1;
 		for(int row = 0; row < rows; row++){
 			for(int column = 0; column < columns; column++){
@@ -181,7 +101,7 @@ public class CellGrid {
 		return columnOfCell;
 	}
 
-	private static int getRowOfCell(Cell cell) {
+	public int getRowOfCell(Cell cell) {
 		int rowOfCell = -1;
 		for(int row = 0; row < rows; row++){
 			for(int column = 0; column < columns; column++){
@@ -193,8 +113,8 @@ public class CellGrid {
 			}
 		return rowOfCell;
 	}
-
-	public static Integer[][] convertCellGridToIntegerArray() {
+	
+	public Integer[][] convertCellGridToIntegerArray() {
 		Integer[][] integerArray = new Integer[rows][columns];
 		for(int row = 0; row < rows; row++){
 			for(int column = 0; column < columns; column++){
@@ -204,22 +124,11 @@ public class CellGrid {
 		return integerArray;
 	}
 
-	private static Integer getNumericFormBoolean(boolean isAlive) {
+	private Integer getNumericFormBoolean(boolean isAlive) {
 		Integer value = 0;
 		if(isAlive){
 			value = 1;
 		}
 		return value;
 	}
-
-	private static void checkCellAliveAndAddSetArrayValue(Cell cell, Integer arrayValue) {
-		if(cell.isAlive()){
-			arrayValue = 1;
-		}
-		else{
-			arrayValue = 0;
-		}
-	}
-
-
 }

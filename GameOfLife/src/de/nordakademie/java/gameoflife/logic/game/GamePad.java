@@ -11,43 +11,25 @@ public class GamePad {
 	//konstanten
 	public static GameRule gameRules;
 	public static BorderRule borderRules;
+	public CellGridHandler cellGridHandler;
 	private int generation = 1;
+	private NeighbourFinder neighbourFinder;
 
 	public GamePad(Integer[][] initinalArray, GameRule gameRules, BorderRule borderRules) {
-		initCellGrid(initinalArray);
+		CellGridHandlerImpl handler = new CellGridHandlerImpl(initinalArray, borderRules.isGridBoarderDead()); //TODO kommt weg
+		this.cellGridHandler = handler;
+		this.neighbourFinder = handler;
 		GamePad.gameRules = gameRules;
 		GamePad.borderRules = borderRules;
-	}
-	
-	private void initCellGrid(Integer[][] initinalArray) {
-		int rows = initinalArray.length;
-		int columns = initinalArray[0].length;
-		new CellGrid(rows, columns);
-		List<Cell> livingCells = new ArrayList<Cell>();
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-				Cell currentCell = CellGrid.getCellAtPosition(row, column);
-				int currentSetup = initinalArray[row][column];
-				checkInitinalSetupAndBearCell(currentSetup, currentCell, livingCells);
-				}
-			}
-		CellGrid.bearCells(livingCells);
-	}
-
-	private void checkInitinalSetupAndBearCell(Integer setup, Cell currentCell, List<Cell> livingCells) {
-		if(setup == 1){
-			livingCells.add(currentCell);
-		}
 	}
 
 	public List<Cell> findCellsToBear(){
 		List<Cell> cellsToBear = new ArrayList<Cell>();
-		for(Cell cell : CellGrid.getCells()){
+		for(Cell cell : cellGridHandler.getCellsAsList()){
 			if(!cell.isAlive()){
 				checkRulesForBearingAndMarkCell(cell, cellsToBear);
 			}
 		}
-		
 		return cellsToBear;
 	}
 
@@ -60,7 +42,7 @@ public class GamePad {
 
 	public List<Cell> findCellsToKill() {
 		List<Cell> cellsToKill = new ArrayList<Cell>();
-		for(Cell cell : CellGrid.getCells()){
+		for(Cell cell : cellGridHandler.getCellsAsList()){
 			if(cell.isAlive()){
 				checkRulesForKillingAndMarkCell(cell, cellsToKill);
 			}
@@ -77,7 +59,7 @@ public class GamePad {
 
 	private int countLivingNeighbours(Cell cell) {
 		int livingNeighbours = 0;
-		List<Cell> neighbours = CellGrid.getNeighbours(cell);
+		List<Cell> neighbours = neighbourFinder.getNeighbours(cell, new CellGrid(1, 1)); //TODO Nachbarsuche statisch machen
 		for(Cell neighbourCell : neighbours){
 			if(neighbourCell.isAlive())
 				livingNeighbours++;
@@ -89,8 +71,8 @@ public class GamePad {
 		List<Cell> cellsToBear = findCellsToBear();
 		List<Cell> cellsToKill = findCellsToKill();
 		
-		CellGrid.bearCells(cellsToBear);
-		CellGrid.killCells(cellsToKill);
+		cellGridHandler.bearCells(cellsToBear);
+		cellGridHandler.killCells(cellsToKill);
 		
 		generation = generation + 1 ;
 	}

@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.logic.game.Cell;
 import de.nordakademie.java.gameoflife.logic.game.CellGrid;
+import de.nordakademie.java.gameoflife.logic.game.CellGridHandler;
 import de.nordakademie.java.gameoflife.logic.game.GamePad;
 import de.nordakademie.java.gameoflife.rules.border.BorderRule;
 import de.nordakademie.java.gameoflife.rules.border.PacmanStyle;
@@ -22,6 +23,7 @@ public class GamePadTest {
 			{ 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 	GameRule gameRules;
 	BorderRule borderRules;
+	CellGridHandler cellGridHandler;
 
 	@Before
 	public void setUp() {
@@ -32,9 +34,6 @@ public class GamePadTest {
 
 	@Test
 	public void shouldBeInitinalized() {
-		assertNotNull(CellGrid.getColumnCount());
-		assertNotNull(CellGrid.getRowCount());
-		assertNotNull(CellGrid.getCellGrid());
 		assertNotNull(GamePad.gameRules);
 		assertNotNull(GamePad.borderRules);
 		assertTrue(gameControl.getGeneration() == 1);
