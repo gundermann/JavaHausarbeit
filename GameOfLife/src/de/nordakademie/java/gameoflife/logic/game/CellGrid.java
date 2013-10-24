@@ -3,13 +3,11 @@ package de.nordakademie.java.gameoflife.logic.game;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * Diese Klasse bildet das Spielfeld innerhalb des Programms ab.
- * Die Zellen werden hier geboren bzw. getötet. 
- * Weiterhin wird über diese Klasse nach Nachbarn gesucht.
- * 
- * @author niels.gundermann
- */
+/*  Diese Klasse bildet das Spielfeld innerhalb des Programms ab.
+  	Die Zellen werden hier geboren bzw. getötet. 
+  	Weiterhin wird über diese Klasse nach Nachbarn gesucht.
+  
+  	@author niels.gundermann */
 public class CellGrid {
 	
 	private int rows;
@@ -31,19 +29,6 @@ public class CellGrid {
 		}
 	}
 
-//	
-//	
-//	public void killCells(List<Cell> cellsToKill) {
-//		for(int row = 0; row < rows; row++){
-//			for(int column = 0; column < columns; column++){
-//				if(cellsToKill.contains(cellArray[row][column])){
-//					cellArray[row][column].killYourself();
-//					cellsToKill.remove(cellArray[row][column]);
-//				}
-//			}
-//		}
-//	}
-	
 	public void killCell(Cell cell){
 		cell.killYourself();
 	}
