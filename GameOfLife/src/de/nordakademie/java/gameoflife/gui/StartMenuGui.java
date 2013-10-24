@@ -13,11 +13,14 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+
+import de.nordakademie.java.gameoflife.logic.fileLoader.FileLoader;
 
 public class StartMenuGui {
 
@@ -117,6 +120,15 @@ public class StartMenuGui {
 				set(4, 3, 0, 1));
 
 		fileUploadButton = new JButton("Datei hochladen ...");
+		fileUploadButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.showOpenDialog(frame);
+				FileLoader.readFileAndReturnErrorCode(chooser.getSelectedFile());
+			}
+		});
 		gameChooseOptionLayout
 				.setConstraints(fileUploadButton, set(3, 1, 0, 2));
 
