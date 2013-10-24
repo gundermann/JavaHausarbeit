@@ -3,19 +3,13 @@ package de.nordakademie.java.gameoflife.rules.game;
 public class HighLife implements GameRule {
 
 	@Override
-	public int getMaxNeighboursToStayAlive() {
-		return 3;
+	public boolean isCellStayingAlive(Integer numberOfNeighbours) {
+		return (numberOfNeighbours == 3 || numberOfNeighbours == 2);
 	}
 
 	@Override
-	public boolean getNeighboursToBear(Integer numberOfNeighbours) {
-		
+	public boolean isCellBorn(Integer numberOfNeighbours) {
 		return (numberOfNeighbours == 3 || numberOfNeighbours == 6);
-	}
-
-	@Override
-	public int getMinNeigboursToStayAlive() {
-		return 2;
 	}
 
 }

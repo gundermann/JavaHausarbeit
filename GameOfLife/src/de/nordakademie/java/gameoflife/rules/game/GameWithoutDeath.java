@@ -3,18 +3,13 @@ package de.nordakademie.java.gameoflife.rules.game;
 public class GameWithoutDeath implements GameRule {
 
 	@Override
-	public int getMaxNeighboursToStayAlive() {
-		return 8;
+	public boolean isCellStayingAlive(Integer numberOfNeighbours) {
+		return true;
 	}
 
 	@Override
-	public boolean getNeighboursToBear(Integer numberOfNeighbours) {
+	public boolean isCellBorn(Integer numberOfNeighbours) {
 		return numberOfNeighbours == 3;
-	}
-
-	@Override
-	public int getMinNeigboursToStayAlive() {
-		return 0;
 	}
 
 }
