@@ -11,24 +11,24 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 public class ErrorGui {
-	
-	public void initErrorGui(String errortext){
-	JFrame frame = new JFrame("Fehlermeldung");
-	frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-	frame.setSize(500, 200);
-	frame.setLayout(new BorderLayout());
-	frame.setResizable(false);
-	
-	setWindowIntoScreenCenter(frame);
-	
-	JPanel title = createTitlePanel();
-	JPanel textPanel = createErrorTextPanel(errortext);
-	
-	frame.add(title, BorderLayout.NORTH);
-	frame.add(textPanel, BorderLayout.CENTER);
-	frame.add(new JButton("OK"), BorderLayout.SOUTH);
 
-	frame.setVisible(true);
+	public void initErrorGui(String errortext) {
+		JFrame frame = new JFrame("Fehlermeldung");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setSize(500, 200);
+		frame.setLayout(new BorderLayout());
+		frame.setResizable(false);
+
+		setWindowIntoScreenCenter(frame);
+
+		JPanel title = createTitlePanel();
+		JPanel textPanel = createErrorTextPanel(errortext);
+
+		frame.add(title, BorderLayout.NORTH);
+		frame.add(textPanel, BorderLayout.CENTER);
+		frame.add(new JButton("OK"), BorderLayout.SOUTH);
+
+		frame.setVisible(true);
 	}
 
 	private JPanel createErrorTextPanel(String errortext) {
@@ -45,6 +45,7 @@ public class ErrorGui {
 
 	private void setWindowIntoScreenCenter(JFrame frame) {
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation( (d.width- frame.getSize().width) /2,(d.height- frame.getSize().height) /2);
+		frame.setLocation((d.width - frame.getSize().width) / 2,
+				(d.height - frame.getSize().height) / 2);
 	}
 }
