@@ -1,80 +1,161 @@
 package de.nordakademie.java.gameoflife.gui;
 
-
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 public class StartMenuGui {
-	
-	
-	public void initStartMenuGUI()
-	{
-		JFrame frame = new JFrame( "Startmenü Game Of Life");
-		frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 500);
-		frame.setVisible(true);
-		frame.setLayout( new GridLayout(3,1));
-				
-		frame.add(createTitlePanel() );
-		frame.add(createInitGamePanel());
-		frame.add(createButtonPanel());
-		
-	Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation( (d.width- frame.getSize().width) /2,
-						(d.height- frame.getSize().height) /2);
-	}
-	
 
-	private JPanel createButtonPanel() {
-		JPanel buttonPanel = new JPanel(new GridLayout(1,2));
-		//buttonPanel.setSize(100, 100);
-		buttonPanel.setBorder(new EtchedBorder(Color.black, Color.blue));
-		buttonPanel.add(new JButton("Abbrechen"));
-		buttonPanel.add(new JButton ("Start"));
+	JFrame frame;
+	JComboBox<String> chooseRule;
+	JComboBox<String> chooseBorder;
+	GridBagLayout gameChooseOptionLayout;
+	JButton fileUploadButton;
+	JTextField fileUploadPath;
+	JLabel gameChoose;
+	JLabel borderChoose;
+	JLabel gameConstructions;
+	JButton explaneGameRules;
+	JButton explaneBorderRules;
+
+	public StartMenuGui() {
+		frame = new JFrame("Game of Life");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(new BorderLayout());
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		frame.setLocation((d.width - frame.getSize().width) / 2,
+				(d.height - frame.getSize().height) / 2);
+
+		JLabel headline = initHeadline();
+		JPanel buttonPanel = initButtonPanel();
+		JPanel gameChooseOptions = initGameChooseOptions();
+
+		frame.add(headline, BorderLayout.NORTH);
+		frame.add(gameChooseOptions, BorderLayout.CENTER);
+		frame.add(buttonPanel, BorderLayout.SOUTH);
+		frame.setVisible(true);
+		frame.pack();
+	}
+
+	private JPanel initButtonPanel() {
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new GridLayout(1, 2));
+
+		ActionListener closeSide = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				System.exit(0);
+			}
+		};
+
+		JButton close = new JButton("Beenden");
+		close.addActionListener(closeSide);
+
+		JButton button = new JButton("Spielstart");
+		buttonPanel.add(button);
+		buttonPanel.add(close);
 		return buttonPanel;
 	}
-	
-	private JPanel createTitlePanel(){
-		JPanel titlePanel = new JPanel(new GridLayout(1,1));
-		//titlePanel.setSize(100, 100);
-		titlePanel.setBorder(new EtchedBorder(Color.black, Color.blue));
-		titlePanel.add(new JLabel("Game of Life"));
-		return titlePanel;
-	}
-	
-	private JPanel createInitGamePanel(){
-		JPanel initGamePanel = new JPanel(new GridLayout(3,2));
-		//initGamePanel.setSize(100, 100);
-		initGamePanel.setBorder(new EtchedBorder(Color.black, Color.blue));
-		initGamePanel.add(new JLabel("Spielvariante"));
-		
-		JComboBox<String> GameChoice = new JComboBox<String>();
-		initGamePanel.add(GameChoice);
-		GameChoice.addItem("Game of Life");
-		GameChoice.addItem("Game without Death");
-		GameChoice.addItem("Three or four Life");
-		GameChoice.addItem("HighLife");
-		
-		initGamePanel.add(new JLabel("Randvariante"));
-		JComboBox<String> BorderChoice = new JComboBox<String>();
-		initGamePanel.add(BorderChoice);
-		BorderChoice.addItem("Pacman Style");
-		BorderChoice.addItem("Wall of Death");
-		
-		
-		return initGamePanel;
-	}
-	
-	
-	
 
+	private JLabel initHeadline() {
+		JLabel headline = new JLabel("Game of Life");
+		headline.setHorizontalAlignment(JLabel.CENTER);
+		return headline;
+	}
+
+	private JPanel initGameChooseOptions() {
+		JPanel gameChooseOptions = new JPanel();
+		gameChooseOptionLayout = new GridBagLayout();
+		gameChooseOptions.setLayout(gameChooseOptionLayout);
+		gameChooseOptions.setBorder(new EtchedBorder(Color.BLACK, Color.BLUE));
+
+		initChooseGameAndBorderVariants();
+		initGameChooseOptionLabels();
+		initGameChooseOptionButtons();
+		initGameChooseOptionUploadField();
+
+		gameChooseOptions.add(fileUploadPath);
+		gameChooseOptions.add(fileUploadButton);
+		gameChooseOptions.add(gameConstructions);
+		gameChooseOptions.add(gameChoose);
+		gameChooseOptions.add(explaneGameRules);
+		gameChooseOptions.add(borderChoose);
+		gameChooseOptions.add(explaneBorderRules);
+		gameChooseOptions.add(chooseRule);
+		gameChooseOptions.add(chooseBorder);
+		return gameChooseOptions;
+	}
+
+	private void initGameChooseOptionUploadField() {
+		fileUploadPath = new JTextField();
+		fileUploadPath.setEnabled(false);
+		gameChooseOptionLayout.setConstraints(fileUploadPath, set(1, 1, 0, 2));
+	}
+
+	private void initGameChooseOptionButtons() {
+		explaneGameRules = new JButton("?");
+		gameChooseOptionLayout
+				.setConstraints(explaneGameRules, set(4, 2, 0, 1));
+
+		explaneBorderRules = new JButton("?");
+		gameChooseOptionLayout.setConstraints(explaneBorderRules,
+				set(4, 3, 0, 1));
+
+		fileUploadButton = new JButton("Datei hochladen ...");
+		gameChooseOptionLayout
+				.setConstraints(fileUploadButton, set(3, 1, 0, 2));
+
+	}
+
+	private void initGameChooseOptionLabels() {
+		gameConstructions = new JLabel(
+				"Bitte wählen sie Spiel- und Randvariante aus");
+		gameChooseOptionLayout.setConstraints(gameConstructions,
+				set(0, 0, 0, 6));
+		gameChoose = new JLabel("Spielvarianten");
+		gameChooseOptionLayout.setConstraints(gameChoose, set(3, 2, 0, 1));
+		borderChoose = new JLabel("Randvarianten");
+		gameChooseOptionLayout.setConstraints(borderChoose, set(3, 3, 0, 1));
+	}
+
+	private void initChooseGameAndBorderVariants() {
+		chooseRule = new JComboBox<String>();
+		chooseRule.addItem("Game of Life");
+		chooseRule.addItem("Game without Death");
+		chooseRule.addItem("Three or four to life");
+		chooseRule.addItem("HighLife");
+		gameChooseOptionLayout.setConstraints(chooseRule, set(0, 2, 0, 3));
+
+		chooseBorder = new JComboBox<String>();
+		chooseBorder.addItem("Wall of Death");
+		chooseBorder.addItem("Pacman Sytle");
+		gameChooseOptionLayout.setConstraints(chooseBorder, set(0, 3, 0, 3));
+	}
+
+	private static GridBagConstraints set(int gridx, int gridy, int fill,
+			int width) {
+		GridBagConstraints dummy = new GridBagConstraints();
+
+		dummy.insets = new Insets(15, 10, 15, 10);
+		dummy.gridx = gridx;
+		dummy.gridy = gridy;
+		dummy.fill = GridBagConstraints.HORIZONTAL;
+		dummy.gridwidth = width;
+		return dummy;
+	}
 }
