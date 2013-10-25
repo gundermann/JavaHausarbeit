@@ -1,20 +1,23 @@
-package de.nordakademie.java.gameoflife.logic.game;
+package de.nordakademie.java.gameoflife.business.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.CellGrid;
 
 /*  Diese Klasse bildet das Spielfeld innerhalb des Programms ab.
  Die Zellen werden hier geboren bzw. get�tet. 
  Weiterhin wird �ber diese Klasse nach Nachbarn gesucht.
 
  @author niels.gundermann */
-public class CellGrid {
+public class CellGridImpl implements CellGrid {
 
 	private int rows;
 	private int columns;
 	private Cell[][] cellArray;
 
-	public CellGrid(Integer[][] initinalArray) {
+	public CellGridImpl(Integer[][] initinalArray) {
 		rows = initinalArray.length;
 		columns = initinalArray[0].length;
 		initCellGrid(initinalArray);
@@ -31,17 +34,19 @@ public class CellGrid {
 	}
 
 	private void checkSetupAndBearCell(int currentSetup, int row, int column) {
-		Cell cell = new Cell();
+		Cell cell = new CellImpl();
 		if (currentSetup == 1) {
 			bearCell(cell);
 		}
 		cellArray[row][column] = cell;
 	}
 
+	@Override
 	public void killCell(Cell cell) {
 		cell.killYourself();
 	}
 
+	@Override
 	public void bearCell(Cell cell) {
 		cell.bear();
 	}
@@ -50,10 +55,12 @@ public class CellGrid {
 		return getCellAtCoordinates(row, column).isAlive();
 	}
 
+	@Override
 	public int getColumnCount() {
 		return columns;
 	}
 
+	@Override
 	public int getRowCount() {
 		return rows;
 	}
@@ -62,6 +69,7 @@ public class CellGrid {
 		return cellArray;
 	}
 
+	@Override
 	public List<Cell> getCellsAsList() {
 		List<Cell> cells = new ArrayList<Cell>();
 		for (int row = 0; row < rows; row++) {
@@ -73,6 +81,7 @@ public class CellGrid {
 	}
 
 	// TODO Koordinaten umdrehen
+	@Override
 	public Cell getCellAtCoordinates(int y, int x) {
 		Cell cellAtPosition;
 		try {
@@ -83,6 +92,7 @@ public class CellGrid {
 		return cellAtPosition;
 	}
 
+	@Override
 	public int getColumnOfCell(Cell cell) {
 		for (int column = 0; column < columns; column++) {
 			for (int row = 0; row < rows; row++) {
@@ -94,6 +104,7 @@ public class CellGrid {
 		return -1;
 	}
 
+	@Override
 	public int getRowOfCell(Cell cell) {
 		for (int row = 0; row < rows; row++) {
 			for (int column = 0; column < columns; column++) {
@@ -105,8 +116,8 @@ public class CellGrid {
 		return -1;
 	}
 
-	public Boolean[][] convertCellGridToBooleanArray() {
-		Boolean[][] integerArray = new Boolean[rows][columns];
+	public boolean[][] convertCellGridToBooleanArray() {
+		boolean[][] integerArray = new boolean[rows][columns];
 		for (int row = 0; row < rows; row++) {
 			for (int column = 0; column < columns; column++) {
 				integerArray[row][column] = isCellAtPositionAlive(row, column);

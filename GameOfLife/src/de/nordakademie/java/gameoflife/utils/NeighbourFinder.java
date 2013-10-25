@@ -1,7 +1,10 @@
-package de.nordakademie.java.gameoflife.logic.game;
+package de.nordakademie.java.gameoflife.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.CellGrid;
 
 public class NeighbourFinder {
 
@@ -23,12 +26,12 @@ public class NeighbourFinder {
 		neighbours.add(getNeighbourAtWest(cell));
 		neighbours.add(getNeighbourAtNorthWest(cell));
 
-		for (Cell neighbourCell : neighbours) {
-			if (neighbourCell == null) {
-				int currentIndex = neighbours.indexOf(neighbourCell);
-				neighbours.set(currentIndex, new Cell());
-			}
-		}
+		// for (Cell neighbourCell : neighbours) {
+		// if (neighbourCell == null) {
+		// int currentIndex = neighbours.indexOf(neighbourCell);
+		// neighbours.set(currentIndex, new Cell());
+		// }
+		// }
 
 		return neighbours;
 	}
@@ -42,9 +45,9 @@ public class NeighbourFinder {
 			neighbour = getNeighbour(cellGrid.getRowCount() - 1, column);
 		}
 
-		if (neighbour == cell) {
-			neighbour = new Cell();
-		}
+		// if (neighbour == cell) {
+		// neighbour = new Cell();
+		// }
 		return neighbour;
 	}
 
@@ -63,9 +66,9 @@ public class NeighbourFinder {
 			neighbour = getNeighbour(row, 0);
 		}
 
-		if (neighbour == cell) {
-			neighbour = new Cell();
-		}
+		// if (neighbour == cell) {
+		// neighbour = new Cell();
+		// }
 		return neighbour;
 	}
 
@@ -84,9 +87,9 @@ public class NeighbourFinder {
 			neighbour = getNeighbour(0, column);
 		}
 
-		if (neighbour == cell) {
-			neighbour = new Cell();
-		}
+		// if (neighbour == cell) {
+		// neighbour = new Cell();
+		// }
 		return neighbour;
 	}
 
@@ -105,9 +108,9 @@ public class NeighbourFinder {
 			neighbour = getNeighbour(row, cellGrid.getColumnCount() - 1);
 		}
 
-		if (neighbour == cell) {
-			neighbour = new Cell();
-		}
+		// if (neighbour == cell) {
+		// neighbour = new Cell();
+		// }
 		return neighbour;
 	}
 

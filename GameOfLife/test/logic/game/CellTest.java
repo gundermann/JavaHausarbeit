@@ -1,39 +1,42 @@
 package logic.game;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import de.nordakademie.java.gameoflife.logic.game.Cell;
+import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.impl.CellImpl;
 
 public class CellTest {
-	
+
 	Cell cell;
-	
+
 	@Before
-	public void setUp(){
-		cell = new Cell();
+	public void setUp() {
+		cell = new CellImpl();
 	}
 
 	@Test
 	public void newCell() {
 		assertNotNull(cell);
 	}
-	
-	@Test 
-	public void newCellIsDead(){
+
+	@Test
+	public void newCellIsDead() {
 		assertFalse(cell.isAlive());
 	}
-	
+
 	@Test
-	public void bearCell(){
+	public void bearCell() {
 		cell.bear();
 		assertTrue(cell.isAlive());
 	}
-	
+
 	@Test
-	public void killCell(){
+	public void killCell() {
 		cell.killYourself();
 		assertFalse(cell.isAlive());
 	}

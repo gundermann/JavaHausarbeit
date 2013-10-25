@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-import de.nordakademie.java.gameoflife.logic.fileLoader.FileLoader;
+import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
 
 public class StartMenuGui {
 
@@ -136,7 +136,7 @@ public class StartMenuGui {
 
 	private void initGameChooseOptionLabels() {
 		gameConstructions = new JLabel(
-				"Bitte wählen sie Spiel- und Randvariante aus");
+				"Bitte wï¿½hlen sie Spiel- und Randvariante aus");
 		gameChooseOptionLayout.setConstraints(gameConstructions,
 				set(0, 0, 0, 6));
 		gameChoose = new JLabel("Spielvarianten");

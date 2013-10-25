@@ -1,8 +1,8 @@
-package de.nordakademie.java.gameoflife.rules.game;
+package de.nordakademie.java.gameoflife.business.rules.game;
 
-import de.nordakademie.java.gameoflife.rules.GameRule;
+import de.nordakademie.java.gameoflife.business.rules.GameRule;
 
-public class GameOfLife implements GameRule{
+public class GameOfLife implements GameRule {
 
 	@Override
 	public boolean isCellStayingAlive(Integer neighbours) {
@@ -13,7 +13,5 @@ public class GameOfLife implements GameRule{
 	public boolean isCellBorn(Integer neighbours) {
 		return neighbours == 3;
 	}
-	
-	
 
 }

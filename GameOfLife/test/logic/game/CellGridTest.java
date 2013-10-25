@@ -8,17 +8,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.nordakademie.java.gameoflife.logic.game.Cell;
-import de.nordakademie.java.gameoflife.logic.game.CellGrid;
+import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.impl.CellGridImpl;
 
 public class CellGridTest {
 
-	private CellGrid cellGrid;
+	private CellGridImpl cellGrid;
 
 	@Before
 	public void setUp() {
 		Integer[][] initinalArray = { { 1, 0, 1 }, { 0, 1, 0 }, { 1, 0, 1 } };
-		cellGrid = new CellGrid(initinalArray);
+		cellGrid = new CellGridImpl(initinalArray);
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class CellGridTest {
 
 	@Test
 	public void shouldConvertToBooleanArray() {
-		Boolean[][] boolArray = cellGrid.convertCellGridToBooleanArray();
+		boolean[][] boolArray = cellGrid.convertCellGridToBooleanArray();
 		assertTrue(boolArray[0][0]);
 		assertFalse(boolArray[0][1]);
 		assertTrue(boolArray[0][2]);

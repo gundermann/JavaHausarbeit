@@ -1,4 +1,4 @@
-package de.nordakademie.java.gameoflife.rules;
+package de.nordakademie.java.gameoflife.business.rules;
 
 public interface GameRule {
 	

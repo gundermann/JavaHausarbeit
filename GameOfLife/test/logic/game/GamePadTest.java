@@ -9,22 +9,22 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.nordakademie.java.gameoflife.logic.game.Cell;
-import de.nordakademie.java.gameoflife.logic.game.CellGrid;
-import de.nordakademie.java.gameoflife.logic.game.GamePad;
-import de.nordakademie.java.gameoflife.rules.BorderRule;
-import de.nordakademie.java.gameoflife.rules.GameRule;
-import de.nordakademie.java.gameoflife.rules.border.PacmanStyle;
-import de.nordakademie.java.gameoflife.rules.game.GameOfLife;
+import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.impl.CellGridImpl;
+import de.nordakademie.java.gameoflife.business.impl.GamePadImpl;
+import de.nordakademie.java.gameoflife.business.rules.BorderRule;
+import de.nordakademie.java.gameoflife.business.rules.GameRule;
+import de.nordakademie.java.gameoflife.business.rules.border.PacmanStyle;
+import de.nordakademie.java.gameoflife.business.rules.game.GameOfLife;
 
 public class GamePadTest {
 
-	GamePad gameControl;
+	GamePadImpl gameControl;
 	Integer[][] initinalArray = { { 0, 1, 1, 1 }, { 0, 0, 0, 0 },
 			{ 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 	GameRule gameRules;
 	BorderRule borderRules;
-	CellGrid cellGrid;
+	CellGridImpl cellGrid;
 	Cell cell1;
 	Cell cell2;
 	Cell cell3;
@@ -39,7 +39,7 @@ public class GamePadTest {
 	public void setUp() {
 		gameRules = Mockito.mock(GameOfLife.class);
 		borderRules = Mockito.mock(PacmanStyle.class);
-		cellGrid = Mockito.mock(CellGrid.class);
+		cellGrid = Mockito.mock(CellGridImpl.class);
 		cell1 = Mockito.mock(Cell.class);
 		cell2 = Mockito.mock(Cell.class);
 		cell3 = Mockito.mock(Cell.class);
@@ -50,7 +50,7 @@ public class GamePadTest {
 		cell8 = Mockito.mock(Cell.class);
 		cell9 = Mockito.mock(Cell.class);
 		initMockedMethod();
-		gameControl = new GamePad(cellGrid, gameRules, borderRules);
+		gameControl = new GamePadImpl(cellGrid, gameRules, borderRules);
 	}
 
 	private void initMockedMethod() {

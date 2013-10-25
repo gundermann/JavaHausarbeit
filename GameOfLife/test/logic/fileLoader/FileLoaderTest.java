@@ -10,7 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.constants.ErrorCodes;
-import de.nordakademie.java.gameoflife.logic.fileLoader.FileLoader;
+import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
 
 public class FileLoaderTest {
 
@@ -44,7 +44,7 @@ public class FileLoaderTest {
 	@Test
 	public void testNullFileReading() {
 		assertTrue(
-				"Abbruch der Fileauswahl gibt richtigen ErrorCode zurück",
+				"Abbruch der Fileauswahl gibt richtigen ErrorCode zurï¿½ck",
 				FileLoader.readFileAndReturnErrorCode(null) == ErrorCodes.Filechoosing_Was_Aborted);
 		assertTrue("cells sind null nach fehlerhaftem Einlesen",
 				FileLoader.getCells() == null);

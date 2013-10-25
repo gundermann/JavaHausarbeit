@@ -1,6 +1,7 @@
 package logic.game;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -10,13 +11,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.nordakademie.java.gameoflife.logic.game.Cell;
-import de.nordakademie.java.gameoflife.logic.game.CellGrid;
-import de.nordakademie.java.gameoflife.logic.game.NeighbourFinder;
+import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.impl.CellGridImpl;
+import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class NeighbourFinderTest {
 
-	CellGrid cellGrid;
+	CellGridImpl cellGrid;
 	Cell cell1;
 	Cell cell2;
 	Cell cell3;
@@ -29,7 +30,7 @@ public class NeighbourFinderTest {
 
 	@Before
 	public void setUp() {
-		cellGrid = Mockito.mock(CellGrid.class);
+		cellGrid = Mockito.mock(CellGridImpl.class);
 		cell1 = Mockito.mock(Cell.class);
 		cell2 = Mockito.mock(Cell.class);
 		cell3 = Mockito.mock(Cell.class);
@@ -109,7 +110,7 @@ public class NeighbourFinderTest {
 
 	@Test
 	public void shouldFindNoNeighbours() {
-		cellGrid = Mockito.mock(CellGrid.class);
+		cellGrid = Mockito.mock(CellGridImpl.class);
 		Mockito.when(cellGrid.getCellAtCoordinates(0, 0)).thenReturn(cell1);
 		Mockito.when(cellGrid.getRowOfCell(cell1)).thenReturn(0);
 		Mockito.when(cellGrid.getColumnOfCell(cell1)).thenReturn(0);
@@ -122,7 +123,7 @@ public class NeighbourFinderTest {
 
 		assertTrue(neighbours.size() == 8);
 		for (Cell neighbour : neighbours) {
-			assertFalse(neighbour.isAlive());
+			assertNull(neighbour);
 		}
 	}
 

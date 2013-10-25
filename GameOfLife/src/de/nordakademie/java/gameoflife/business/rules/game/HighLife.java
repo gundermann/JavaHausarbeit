@@ -1,6 +1,6 @@
-package de.nordakademie.java.gameoflife.rules.game;
+package de.nordakademie.java.gameoflife.business.rules.game;
 
-import de.nordakademie.java.gameoflife.rules.GameRule;
+import de.nordakademie.java.gameoflife.business.rules.GameRule;
 
 public class HighLife implements GameRule {
 

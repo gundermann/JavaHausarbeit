@@ -1,19 +1,23 @@
-package de.nordakademie.java.gameoflife.logic.game;
+package de.nordakademie.java.gameoflife.business.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nordakademie.java.gameoflife.rules.BorderRule;
-import de.nordakademie.java.gameoflife.rules.GameRule;
+import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.CellGrid;
+import de.nordakademie.java.gameoflife.business.rules.BorderRule;
+import de.nordakademie.java.gameoflife.business.rules.GameRule;
+import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
-public class GamePad {
+public class GamePadImpl {
 
 	private GameRule gameRules;
 	private BorderRule borderRules;
 	private CellGrid cellGrid;
 	private int generation = 1;
 
-	public GamePad(CellGrid cellGrid, GameRule gameRules, BorderRule borderRules) {
+	public GamePadImpl(CellGrid cellGrid, GameRule gameRules,
+			BorderRule borderRules) {
 		this.cellGrid = cellGrid;
 		this.gameRules = gameRules;
 		this.borderRules = borderRules;

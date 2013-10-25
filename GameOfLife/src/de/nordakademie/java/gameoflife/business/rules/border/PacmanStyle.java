@@ -1,6 +1,6 @@
-package de.nordakademie.java.gameoflife.rules.border;
+package de.nordakademie.java.gameoflife.business.rules.border;
 
-import de.nordakademie.java.gameoflife.rules.BorderRule;
+import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 
 public class PacmanStyle implements BorderRule {
 

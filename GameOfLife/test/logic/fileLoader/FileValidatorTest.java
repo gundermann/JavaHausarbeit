@@ -17,7 +17,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.constants.ErrorCodes;
-import de.nordakademie.java.gameoflife.logic.fileLoader.FileValidator;
+import de.nordakademie.java.gameoflife.utils.fileLoader.FileValidator;
 
 public class FileValidatorTest {
 
@@ -81,7 +81,7 @@ public class FileValidatorTest {
 					BufferedImage.TYPE_INT_RGB);
 			ImageIO.write(bimage, "jpg", testFileJPG);
 			assertTrue(
-					"zu roße Dateien werfen Fehler",
+					"zu roï¿½e Dateien werfen Fehler",
 					FileValidator.validateAndReturnErrorCode(testFileJPG) == ErrorCodes.File_To_Large);
 		} catch (IOException e) {
 			e.printStackTrace();
