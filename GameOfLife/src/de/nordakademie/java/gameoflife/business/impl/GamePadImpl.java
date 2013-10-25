@@ -99,8 +99,4 @@ public class GamePadImpl {
 		return borderRules;
 	}
 
-	public CellGrid getCellGrid() {
-		return cellGrid;
-	}
-
 }

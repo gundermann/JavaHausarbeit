@@ -6,7 +6,7 @@ import java.util.List;
 import de.nordakademie.java.gameoflife.business.Cell;
 import de.nordakademie.java.gameoflife.business.CellGrid;
 
-public class NeighbourFinder {
+public abstract class NeighbourFinder {
 
 	private static CellGrid cellGrid;
 	private static boolean isGridBorderDead;

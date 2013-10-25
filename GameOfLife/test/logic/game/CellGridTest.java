@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.business.Cell;
 import de.nordakademie.java.gameoflife.business.impl.CellGridImpl;
+import de.nordakademie.java.gameoflife.business.impl.CellImpl;
 
 public class CellGridTest {
 
@@ -57,6 +58,42 @@ public class CellGridTest {
 	@Test
 	public void shouldGetAllCells() {
 		assertTrue(cellGrid.getCellsAsList().size() == 9);
+	}
+
+	@Test
+	public void shouldGetRightRowOfCell() {
+		Cell cell1 = cellGrid.getCellAtCoordinates(0, 0);
+		Cell cell2 = cellGrid.getCellAtCoordinates(0, 2);
+		Cell cell3 = cellGrid.getCellAtCoordinates(1, 0);
+		Cell cell4 = cellGrid.getCellAtCoordinates(1, 2);
+		Cell cell5 = cellGrid.getCellAtCoordinates(2, 0);
+		Cell cell6 = cellGrid.getCellAtCoordinates(2, 2);
+
+		assertTrue(cellGrid.getRowOfCell(cell1) == 0);
+		assertTrue(cellGrid.getRowOfCell(cell2) == 0);
+		assertTrue(cellGrid.getRowOfCell(cell3) == 1);
+		assertTrue(cellGrid.getRowOfCell(cell4) == 1);
+		assertTrue(cellGrid.getRowOfCell(cell5) == 2);
+		assertTrue(cellGrid.getRowOfCell(cell6) == 2);
+		assertTrue(cellGrid.getRowOfCell(new CellImpl()) == -1);
+	}
+
+	@Test
+	public void shouldGetRightColumnOfCell() {
+		Cell cell1 = cellGrid.getCellAtCoordinates(0, 0);
+		Cell cell2 = cellGrid.getCellAtCoordinates(0, 0);
+		Cell cell3 = cellGrid.getCellAtCoordinates(1, 1);
+		Cell cell4 = cellGrid.getCellAtCoordinates(1, 1);
+		Cell cell5 = cellGrid.getCellAtCoordinates(2, 2);
+		Cell cell6 = cellGrid.getCellAtCoordinates(2, 2);
+
+		assertTrue(cellGrid.getColumnOfCell(cell1) == 0);
+		assertTrue(cellGrid.getColumnOfCell(cell2) == 0);
+		assertTrue(cellGrid.getColumnOfCell(cell3) == 1);
+		assertTrue(cellGrid.getColumnOfCell(cell4) == 1);
+		assertTrue(cellGrid.getColumnOfCell(cell5) == 2);
+		assertTrue(cellGrid.getColumnOfCell(cell6) == 2);
+		assertTrue(cellGrid.getColumnOfCell(new CellImpl()) == -1);
 	}
 
 	@Test
