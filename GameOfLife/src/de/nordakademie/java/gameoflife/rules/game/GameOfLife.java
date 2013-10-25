@@ -1,5 +1,7 @@
 package de.nordakademie.java.gameoflife.rules.game;
 
+import de.nordakademie.java.gameoflife.rules.GameRule;
+
 public class GameOfLife implements GameRule{
 
 	@Override

@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import de.nordakademie.java.gameoflife.rules.border.BorderRule;
+import de.nordakademie.java.gameoflife.rules.BorderRule;
 import de.nordakademie.java.gameoflife.rules.border.PacmanStyle;
 import de.nordakademie.java.gameoflife.rules.border.WallOfDeath;
 
@@ -34,12 +34,12 @@ public class BorderRuleTest {
 	
 	@Test
 	public void borderShouldNotBeDead(){
-		assertFalse(pacman.isGridBoarderDead());
+		assertFalse(pacman.isGridBorderDead());
 	}
 	
 	@Test
 	public void borderShouldBeDead(){
-		assertTrue(wod.isGridBoarderDead());
+		assertTrue(wod.isGridBorderDead());
 	}
 	
 		

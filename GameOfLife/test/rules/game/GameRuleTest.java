@@ -5,8 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import de.nordakademie.java.gameoflife.rules.GameRule;
 import de.nordakademie.java.gameoflife.rules.game.GameOfLife;
-import de.nordakademie.java.gameoflife.rules.game.GameRule;
 import de.nordakademie.java.gameoflife.rules.game.GameWithoutDeath;
 import de.nordakademie.java.gameoflife.rules.game.HighLife;
 import de.nordakademie.java.gameoflife.rules.game.ThreeOrFourLife;

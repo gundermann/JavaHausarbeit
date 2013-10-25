@@ -4,43 +4,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 /*  Diese Klasse bildet das Spielfeld innerhalb des Programms ab.
-  	Die Zellen werden hier geboren bzw. getötet. 
-  	Weiterhin wird über diese Klasse nach Nachbarn gesucht.
-  
-  	@author niels.gundermann */
+ Die Zellen werden hier geboren bzw. getï¿½tet. 
+ Weiterhin wird ï¿½ber diese Klasse nach Nachbarn gesucht.
+
+ @author niels.gundermann */
 public class CellGrid {
-	
+
 	private int rows;
 	private int columns;
 	private Cell[][] cellArray;
-	
-	public CellGrid(int rows, int columns) {
-		this.rows = rows;
-		this.columns = columns;
-		initCellGrid();
+
+	public CellGrid(Integer[][] initinalArray) {
+		rows = initinalArray.length;
+		columns = initinalArray[0].length;
+		initCellGrid(initinalArray);
 	}
 
-	private void initCellGrid() {
+	private void initCellGrid(Integer[][] initinalArray) {
 		cellArray = new Cell[rows][columns];
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-				cellArray[row][column] = new Cell();
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
+				int currentSetup = initinalArray[row][column];
+				checkSetupAndBearCell(currentSetup, row, column);
 			}
 		}
 	}
 
-	public void killCell(Cell cell){
+	private void checkSetupAndBearCell(int currentSetup, int row, int column) {
+		Cell cell = new Cell();
+		if (currentSetup == 1) {
+			bearCell(cell);
+		}
+		cellArray[row][column] = cell;
+	}
+
+	public void killCell(Cell cell) {
 		cell.killYourself();
 	}
-	
-	public void bearCell(Cell cell){
+
+	public void bearCell(Cell cell) {
 		cell.bear();
 	}
-	
-	public boolean isCellAtPositionAlive(int row, int column){
-		return getCellAtPosition(row, column).isAlive();
+
+	public boolean isCellAtPositionAlive(int row, int column) {
+		return getCellAtCoordinates(row, column).isAlive();
 	}
-	
+
 	public int getColumnCount() {
 		return columns;
 	}
@@ -55,65 +64,54 @@ public class CellGrid {
 
 	public List<Cell> getCellsAsList() {
 		List<Cell> cells = new ArrayList<Cell>();
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-					cells.add(getCellAtPosition(row, column));
-				}
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
+				cells.add(getCellAtCoordinates(row, column));
 			}
+		}
 		return cells;
 	}
 
-	public Cell getCellAtPosition(int row, int column) {
+	// TODO Koordinaten umdrehen
+	public Cell getCellAtCoordinates(int y, int x) {
 		Cell cellAtPosition;
 		try {
-			cellAtPosition = cellArray[row][column];
+			cellAtPosition = cellArray[y][x];
 		} catch (ArrayIndexOutOfBoundsException borderOverflow) {
 			cellAtPosition = null;
 		}
 		return cellAtPosition;
 	}
-	
+
 	public int getColumnOfCell(Cell cell) {
-		int columnOfCell = -1;
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-				if(cell == cellArray[row][column]){
-						columnOfCell = column;
-						break;
-					}
+		for (int column = 0; column < columns; column++) {
+			for (int row = 0; row < rows; row++) {
+				if (cell == cellArray[row][column]) {
+					return column;
 				}
 			}
-		return columnOfCell;
+		}
+		return -1;
 	}
 
 	public int getRowOfCell(Cell cell) {
-		int rowOfCell = -1;
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-					if(cell == cellArray[row][column]){
-						rowOfCell = row;
-						break;
-					}
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
+				if (cell == cellArray[row][column]) {
+					return row;
 				}
 			}
-		return rowOfCell;
+		}
+		return -1;
 	}
-	
-	public Integer[][] convertCellGridToIntegerArray() {
-		Integer[][] integerArray = new Integer[rows][columns];
-		for(int row = 0; row < rows; row++){
-			for(int column = 0; column < columns; column++){
-				integerArray[row][column] = getNumericFormBoolean(getCellAtPosition(row, column).isAlive());
+
+	public Boolean[][] convertCellGridToBooleanArray() {
+		Boolean[][] integerArray = new Boolean[rows][columns];
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
+				integerArray[row][column] = isCellAtPositionAlive(row, column);
 			}
 		}
 		return integerArray;
-	}
-
-	private Integer getNumericFormBoolean(boolean isAlive) {
-		Integer value = 0;
-		if(isAlive){
-			value = 1;
-		}
-		return value;
 	}
 }
