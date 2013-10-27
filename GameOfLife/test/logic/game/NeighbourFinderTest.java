@@ -9,28 +9,28 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import de.nordakademie.java.gameoflife.business.Cell;
-import de.nordakademie.java.gameoflife.business.impl.CellGridImpl;
+import de.nordakademie.java.gameoflife.business.CellGrid;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class NeighbourFinderTest {
 
-	CellGridImpl cellGrid;
-	Cell cell1;
-	Cell cell2;
-	Cell cell3;
-	Cell cell4;
-	Cell cell5;
-	Cell cell6;
-	Cell cell7;
-	Cell cell8;
-	Cell cell9;
+	private NeighbourFinder neighbourFinder;
+	private CellGrid cellGrid;
+	private Cell cell1;
+	private Cell cell2;
+	private Cell cell3;
+	private Cell cell4;
+	private Cell cell5;
+	private Cell cell6;
+	private Cell cell7;
+	private Cell cell8;
+	private Cell cell9;
 
 	@Before
 	public void setUp() {
-		cellGrid = Mockito.mock(CellGridImpl.class);
+		cellGrid = Mockito.mock(CellGrid.class);
 		cell1 = Mockito.mock(Cell.class);
 		cell2 = Mockito.mock(Cell.class);
 		cell3 = Mockito.mock(Cell.class);
@@ -95,7 +95,8 @@ public class NeighbourFinderTest {
 	public void shouldFindNeighboursInTheMiddle() {
 		Cell cell = cellGrid.getCellAtCoordinates(1, 1);
 		List<Cell> neighbours = new ArrayList<>();
-		neighbours.addAll(NeighbourFinder.getNeighbours(cell, cellGrid, false));
+		neighbourFinder = new NeighbourFinder(cellGrid, false);
+		neighbours.addAll(neighbourFinder.getNeighbours(cell));
 
 		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellGrid.getCellAtCoordinates(0, 0)));
@@ -110,7 +111,7 @@ public class NeighbourFinderTest {
 
 	@Test
 	public void shouldFindNoNeighbours() {
-		cellGrid = Mockito.mock(CellGridImpl.class);
+		cellGrid = Mockito.mock(CellGrid.class);
 		Mockito.when(cellGrid.getCellAtCoordinates(0, 0)).thenReturn(cell1);
 		Mockito.when(cellGrid.getRowOfCell(cell1)).thenReturn(0);
 		Mockito.when(cellGrid.getColumnOfCell(cell1)).thenReturn(0);
@@ -119,7 +120,8 @@ public class NeighbourFinderTest {
 
 		Cell cell = cellGrid.getCellAtCoordinates(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
-		neighbours.addAll(NeighbourFinder.getNeighbours(cell, cellGrid, true));
+		neighbourFinder = new NeighbourFinder(cellGrid, true);
+		neighbours.addAll(neighbourFinder.getNeighbours(cell));
 
 		assertTrue(neighbours.size() == 8);
 		for (Cell neighbour : neighbours) {
@@ -131,7 +133,8 @@ public class NeighbourFinderTest {
 	public void shouldFindNeighboursOnTheBorderWithWallOfDeath() {
 		Cell cell = cellGrid.getCellAtCoordinates(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
-		neighbours.addAll(NeighbourFinder.getNeighbours(cell, cellGrid, true));
+		neighbourFinder = new NeighbourFinder(cellGrid, true);
+		neighbours.addAll(neighbourFinder.getNeighbours(cell));
 
 		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellGrid.getCellAtCoordinates(1, 1)));
@@ -148,7 +151,8 @@ public class NeighbourFinderTest {
 	public void shouldFindNeighboursOnTheBorderWithPacman() {
 		Cell cell = cellGrid.getCellAtCoordinates(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
-		neighbours.addAll(NeighbourFinder.getNeighbours(cell, cellGrid, false));
+		neighbourFinder = new NeighbourFinder(cellGrid, false);
+		neighbours.addAll(neighbourFinder.getNeighbours(cell));
 
 		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellGrid.getCellAtCoordinates(1, 1)));

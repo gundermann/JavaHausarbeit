@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -20,21 +21,34 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
+import de.nordakademie.java.gameoflife.business.CellGrid;
+import de.nordakademie.java.gameoflife.business.GamePad;
+import de.nordakademie.java.gameoflife.business.rules.BorderRule;
+import de.nordakademie.java.gameoflife.business.rules.GameRule;
+import de.nordakademie.java.gameoflife.business.rules.border.PacmanStyle;
+import de.nordakademie.java.gameoflife.business.rules.border.WallOfDeath;
+import de.nordakademie.java.gameoflife.business.rules.game.GameOfLife;
+import de.nordakademie.java.gameoflife.business.rules.game.GameWithoutDeath;
+import de.nordakademie.java.gameoflife.business.rules.game.HighLife;
+import de.nordakademie.java.gameoflife.business.rules.game.ThreeOrFourLife;
+import de.nordakademie.java.gameoflife.constants.ErrorCodes;
+import de.nordakademie.java.gameoflife.constants.ErrorTexts;
 import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
 
 public class StartMenuGui {
 
-	JFrame frame;
-	JComboBox<String> chooseRule;
-	JComboBox<String> chooseBorder;
-	GridBagLayout gameChooseOptionLayout;
-	JButton fileUploadButton;
-	JTextField fileUploadPath;
-	JLabel gameChoose;
-	JLabel borderChoose;
-	JLabel gameConstructions;
-	JButton explaneGameRules;
-	JButton explaneBorderRules;
+	private JFrame frame;
+	private JComboBox<String> chooseGameRule;
+	private JComboBox<String> chooseBorderRule;
+	private GridBagLayout gameChooseOptionLayout;
+	private JButton fileUploadButton;
+	private JTextField fileUploadPath;
+	private JLabel gameChoose;
+	private JLabel borderChoose;
+	private JLabel gameConstructions;
+	private JButton explaneGameRules;
+	private JButton explaneBorderRules;
+	private int[][] cellArray;
 
 	public StartMenuGui() {
 		frame = new JFrame("Game of Life");
@@ -59,20 +73,53 @@ public class StartMenuGui {
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new GridLayout(1, 2));
 
-		ActionListener closeSide = new ActionListener() {
+		JButton closeButton = new JButton("Beenden");
+		closeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				System.exit(0);
 			}
-		};
+		});
 
-		JButton close = new JButton("Beenden");
-		close.addActionListener(closeSide);
+		JButton startButton = new JButton("Spielstart");
+		startButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent event) {
+				if (cellArray != null) {
+					new GamePad(new CellGrid(cellArray), getSelectedGameRule(),
+							getSelectedBorderRule());
+					frame.dispose();
+				}
+			}
+		});
 
-		JButton button = new JButton("Spielstart");
-		buttonPanel.add(button);
-		buttonPanel.add(close);
+		buttonPanel.add(startButton);
+		buttonPanel.add(closeButton);
 		return buttonPanel;
+	}
+
+	private GameRule getSelectedGameRule() {
+		String ruleName = (String) chooseGameRule.getSelectedItem();
+		if (ruleName.equals("Game of Life")) {
+			return new GameOfLife();
+		}
+		if (ruleName.equals("Game without Death")) {
+			return new GameWithoutDeath();
+		}
+		if (ruleName.equals("Three or four to life")) {
+			return new ThreeOrFourLife();
+		} else {
+			return new HighLife();
+		}
+	}
+
+	private BorderRule getSelectedBorderRule() {
+		String ruleName = (String) chooseBorderRule.getSelectedItem();
+		if (ruleName.equals("Wall of Death")) {
+			return new WallOfDeath();
+		} else {
+			return new PacmanStyle();
+		}
 	}
 
 	private JLabel initHeadline() {
@@ -99,8 +146,8 @@ public class StartMenuGui {
 		gameChooseOptions.add(explaneGameRules);
 		gameChooseOptions.add(borderChoose);
 		gameChooseOptions.add(explaneBorderRules);
-		gameChooseOptions.add(chooseRule);
-		gameChooseOptions.add(chooseBorder);
+		gameChooseOptions.add(chooseGameRule);
+		gameChooseOptions.add(chooseBorderRule);
 		return gameChooseOptions;
 	}
 
@@ -126,7 +173,14 @@ public class StartMenuGui {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
 				chooser.showOpenDialog(frame);
-				FileLoader.readFileAndReturnErrorCode(chooser.getSelectedFile());
+				File file = chooser.getSelectedFile();
+				int errorCode = FileLoader.readFileAndReturnErrorCode(file);
+				if (errorCode == ErrorCodes.No_Error) {
+					fileUploadPath.setText(file.getName());
+					cellArray = FileLoader.getCells();
+				} else if (errorCode != ErrorCodes.Filechoosing_Was_Aborted) {
+					new ErrorGui(ErrorTexts.getTextToErrorCode(errorCode));
+				}
 			}
 		});
 		gameChooseOptionLayout
@@ -136,7 +190,7 @@ public class StartMenuGui {
 
 	private void initGameChooseOptionLabels() {
 		gameConstructions = new JLabel(
-				"Bitte wï¿½hlen sie Spiel- und Randvariante aus");
+				"Bitte wählen sie Spiel- und Randvariante aus");
 		gameChooseOptionLayout.setConstraints(gameConstructions,
 				set(0, 0, 0, 6));
 		gameChoose = new JLabel("Spielvarianten");
@@ -146,17 +200,18 @@ public class StartMenuGui {
 	}
 
 	private void initChooseGameAndBorderVariants() {
-		chooseRule = new JComboBox<String>();
-		chooseRule.addItem("Game of Life");
-		chooseRule.addItem("Game without Death");
-		chooseRule.addItem("Three or four to life");
-		chooseRule.addItem("HighLife");
-		gameChooseOptionLayout.setConstraints(chooseRule, set(0, 2, 0, 3));
+		chooseGameRule = new JComboBox<String>();
+		chooseGameRule.addItem("Game of Life");
+		chooseGameRule.addItem("Game without Death");
+		chooseGameRule.addItem("Three or four to life");
+		chooseGameRule.addItem("HighLife");
+		gameChooseOptionLayout.setConstraints(chooseGameRule, set(0, 2, 0, 3));
 
-		chooseBorder = new JComboBox<String>();
-		chooseBorder.addItem("Wall of Death");
-		chooseBorder.addItem("Pacman Sytle");
-		gameChooseOptionLayout.setConstraints(chooseBorder, set(0, 3, 0, 3));
+		chooseBorderRule = new JComboBox<String>();
+		chooseBorderRule.addItem("Wall of Death");
+		chooseBorderRule.addItem("Pacman Sytle");
+		gameChooseOptionLayout
+				.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
 	}
 
 	private static GridBagConstraints set(int gridx, int gridy, int fill,

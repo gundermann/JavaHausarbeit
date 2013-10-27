@@ -99,6 +99,9 @@ public abstract class FileValidator {
 
 	private static boolean isFileTypeCorrect(File file) {
 		String fileName = file.getName();
+		if (fileName.lastIndexOf(".") == -1) {
+			return false;
+		}
 		String fileType = fileName.substring(fileName.lastIndexOf("."));
 		return fileType.equals(".gol");
 	}

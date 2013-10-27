@@ -6,15 +6,18 @@ import java.util.List;
 import de.nordakademie.java.gameoflife.business.Cell;
 import de.nordakademie.java.gameoflife.business.CellGrid;
 
-public abstract class NeighbourFinder {
+public class NeighbourFinder {
 
-	private static CellGrid cellGrid;
-	private static boolean isGridBorderDead;
+	private CellGrid cellGrid;
+	private boolean isGridBorderDead;
 
-	public static List<Cell> getNeighbours(Cell cell, CellGrid cellGrid,
-			boolean isGridBorderDead) {
-		NeighbourFinder.cellGrid = cellGrid;
-		NeighbourFinder.isGridBorderDead = isGridBorderDead;
+	public NeighbourFinder(CellGrid cellGrid, boolean isGridBorderDead) {
+		this.cellGrid = cellGrid;
+		this.isGridBorderDead = isGridBorderDead;
+
+	}
+
+	public List<Cell> getNeighbours(Cell cell) {
 		List<Cell> neighbours = new ArrayList<Cell>();
 
 		neighbours.add(getNeighbourAtNorth(cell));
@@ -26,17 +29,10 @@ public abstract class NeighbourFinder {
 		neighbours.add(getNeighbourAtWest(cell));
 		neighbours.add(getNeighbourAtNorthWest(cell));
 
-		// for (Cell neighbourCell : neighbours) {
-		// if (neighbourCell == null) {
-		// int currentIndex = neighbours.indexOf(neighbourCell);
-		// neighbours.set(currentIndex, new Cell());
-		// }
-		// }
-
 		return neighbours;
 	}
 
-	private static Cell getNeighbourAtNorth(Cell cell) {
+	private Cell getNeighbourAtNorth(Cell cell) {
 		int row = cellGrid.getRowOfCell(cell);
 		int column = cellGrid.getColumnOfCell(cell);
 		Cell neighbour = getNeighbour(row - 1, column);
@@ -44,20 +40,16 @@ public abstract class NeighbourFinder {
 		if (neighbour == null && !isGridBorderDead) {
 			neighbour = getNeighbour(cellGrid.getRowCount() - 1, column);
 		}
-
-		// if (neighbour == cell) {
-		// neighbour = new Cell();
-		// }
 		return neighbour;
 	}
 
-	private static Cell getNeighbourAtNorthEast(Cell cell) {
+	private Cell getNeighbourAtNorthEast(Cell cell) {
 		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
 		Cell neighbour = getNeighbourAtEast(neighbourAtNorth);
 		return neighbour;
 	}
 
-	private static Cell getNeighbourAtEast(Cell cell) {
+	private Cell getNeighbourAtEast(Cell cell) {
 		int row = cellGrid.getRowOfCell(cell);
 		int column = cellGrid.getColumnOfCell(cell);
 		Cell neighbour = getNeighbour(row, column + 1);
@@ -65,20 +57,16 @@ public abstract class NeighbourFinder {
 		if (neighbour == null && !isGridBorderDead) {
 			neighbour = getNeighbour(row, 0);
 		}
-
-		// if (neighbour == cell) {
-		// neighbour = new Cell();
-		// }
 		return neighbour;
 	}
 
-	private static Cell getNeighbourAtSouthEast(Cell cell) {
+	private Cell getNeighbourAtSouthEast(Cell cell) {
 		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
 		Cell neighbour = getNeighbourAtEast(neighbourAtSouth);
 		return neighbour;
 	}
 
-	private static Cell getNeighbourAtSouth(Cell cell) {
+	private Cell getNeighbourAtSouth(Cell cell) {
 		int row = cellGrid.getRowOfCell(cell);
 		int column = cellGrid.getColumnOfCell(cell);
 		Cell neighbour = getNeighbour(row + 1, column);
@@ -86,20 +74,16 @@ public abstract class NeighbourFinder {
 		if (neighbour == null && !isGridBorderDead) {
 			neighbour = getNeighbour(0, column);
 		}
-
-		// if (neighbour == cell) {
-		// neighbour = new Cell();
-		// }
 		return neighbour;
 	}
 
-	private static Cell getNeighbourAtSouthWest(Cell cell) {
+	private Cell getNeighbourAtSouthWest(Cell cell) {
 		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
 		Cell neighbour = getNeighbourAtWest(neighbourAtSouth);
 		return neighbour;
 	}
 
-	private static Cell getNeighbourAtWest(Cell cell) {
+	private Cell getNeighbourAtWest(Cell cell) {
 		int row = cellGrid.getRowOfCell(cell);
 		int column = cellGrid.getColumnOfCell(cell);
 		Cell neighbour = getNeighbour(row, column - 1);
@@ -107,20 +91,16 @@ public abstract class NeighbourFinder {
 		if (neighbour == null && !isGridBorderDead) {
 			neighbour = getNeighbour(row, cellGrid.getColumnCount() - 1);
 		}
-
-		// if (neighbour == cell) {
-		// neighbour = new Cell();
-		// }
 		return neighbour;
 	}
 
-	private static Cell getNeighbourAtNorthWest(Cell cell) {
+	private Cell getNeighbourAtNorthWest(Cell cell) {
 		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
 		Cell neighbour = getNeighbourAtWest(neighbourAtNorth);
 		return neighbour;
 	}
 
-	private static Cell getNeighbour(int row, int column) {
+	private Cell getNeighbour(int row, int column) {
 		Cell neighbour = cellGrid.getCellAtCoordinates(row, column);
 		return neighbour;
 	}

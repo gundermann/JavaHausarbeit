@@ -3,6 +3,8 @@ package de.nordakademie.java.gameoflife.gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -12,8 +14,10 @@ import javax.swing.JTextArea;
 
 public class ErrorGui {
 
-	public void initErrorGui(String errortext) {
-		JFrame frame = new JFrame("Fehlermeldung");
+	private final JFrame frame;
+
+	public ErrorGui(String errortext) {
+		frame = new JFrame("Fehlermeldung");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(500, 200);
 		frame.setLayout(new BorderLayout());
@@ -26,9 +30,22 @@ public class ErrorGui {
 
 		frame.add(title, BorderLayout.NORTH);
 		frame.add(textPanel, BorderLayout.CENTER);
-		frame.add(new JButton("OK"), BorderLayout.SOUTH);
+		frame.add(initOkButton(), BorderLayout.SOUTH);
 
 		frame.setVisible(true);
+	}
+
+	private JButton initOkButton() {
+		JButton okButton = new JButton("OK");
+		okButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				frame.dispose();
+			}
+		});
+		return okButton;
 	}
 
 	private JPanel createErrorTextPanel(String errortext) {

@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.business.Cell;
-import de.nordakademie.java.gameoflife.business.impl.CellImpl;
 
 public class CellTest {
 
@@ -16,7 +15,7 @@ public class CellTest {
 
 	@Before
 	public void setUp() {
-		cell = new CellImpl();
+		cell = new Cell();
 	}
 
 	@Test

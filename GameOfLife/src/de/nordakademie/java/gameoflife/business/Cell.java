@@ -1,9 +1,22 @@
 package de.nordakademie.java.gameoflife.business;
 
-public interface Cell {
-	void bear();
+public class Cell {
 
-	void killYourself();
+	private boolean alive;
 
-	boolean isAlive();
+	public Cell() {
+		alive = false;
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void bear() {
+		alive = true;
+	}
+
+	public void killYourself() {
+		alive = false;
+	}
 }

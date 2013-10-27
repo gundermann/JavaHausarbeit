@@ -12,22 +12,25 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
+import de.nordakademie.java.gameoflife.business.Cell;
+
 public class GameFieldGui {
 
 	private int cellGeneration;
 	GameFieldCanvas gameFieldCanvas;
 
-	public void initGameFieldGui(Integer[][] cellsAliveArray) {
+	public GameFieldGui(Cell[][] cellsArray) {
 		JFrame frame = new JFrame("Game Of Life");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(800, 800);
 		frame.setLayout(new BorderLayout());
+
+		cellGeneration = 1;
 
 		setWindowIntoScreenCenter(frame);
 
-		gameFieldCanvas = new GameFieldCanvas(cellsAliveArray);
+		gameFieldCanvas = new GameFieldCanvas(cellsArray);
 		gameFieldCanvas.setIgnoreRepaint(true);
-		gameFieldCanvas.setPreferredSize(getDimension(cellsAliveArray));
+		gameFieldCanvas.setPreferredSize(getDimension(cellsArray));
 
 		JScrollPane gameFieldPanel = new JScrollPane();
 		gameFieldPanel.setViewportView(gameFieldCanvas);
@@ -40,18 +43,19 @@ public class GameFieldGui {
 
 	}
 
-	private Dimension getDimension(Integer[][] cellsAliveArray) {
-		int colums = cellsAliveArray.length;
-		int rows = 0;
+	private Dimension getDimension(Cell[][] cellsArray) {
+		int rows = cellsArray.length;
+		int columns = 0;
 		// TODO: wird im Uploader abgefangen, muss es falls unterwegs ein Fehler
 		// passiert trotzdem getestet werden?
-		if (colums > 0) {
-			rows = cellsAliveArray[0].length;
+		if (rows > 0) {
+			columns = cellsArray[0].length;
 		}
-		return (new Dimension(colums, rows));
+		int cellDrawingSize = gameFieldCanvas.getCellsDrawingSize();
+		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize));
 	}
 
-	public void updateGameFieldGui(Integer[][] cellsAliveArray) {
+	public void updateGameFieldGui(Cell[][] cellsAliveArray) {
 		gameFieldCanvas.updateGameFieldCanvas(cellsAliveArray);
 		gameFieldCanvas.paint(gameFieldCanvas.getGraphics());
 	}
@@ -79,8 +83,9 @@ public class GameFieldGui {
 		return speedChooser;
 	}
 
-	public void setCellGeneration(Integer currentCellGeneration) {
-		cellGeneration = currentCellGeneration;
+	public void increaseGeneration() {
+		cellGeneration++;
+		gameFieldCanvas.repaint();
 	}
 
 	private void setWindowIntoScreenCenter(JFrame frame) {

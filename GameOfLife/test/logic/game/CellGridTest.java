@@ -9,17 +9,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.business.Cell;
-import de.nordakademie.java.gameoflife.business.impl.CellGridImpl;
-import de.nordakademie.java.gameoflife.business.impl.CellImpl;
+import de.nordakademie.java.gameoflife.business.CellGrid;
 
 public class CellGridTest {
 
-	private CellGridImpl cellGrid;
+	private CellGrid cellGrid;
 
 	@Before
 	public void setUp() {
-		Integer[][] initinalArray = { { 1, 0, 1 }, { 0, 1, 0 }, { 1, 0, 1 } };
-		cellGrid = new CellGridImpl(initinalArray);
+		int[][] initinalArray = { { 1, 0, 1 }, { 0, 1, 0 }, { 1, 0, 1 } };
+		cellGrid = new CellGrid(initinalArray);
 	}
 
 	@Test
@@ -33,7 +32,7 @@ public class CellGridTest {
 		int y = 1;
 		int x = 2;
 
-		Cell[][] cellArray = cellGrid.getCellGrid();
+		Cell[][] cellArray = cellGrid.getCellArray();
 
 		assertTrue(cellArray[1][2] == cellGrid.getCellAtCoordinates(y, x));
 
@@ -75,7 +74,7 @@ public class CellGridTest {
 		assertTrue(cellGrid.getRowOfCell(cell4) == 1);
 		assertTrue(cellGrid.getRowOfCell(cell5) == 2);
 		assertTrue(cellGrid.getRowOfCell(cell6) == 2);
-		assertTrue(cellGrid.getRowOfCell(new CellImpl()) == -1);
+		assertTrue(cellGrid.getRowOfCell(new Cell()) == -1);
 	}
 
 	@Test
@@ -93,7 +92,7 @@ public class CellGridTest {
 		assertTrue(cellGrid.getColumnOfCell(cell4) == 1);
 		assertTrue(cellGrid.getColumnOfCell(cell5) == 2);
 		assertTrue(cellGrid.getColumnOfCell(cell6) == 2);
-		assertTrue(cellGrid.getColumnOfCell(new CellImpl()) == -1);
+		assertTrue(cellGrid.getColumnOfCell(new Cell()) == -1);
 	}
 
 	@Test
