@@ -15,6 +15,7 @@ import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
 public class FileLoaderTest {
 
 	private static File testFileGOL;
+	private static File testFileNotExisting;
 
 	@BeforeClass
 	public static void setUp() throws Exception {
@@ -22,6 +23,7 @@ public class FileLoaderTest {
 		if (!testFileGOL.exists()) {
 			testFileGOL.createNewFile();
 		}
+		testFileNotExisting = new File("test2.gol");
 		FileWriter fileWriter = new FileWriter(testFileGOL);
 		fileWriter.write("1001001");
 		fileWriter.write(System.getProperty("line.separator"));
@@ -48,6 +50,13 @@ public class FileLoaderTest {
 				FileLoader.readFileAndReturnErrorCode(null) == ErrorCodes.Filechoosing_Was_Aborted);
 		assertTrue("cells sind null nach fehlerhaftem Einlesen",
 				FileLoader.getCells() == null);
+	}
+
+	@Test
+	public void testExceptionWhileFileReading() {
+		assertTrue(
+				"Bei Exception fliegt richtiger ErrorCode",
+				FileLoader.readFileAndReturnErrorCode(testFileNotExisting) == ErrorCodes.Exception_While_File_Readed);
 	}
 
 	@Test

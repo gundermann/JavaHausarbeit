@@ -23,6 +23,7 @@ public class FileValidatorTest {
 
 	private static File testFileGOL;
 	private static File testFileJPG;
+	private static File testFileNothing;
 	private static FileWriter fileWriter;
 
 	@BeforeClass
@@ -35,12 +36,17 @@ public class FileValidatorTest {
 		if (!testFileJPG.exists()) {
 			testFileJPG.createNewFile();
 		}
+		testFileNothing = new File("test");
+		if (!testFileNothing.exists()) {
+			testFileNothing.createNewFile();
+		}
 	}
 
 	@AfterClass
 	public static void tearDown() throws Exception {
 		testFileGOL.delete();
 		testFileJPG.delete();
+		testFileNothing.delete();
 	}
 
 	@Test
@@ -69,6 +75,9 @@ public class FileValidatorTest {
 			assertTrue(
 					"falsche Dateitypen werfen Fehler",
 					FileValidator.validateAndReturnErrorCode(testFileJPG) == ErrorCodes.Wrong_Type);
+			assertTrue(
+					"ungetypte Dateien werfen Fehler",
+					FileValidator.validateAndReturnErrorCode(testFileNothing) == ErrorCodes.Wrong_Type);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
