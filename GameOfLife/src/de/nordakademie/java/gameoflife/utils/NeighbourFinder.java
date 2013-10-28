@@ -29,6 +29,11 @@ public class NeighbourFinder {
 		neighbours.add(getNeighbourAtWest(cell));
 		neighbours.add(getNeighbourAtNorthWest(cell));
 
+		for (Cell neighbour : neighbours) {
+			if (neighbour == null) {
+				neighbours.set(neighbours.indexOf(neighbour), new Cell());
+			}
+		}
 		return neighbours;
 	}
 
@@ -44,8 +49,13 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtNorthEast(Cell cell) {
+		Cell neighbour;
 		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
-		Cell neighbour = getNeighbourAtEast(neighbourAtNorth);
+		if (neighbourAtNorth != null) {
+			neighbour = getNeighbourAtEast(neighbourAtNorth);
+		} else {
+			neighbour = null;
+		}
 		return neighbour;
 	}
 
@@ -61,8 +71,13 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtSouthEast(Cell cell) {
+		Cell neighbour;
 		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
-		Cell neighbour = getNeighbourAtEast(neighbourAtSouth);
+		if (neighbourAtSouth != null) {
+			neighbour = getNeighbourAtEast(neighbourAtSouth);
+		} else {
+			neighbour = null;
+		}
 		return neighbour;
 	}
 
@@ -78,8 +93,13 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtSouthWest(Cell cell) {
+		Cell neighbour;
 		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
-		Cell neighbour = getNeighbourAtWest(neighbourAtSouth);
+		if (neighbourAtSouth != null) {
+			neighbour = getNeighbourAtWest(neighbourAtSouth);
+		} else {
+			neighbour = null;
+		}
 		return neighbour;
 	}
 
@@ -95,8 +115,13 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtNorthWest(Cell cell) {
+		Cell neighbour;
 		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
-		Cell neighbour = getNeighbourAtWest(neighbourAtNorth);
+		if (neighbourAtNorth != null) {
+			neighbour = getNeighbourAtWest(neighbourAtNorth);
+		} else {
+			neighbour = null;
+		}
 		return neighbour;
 	}
 

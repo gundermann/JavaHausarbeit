@@ -55,8 +55,8 @@ public class CellGrid {
 
 	public List<Cell> getCellsAsList() {
 		List<Cell> cells = new ArrayList<Cell>();
-		for (int row = 0; row < columns; row++) {
-			for (int column = 0; column < rows; column++) {
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
 				cells.add(getCellAtCoordinates(row, column));
 			}
 		}
@@ -75,8 +75,8 @@ public class CellGrid {
 	}
 
 	public int getColumnOfCell(Cell cell) {
-		for (int column = 0; column < rows; column++) {
-			for (int row = 0; row < columns; row++) {
+		for (int column = 0; column < columns; column++) {
+			for (int row = 0; row < rows; row++) {
 				if (cell == cellArray[row][column]) {
 					return column;
 				}
@@ -86,8 +86,8 @@ public class CellGrid {
 	}
 
 	public int getRowOfCell(Cell cell) {
-		for (int row = 0; row < columns; row++) {
-			for (int column = 0; column < rows; column++) {
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
 				if (cell == cellArray[row][column]) {
 					return row;
 				}

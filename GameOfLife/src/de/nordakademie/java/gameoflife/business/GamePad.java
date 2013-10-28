@@ -10,6 +10,7 @@ import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class GamePad {
 
+	// TODO Sichbarkeiten bestimmter Methoden
 	private GameRule gameRules;
 	private BorderRule borderRules;
 	private CellGrid cellGrid;
@@ -19,7 +20,24 @@ public class GamePad {
 		this.cellGrid = cellGrid;
 		this.gameRules = gameRules;
 		this.borderRules = borderRules;
-		new GameFieldGui(cellGrid.getCellArray());
+	}
+
+	public void startGame() {
+		GameFieldGui gameField = new GameFieldGui(cellGrid.getCellArray());
+		while (!isGameFinished()) {
+			try {
+				Thread.sleep(1000);
+				calculateNextGeneration();
+				gameField.updateGameFieldGui(cellGrid.getCellArray());
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+
+	private boolean isGameFinished() {
+		return false;
 	}
 
 	public List<Cell> findCellsToBear() {
@@ -77,11 +95,14 @@ public class GamePad {
 	}
 
 	public void calculateNextGeneration() {
-		for (Cell cell : findCellsToBear()) {
+		List<Cell> cellsToBear = findCellsToBear();
+		List<Cell> cellToKill = findCellsToKill();
+
+		for (Cell cell : cellsToBear) {
 			cellGrid.bearCell(cell);
 		}
 
-		for (Cell cell : findCellsToKill()) {
+		for (Cell cell : cellToKill) {
 			cellGrid.killCell(cell);
 		}
 

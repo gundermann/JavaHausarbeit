@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
+import de.nordakademie.java.gameoflife.StartGOL;
 import de.nordakademie.java.gameoflife.business.CellGrid;
 import de.nordakademie.java.gameoflife.business.GamePad;
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
@@ -50,7 +51,7 @@ public class StartMenuGui {
 	private JButton explaneBorderRules;
 	private int[][] cellArray;
 
-	public StartMenuGui() {
+	public StartMenuGui(StartGOL startGOL) {
 		frame = new JFrame("Game of Life");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
@@ -86,9 +87,11 @@ public class StartMenuGui {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				if (cellArray != null) {
-					new GamePad(new CellGrid(cellArray), getSelectedGameRule(),
-							getSelectedBorderRule());
+
+					GamePad gamePad = new GamePad(new CellGrid(cellArray),
+							getSelectedGameRule(), getSelectedBorderRule());
 					frame.dispose();
+					gamePad.startGame();
 				}
 			}
 		});
@@ -190,7 +193,7 @@ public class StartMenuGui {
 
 	private void initGameChooseOptionLabels() {
 		gameConstructions = new JLabel(
-				"Bitte wählen sie Spiel- und Randvariante aus");
+				"Bitte wï¿½hlen sie Spiel- und Randvariante aus");
 		gameChooseOptionLayout.setConstraints(gameConstructions,
 				set(0, 0, 0, 6));
 		gameChoose = new JLabel("Spielvarianten");
@@ -212,6 +215,18 @@ public class StartMenuGui {
 		chooseBorderRule.addItem("Pacman Sytle");
 		gameChooseOptionLayout
 				.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
+	}
+
+	public JComboBox<String> getChooseGameRule() {
+		return chooseGameRule;
+	}
+
+	public JComboBox<String> getChooseBorderRule() {
+		return chooseBorderRule;
+	}
+
+	public int[][] getCellArray() {
+		return cellArray;
 	}
 
 	private static GridBagConstraints set(int gridx, int gridy, int fill,

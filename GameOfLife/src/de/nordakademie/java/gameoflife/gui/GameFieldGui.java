@@ -28,7 +28,7 @@ public class GameFieldGui {
 
 		setWindowIntoScreenCenter(frame);
 
-		gameFieldCanvas = new GameFieldCanvas(cellsArray);
+		gameFieldCanvas = new GameFieldCanvas();
 		gameFieldCanvas.setIgnoreRepaint(true);
 		gameFieldCanvas.setPreferredSize(getDimension(cellsArray));
 
@@ -41,6 +41,10 @@ public class GameFieldGui {
 		frame.pack();
 		frame.setVisible(true);
 
+		// BufferStrategie fÃ¼r bessere Performance beim Zeichnen
+		gameFieldCanvas.createBufferStrategy(2);
+
+		updateGameFieldGui(cellsArray);
 	}
 
 	private Dimension getDimension(Cell[][] cellsArray) {
@@ -57,7 +61,7 @@ public class GameFieldGui {
 
 	public void updateGameFieldGui(Cell[][] cellsAliveArray) {
 		gameFieldCanvas.updateGameFieldCanvas(cellsAliveArray);
-		gameFieldCanvas.paint(gameFieldCanvas.getGraphics());
+		gameFieldCanvas.paintCellGrid();
 	}
 
 	private JMenuBar createJMenuBar() {
@@ -67,7 +71,7 @@ public class GameFieldGui {
 		options.add(new JMenuItem("Beenden"));
 		menuBar.add(options);
 		menuBar.add(new JLabel(
-				"     Dauer Generationswechsel: schnellstmöglich "));
+				"     Dauer Generationswechsel: schnellstmï¿½glich "));
 		menuBar.add(createSpeedChooser());
 		menuBar.add(new JLabel(" 1sek   "));
 		menuBar.add(new JLabel("Zellengeneration: " + cellGeneration + " "));

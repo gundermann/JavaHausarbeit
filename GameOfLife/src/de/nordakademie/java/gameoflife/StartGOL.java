@@ -4,7 +4,7 @@ import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 
 public class StartGOL {
 	public static void main(String[] args) {
-		new StartMenuGui();
+		new StartMenuGui(new StartGOL());
 	}
 
 }
