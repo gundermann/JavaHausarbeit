@@ -1,18 +1,18 @@
 package de.nordakademie.java.gameoflife.gui;
 
-import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
+
+import javax.swing.JPanel;
 
 import de.nordakademie.java.gameoflife.business.Cell;
 
-class GameFieldCanvas extends Canvas {
+class GameFieldPanel extends JPanel {
 
 	private Cell[][] cellsArray;
 	private final int cellDrawingSize = 10;
 
-	public void updateGameFieldCanvas(Cell[][] currentCellArray) {
+	public void updateCellArray(Cell[][] currentCellArray) {
 		cellsArray = currentCellArray;
 	}
 
@@ -20,14 +20,15 @@ class GameFieldCanvas extends Canvas {
 		return cellDrawingSize;
 	}
 
-	public void paintCellGrid() {
-		Graphics2D g = (Graphics2D) getBufferStrategy().getDrawGraphics();
+	@Override
+	public void paintComponent(Graphics g) {
 
 		int rows = cellsArray.length;
 		int columns = 0;
 		if (rows > 0) {
 			columns = cellsArray[0].length;
 		}
+
 		for (int currentColumn = 0; currentColumn < rows; currentColumn++) {
 			for (int currentRow = 0; currentRow < columns; currentRow++) {
 				if (cellsArray[currentColumn][currentRow].isAlive()) {
@@ -39,10 +40,6 @@ class GameFieldCanvas extends Canvas {
 						* cellDrawingSize, g);
 			}
 		}
-
-		getBufferStrategy().show();
-		g.dispose();
-
 	}
 
 	private void paintCell(Integer xCoordinate, Integer yCoordinate, Graphics g) {

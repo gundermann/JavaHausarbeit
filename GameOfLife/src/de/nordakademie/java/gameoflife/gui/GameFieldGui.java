@@ -9,59 +9,53 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.business.Cell;
 
-public class GameFieldGui {
+public class GameFieldGui extends JFrame {
 
 	private int cellGeneration;
-	GameFieldCanvas gameFieldCanvas;
+	GameFieldPanel gameFieldPanel;
 
 	public GameFieldGui(Cell[][] cellsArray) {
-		JFrame frame = new JFrame("Game Of Life");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
+		setTitle("Game Of Life");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLayout(new BorderLayout());
 
 		cellGeneration = 1;
 
-		setWindowIntoScreenCenter(frame);
+		setWindowIntoScreenCenter();
 
-		gameFieldCanvas = new GameFieldCanvas();
-		gameFieldCanvas.setIgnoreRepaint(true);
-		gameFieldCanvas.setPreferredSize(getDimension(cellsArray));
+		gameFieldPanel = new GameFieldPanel();
+		gameFieldPanel.updateCellArray(cellsArray);
+		gameFieldPanel.setPreferredSize(getDimension(cellsArray));
 
-		JScrollPane gameFieldPanel = new JScrollPane();
-		gameFieldPanel.setViewportView(gameFieldCanvas);
-		gameFieldPanel.setVisible(true);
+		// JScrollPane gameFieldScrollPane = new JScrollPane();
+		// gameFieldScrollPane.setViewportView(gameFieldPanel);
+		// gameFieldScrollPane.setVisible(true);
+		//
+		// add(gameFieldScrollPane, BorderLayout.CENTER);
+		add(gameFieldPanel, BorderLayout.CENTER);
+		add(createJMenuBar(), BorderLayout.NORTH);
+		pack();
+		setVisible(true);
 
-		frame.add(gameFieldPanel, BorderLayout.CENTER);
-		frame.add(createJMenuBar(), BorderLayout.NORTH);
-		frame.pack();
-		frame.setVisible(true);
-
-		// BufferStrategie fÃ¼r bessere Performance beim Zeichnen
-		gameFieldCanvas.createBufferStrategy(2);
-
-		updateGameFieldGui(cellsArray);
 	}
 
 	private Dimension getDimension(Cell[][] cellsArray) {
-		int rows = cellsArray.length;
-		int columns = 0;
-		// TODO: wird im Uploader abgefangen, muss es falls unterwegs ein Fehler
-		// passiert trotzdem getestet werden?
-		if (rows > 0) {
-			columns = cellsArray[0].length;
+		int columns = cellsArray.length;
+		int rows = 0;
+		if (columns > 0) {
+			rows = cellsArray[0].length;
 		}
-		int cellDrawingSize = gameFieldCanvas.getCellsDrawingSize();
+		int cellDrawingSize = gameFieldPanel.getCellsDrawingSize();
 		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize));
 	}
 
-	public void updateGameFieldGui(Cell[][] cellsAliveArray) {
-		gameFieldCanvas.updateGameFieldCanvas(cellsAliveArray);
-		gameFieldCanvas.paintCellGrid();
+	public void update(Cell[][] currentCellArray) {
+		gameFieldPanel.updateCellArray(currentCellArray);
+		repaint();
 	}
 
 	private JMenuBar createJMenuBar() {
@@ -71,7 +65,7 @@ public class GameFieldGui {
 		options.add(new JMenuItem("Beenden"));
 		menuBar.add(options);
 		menuBar.add(new JLabel(
-				"     Dauer Generationswechsel: schnellstm\u00f6glich "));
+				"     Dauer Generationswechsel: schnellstmöglich "));
 		menuBar.add(createSpeedChooser());
 		menuBar.add(new JLabel(" 1sek   "));
 		menuBar.add(new JLabel("Zellengeneration: " + cellGeneration + " "));
@@ -89,13 +83,13 @@ public class GameFieldGui {
 
 	public void increaseGeneration() {
 		cellGeneration++;
-		gameFieldCanvas.repaint();
+		gameFieldPanel.repaint();
 	}
 
-	private void setWindowIntoScreenCenter(JFrame frame) {
+	private void setWindowIntoScreenCenter() {
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation((d.width - frame.getSize().width) / 2,
-				(d.height - frame.getSize().height) / 2);
+		setLocation((d.width - getSize().width) / 2,
+				(d.height - getSize().height) / 2);
 	}
 
 }

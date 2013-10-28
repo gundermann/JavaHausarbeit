@@ -11,33 +11,37 @@ import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 public class GamePad {
 
 	// TODO Sichbarkeiten bestimmter Methoden
-	private GameRule gameRules;
-	private BorderRule borderRules;
-	private CellGrid cellGrid;
+	private final GameRule gameRules;
+	private final BorderRule borderRules;
+	private final CellGrid cellGrid;
 	private int generation = 1;
+	private final Runnable gameThread;
 
 	public GamePad(CellGrid cellGrid, GameRule gameRules, BorderRule borderRules) {
 		this.cellGrid = cellGrid;
 		this.gameRules = gameRules;
 		this.borderRules = borderRules;
+		final GameFieldGui gameField = new GameFieldGui(cellGrid.getCellArray());
+		gameField.repaint();
+		gameThread = new Runnable() {
+
+			@Override
+			public void run() {
+				while (gameField.isVisible()) {
+					try {
+						Thread.sleep(400);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					calculateNextGeneration();
+					gameField.update(GamePad.this.cellGrid.getCellArray());
+				}
+			}
+		};
 	}
 
 	public void startGame() {
-		GameFieldGui gameField = new GameFieldGui(cellGrid.getCellArray());
-		while (!isGameFinished()) {
-			try {
-				Thread.sleep(1000);
-				calculateNextGeneration();
-				gameField.updateGameFieldGui(cellGrid.getCellArray());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
-		}
-	}
-
-	private boolean isGameFinished() {
-		return false;
+		new Thread(gameThread).start();
 	}
 
 	public List<Cell> findCellsToBear() {

@@ -21,7 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-import de.nordakademie.java.gameoflife.StartGOL;
 import de.nordakademie.java.gameoflife.business.CellGrid;
 import de.nordakademie.java.gameoflife.business.GamePad;
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
@@ -51,7 +50,7 @@ public class StartMenuGui {
 	private JButton explaneBorderRules;
 	private int[][] cellArray;
 
-	public StartMenuGui(StartGOL startGOL) {
+	public StartMenuGui() {
 		frame = new JFrame("Game of Life");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(new BorderLayout());
