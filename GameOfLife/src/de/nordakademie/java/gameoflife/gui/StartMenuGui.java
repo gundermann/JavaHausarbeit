@@ -193,7 +193,7 @@ public class StartMenuGui {
 
 	private void initGameChooseOptionLabels() {
 		gameConstructions = new JLabel(
-				"Bitte w�hlen sie Spiel- und Randvariante aus");
+				"Bitte w\u00e4hlen sie Spiel- und Randvariante aus");
 		gameChooseOptionLayout.setConstraints(gameConstructions,
 				set(0, 0, 0, 6));
 		gameChoose = new JLabel("Spielvarianten");

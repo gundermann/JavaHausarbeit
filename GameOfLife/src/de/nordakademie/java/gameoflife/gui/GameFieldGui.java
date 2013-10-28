@@ -71,7 +71,7 @@ public class GameFieldGui {
 		options.add(new JMenuItem("Beenden"));
 		menuBar.add(options);
 		menuBar.add(new JLabel(
-				"     Dauer Generationswechsel: schnellstm�glich "));
+				"     Dauer Generationswechsel: schnellstm\u00f6glich "));
 		menuBar.add(createSpeedChooser());
 		menuBar.add(new JLabel(" 1sek   "));
 		menuBar.add(new JLabel("Zellengeneration: " + cellGeneration + " "));

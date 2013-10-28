@@ -16,7 +16,7 @@ public class ErrorTexts {
 			return "Die hochgeladene Datei enthällt nicht nur 1en und 0en";
 		}
 		if (errorCode == ErrorCodes.Exception_While_File_Readed) {
-			return "Während des Einlesens der Datei ist eine Exception geworfen worden";
+			return "W\u00e4hrend des Einlesens der Datei ist eine Exception geworfen worden";
 		}
 		if (errorCode == ErrorCodes.Not_All_Lines_Have_Equal_Length) {
 			return "Nicht alle Zeilen in der Datei sind gleich lang";
