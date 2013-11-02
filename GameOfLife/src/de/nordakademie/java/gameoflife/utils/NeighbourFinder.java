@@ -11,13 +11,13 @@ public class NeighbourFinder {
 	private CellGrid cellGrid;
 	private boolean isGridBorderDead;
 
-	public NeighbourFinder(CellGrid cellGrid, boolean isGridBorderDead) {
-		this.cellGrid = cellGrid;
+	public NeighbourFinder(boolean isGridBorderDead) {
 		this.isGridBorderDead = isGridBorderDead;
 
 	}
 
-	public List<Cell> getNeighbours(Cell cell) {
+	public List<Cell> getNeighbours(Cell cell, CellGrid cellGrid) {
+		this.cellGrid = cellGrid;
 		List<Cell> neighbours = new ArrayList<Cell>();
 
 		neighbours.add(getNeighbourAtNorth(cell));

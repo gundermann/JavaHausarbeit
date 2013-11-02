@@ -10,17 +10,18 @@ import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class GamePad {
 
-	// TODO Sichbarkeiten bestimmter Methoden
 	private final GameRule gameRules;
 	private final BorderRule borderRules;
 	private final CellGrid cellGrid;
 	private int generation = 1;
 	private final Runnable gameThread;
+	private final NeighbourFinder neighbourFinder;
 
 	public GamePad(CellGrid cellGrid, GameRule gameRules, BorderRule borderRules) {
 		this.cellGrid = cellGrid;
 		this.gameRules = gameRules;
 		this.borderRules = borderRules;
+		neighbourFinder = new NeighbourFinder(borderRules.isGridBorderDead());
 		final GameFieldGui gameField = new GameFieldGui(cellGrid.getCellArray());
 		gameField.repaint();
 		gameThread = new Runnable() {
@@ -92,10 +93,7 @@ public class GamePad {
 	}
 
 	private List<Cell> getNeighbours(Cell cell) {
-		boolean isGridBorderDead = borderRules.isGridBorderDead();
-		NeighbourFinder neighbourFinder = new NeighbourFinder(cellGrid,
-				isGridBorderDead);
-		return neighbourFinder.getNeighbours(cell);
+		return neighbourFinder.getNeighbours(cell, cellGrid);
 	}
 
 	public void calculateNextGeneration() {

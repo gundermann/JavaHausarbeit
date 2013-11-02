@@ -10,11 +10,11 @@ public class CellGrid {
 	private Cell[][] cellArray;
 
 	public CellGrid(int[][] initinalArray) {
-		columns = initinalArray.length;
-		rows = initinalArray[0].length;
+		rows = initinalArray.length;
+		columns = initinalArray[0].length;
 		cellArray = new Cell[rows][columns];
-		for (int row = 0; row < columns; row++) {
-			for (int column = 0; column < rows; column++) {
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
 				int currentSetup = initinalArray[row][column];
 				checkSetupAndBearCell(currentSetup, row, column);
 			}
@@ -26,7 +26,7 @@ public class CellGrid {
 		if (currentSetup == 1) {
 			bearCell(cell);
 		}
-		cellArray[column][row] = cell;
+		cellArray[row][column] = cell;
 	}
 
 	public void killCell(Cell cell) {
@@ -42,11 +42,11 @@ public class CellGrid {
 	}
 
 	public int getColumnCount() {
-		return rows;
+		return columns;
 	}
 
 	public int getRowCount() {
-		return columns;
+		return rows;
 	}
 
 	public Cell[][] getCellArray() {
@@ -75,8 +75,8 @@ public class CellGrid {
 	}
 
 	public int getColumnOfCell(Cell cell) {
-		for (int column = 0; column < columns; column++) {
-			for (int row = 0; row < rows; row++) {
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
 				if (cell == cellArray[row][column]) {
 					return column;
 				}
@@ -96,13 +96,13 @@ public class CellGrid {
 		return -1;
 	}
 
-	public boolean[][] convertCellGridToBooleanArray() {
-		boolean[][] integerArray = new boolean[columns][rows];
-		for (int row = 0; row < columns; row++) {
-			for (int column = 0; column < rows; column++) {
-				integerArray[row][column] = isCellAtPositionAlive(row, column);
-			}
-		}
-		return integerArray;
-	}
+	// public boolean[][] convertCellGridToBooleanArray() {
+	// boolean[][] integerArray = new boolean[columns][rows];
+	// for (int row = 0; row < columns; row++) {
+	// for (int column = 0; column < rows; column++) {
+	// integerArray[row][column] = isCellAtPositionAlive(row, column);
+	// }
+	// }
+	// return integerArray;
+	// }
 }

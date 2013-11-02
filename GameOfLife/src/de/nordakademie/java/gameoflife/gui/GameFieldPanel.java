@@ -36,7 +36,7 @@ class GameFieldPanel extends JPanel {
 				} else {
 					g.setColor(Color.BLACK);
 				}
-				paintCell(currentColumn * cellDrawingSize, currentRow
+				paintCell(currentRow * cellDrawingSize, currentColumn
 						* cellDrawingSize, g);
 			}
 		}

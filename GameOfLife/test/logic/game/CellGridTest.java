@@ -95,19 +95,19 @@ public class CellGridTest {
 		assertTrue(cellGrid.getColumnOfCell(new Cell()) == -1);
 	}
 
-	@Test
-	public void shouldConvertToBooleanArray() {
-		boolean[][] boolArray = cellGrid.convertCellGridToBooleanArray();
-		assertTrue(boolArray[0][0]);
-		assertFalse(boolArray[0][1]);
-		assertTrue(boolArray[0][2]);
-		assertFalse(boolArray[1][0]);
-		assertTrue(boolArray[1][1]);
-		assertFalse(boolArray[1][2]);
-		assertTrue(boolArray[2][0]);
-		assertFalse(boolArray[2][1]);
-		assertTrue(boolArray[2][2]);
-	}
+	// @Test
+	// public void shouldConvertToBooleanArray() {
+	// boolean[][] boolArray = cellGrid.convertCellGridToBooleanArray();
+	// assertTrue(boolArray[0][0]);
+	// assertFalse(boolArray[0][1]);
+	// assertTrue(boolArray[0][2]);
+	// assertFalse(boolArray[1][0]);
+	// assertTrue(boolArray[1][1]);
+	// assertFalse(boolArray[1][2]);
+	// assertTrue(boolArray[2][0]);
+	// assertFalse(boolArray[2][1]);
+	// assertTrue(boolArray[2][2]);
+	// }
 
 	@Test
 	public void shouldKillAndBearCellAtPosition() {
