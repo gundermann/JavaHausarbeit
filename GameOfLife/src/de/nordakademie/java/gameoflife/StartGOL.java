@@ -1,6 +1,5 @@
 package de.nordakademie.java.gameoflife;
 
-
 import java.io.File;
 
 import javax.swing.JFileChooser;
@@ -22,37 +21,38 @@ import de.nordakademie.java.gameoflife.gui.ErrorGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
 
-public class StartGOL implements StartGOLHandler{
+public class StartGOL implements StartGOLHandler {
 	private StartMenuGui startGui;
 	private int[][] cellArray;
 	private GamePad gamePad;
-	
+
 	public static void main(String[] args) {
 		new StartGOL();
 	}
-	
-	public StartGOL(){
+
+	public StartGOL() {
 		startGui = new StartMenuGui();
 		startGui.setHandler(this);
 	}
-	
-	public String handleFileUplod(){
+
+	// TODO nach Umstellung auf Exceptionhandling noch einmal überarbeiten
+	@Override
+	public String handleFileUplod() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.showOpenDialog(new JFrame());
 		File file = chooser.getSelectedFile();
 		int errorCode = FileLoader.readFileAndReturnErrorCode(file);
 		if (errorCode == ErrorCodes.No_Error) {
-			
 			cellArray = FileLoader.getCells();
 			return file.getPath();
-		} else if (errorCode != ErrorCodes.Filechoosing_Was_Aborted) {
+		} else {
 			new ErrorGui(ErrorTexts.getTextToErrorCode(errorCode));
 			return "";
 		}
-		return "";
 	}
-	
-	public void handleStartButtonPressedEvent(){
+
+	@Override
+	public void handleStartButtonPressedEvent() {
 		if (cellArray != null) {
 
 			gamePad = new GamePad(new CellGrid(cellArray),
@@ -60,7 +60,7 @@ public class StartGOL implements StartGOLHandler{
 			gamePad.startGame();
 		}
 	}
-	
+
 	private GameRule getSelectedGameRule() {
 		String ruleName = startGui.getSelectedGameRule();
 		if (ruleName.equals("Game of Life")) {
@@ -85,5 +85,4 @@ public class StartGOL implements StartGOLHandler{
 		}
 	}
 
-	
 }
