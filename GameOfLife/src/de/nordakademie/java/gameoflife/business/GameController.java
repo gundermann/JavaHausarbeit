@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
+import de.nordakademie.java.gameoflife.gui.GameFinishedGui;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class GameController implements Runnable {
@@ -137,6 +138,7 @@ public class GameController implements Runnable {
 			// System.exit(0);
 			// }
 		}
+		GameFinishedGui finish = new GameFinishedGui();
 	}
 
 	private long getSettedTime() {
