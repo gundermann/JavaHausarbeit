@@ -7,7 +7,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import de.nordakademie.java.gameoflife.business.CellGrid;
-import de.nordakademie.java.gameoflife.business.GamePad;
+import de.nordakademie.java.gameoflife.business.GameController;
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
 import de.nordakademie.java.gameoflife.business.rules.border.PacmanStyle;
@@ -21,11 +21,12 @@ import de.nordakademie.java.gameoflife.constants.ErrorTexts;
 import de.nordakademie.java.gameoflife.gui.ErrorGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
+import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 
 public class StartGOL implements StartGOLHandler{
 	private StartMenuGui startGui;
 	private int[][] cellArray;
-	private GamePad gamePad;
+	private GameController gamePad;
 	
 	public static void main(String[] args) {
 		new StartGOL();
@@ -54,13 +55,16 @@ public class StartGOL implements StartGOLHandler{
 	
 	public void handleStartButtonPressedEvent(){
 		if (cellArray != null) {
+			
+			GameFieldGui gameField = new GameFieldGui();
 
-			gamePad = new GamePad(new CellGrid(cellArray),
+			gamePad = new GameController(new CellGrid(cellArray),
 					getSelectedGameRule(), getSelectedBorderRule());
-			gamePad.startGame();
+			gamePad.setGameControlHandler(gameField);
+			new Thread(gamePad).start();
 		}
 	}
-	
+	//TODO:3 Positionen zu ändern für Regel hinzufügen
 	private GameRule getSelectedGameRule() {
 		String ruleName = startGui.getSelectedGameRule();
 		if (ruleName.equals("Game of Life")) {
