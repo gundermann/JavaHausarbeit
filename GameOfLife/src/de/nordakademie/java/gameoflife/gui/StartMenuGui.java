@@ -32,8 +32,6 @@ public class StartMenuGui {
 	private JLabel gameChoose;
 	private JLabel borderChoose;
 	private JLabel gameConstructions;
-	private JButton explaneGameRules;
-	private JButton explaneBorderRules;
 	private StartGOLHandler handler; 
 	
 
@@ -116,9 +114,7 @@ public class StartMenuGui {
 		gameChooseOptions.add(fileUploadButton);
 		gameChooseOptions.add(gameConstructions);
 		gameChooseOptions.add(gameChoose);
-		gameChooseOptions.add(explaneGameRules);
 		gameChooseOptions.add(borderChoose);
-		gameChooseOptions.add(explaneBorderRules);
 		gameChooseOptions.add(chooseGameRule);
 		gameChooseOptions.add(chooseBorderRule);
 		return gameChooseOptions;
@@ -131,22 +127,12 @@ public class StartMenuGui {
 	}
 
 	private void initGameChooseOptionButtons() {
-		explaneGameRules = new JButton("?");
-		gameChooseOptionLayout
-				.setConstraints(explaneGameRules, set(4, 2, 0, 1));
-
-		explaneBorderRules = new JButton("?");
-		gameChooseOptionLayout.setConstraints(explaneBorderRules,
-				set(4, 3, 0, 1));
-
 		fileUploadButton = new JButton("Datei hochladen ...");
 		fileUploadButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setFileUploadPathText(handler.handleFileUplod());
-				
-
 			}
 		});
 		gameChooseOptionLayout
