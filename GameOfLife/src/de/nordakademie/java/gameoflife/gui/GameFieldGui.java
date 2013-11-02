@@ -74,7 +74,7 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		menuBar = new JMenuBar();
 		options = new JMenu("Spieloptionen");
 		closeItem = new JMenuItem("Beenden");
-		generationChangeLabel = new JLabel("Dauer Generationswechsel:");
+		generationChangeLabel = new JLabel("Geschwindigkeit:");
 		highspeedLabel = new JLabel("schnellstmöglich");
 		oneSecondLabel = new JLabel("1sek");
 		cellGenerationTitleLabel = new JLabel("Zellengeneration: ");
