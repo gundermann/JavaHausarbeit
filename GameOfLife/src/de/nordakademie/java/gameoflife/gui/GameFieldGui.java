@@ -16,32 +16,17 @@ import de.nordakademie.java.gameoflife.business.GameFieldGuiHandler;
 
 public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
-	private int cellGeneration;
+	private int cellGeneration =1;
 	GameFieldPanel gameFieldPanel;
+	private JLabel cellGenerationLabel = new JLabel();
 
 	public GameFieldGui() {
 		setTitle("Game Of Life");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 
-		cellGeneration = 1;
-
 		setWindowIntoScreenCenter();
-
-		
-		//gameFieldPanel.updateCellArray(cellsArray);
-		//gameFieldPanel.setPreferredSize(getDimension(cellsArray));
-
-		// JScrollPane gameFieldScrollPane = new JScrollPane();
-		// gameFieldScrollPane.setViewportView(gameFieldPanel);
-		// gameFieldScrollPane.setVisible(true);
-		//
-		// add(gameFieldScrollPane, BorderLayout.CENTER);
-		
 		add(createJMenuBar(), BorderLayout.NORTH);
-		//pack();
-		//setVisible(true);
-
 	}
 
 	private Dimension getDimension(Cell[][] cellsArray) {
@@ -64,6 +49,8 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		}
 		else{
 		gameFieldPanel.updateCellArray(currentCellArray);
+		cellGeneration++;
+		cellGenerationLabel.setText(cellGeneration +"");
 		repaint();
 		}
 	}
@@ -78,7 +65,11 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 				"     Dauer Generationswechsel: schnellstmöglich "));
 		menuBar.add(createSpeedChooser());
 		menuBar.add(new JLabel(" 1sek   "));
-		menuBar.add(new JLabel("Zellengeneration: " + cellGeneration + " "));
+		menuBar.add(new JLabel("Zellengeneration: "));
+		
+		cellGenerationLabel.setText(cellGeneration +"");
+		
+		menuBar.add(cellGenerationLabel);
 
 		return menuBar;
 	}
@@ -91,10 +82,6 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		return speedChooser;
 	}
 
-	public void increaseGeneration() {
-		cellGeneration++;
-		gameFieldPanel.repaint();
-	}
 
 	private void setWindowIntoScreenCenter() {
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();

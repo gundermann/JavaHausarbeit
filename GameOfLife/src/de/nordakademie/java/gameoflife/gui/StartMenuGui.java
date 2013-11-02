@@ -73,12 +73,18 @@ public class StartMenuGui {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				handler.handleStartButtonPressedEvent();
+				closeStartGui();
 			}
 		});
 
 		buttonPanel.add(startButton);
 		buttonPanel.add(closeButton);
 		return buttonPanel;
+	}
+	
+	private void closeStartGui(){
+		//TODO: gibt es eine bessere Variante?
+		frame.setVisible(false);
 	}
 
 	public String getSelectedGameRule(){
@@ -170,8 +176,7 @@ public class StartMenuGui {
 		chooseBorderRule = new JComboBox<String>();
 		chooseBorderRule.addItem("Wall of Death");
 		chooseBorderRule.addItem("Pacman Sytle");
-		gameChooseOptionLayout
-				.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
+		gameChooseOptionLayout.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
 	}
 	
 	public void setFileUploadPathText(String path) {
