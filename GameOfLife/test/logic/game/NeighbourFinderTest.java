@@ -131,6 +131,26 @@ public class NeighbourFinderTest {
 	}
 
 	@Test
+	public void shouldFindYourselfAsNeighbours() {
+		cellGrid = Mockito.mock(CellGrid.class);
+		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
+		Mockito.when(cellGrid.getRowOfCell(cell1)).thenReturn(0);
+		Mockito.when(cellGrid.getColumnOfCell(cell1)).thenReturn(0);
+		Mockito.when(cellGrid.getColumnCount()).thenReturn(1);
+		Mockito.when(cellGrid.getRowCount()).thenReturn(1);
+
+		Cell cell = cellGrid.getCellAtPosition(0, 0);
+		List<Cell> neighbours = new ArrayList<>();
+		neighbourFinder = new NeighbourFinder(false);
+		neighbours.addAll(neighbourFinder.getNeighbours(cell, cellGrid));
+
+		assertTrue(neighbours.size() == 8);
+		for (Cell neighbour : neighbours) {
+			assertTrue(neighbour == cell1);
+		}
+	}
+
+	@Test
 	public void shouldFindNeighboursOnTheBorderWithWallOfDeath() {
 		Cell cell = cellGrid.getCellAtPosition(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
