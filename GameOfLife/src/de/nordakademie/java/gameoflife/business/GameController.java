@@ -9,13 +9,16 @@ import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class GameController implements Runnable {
 
-	// TODO Sichbarkeiten bestimmter Methoden
 	private final GameRule gameRules;
 	private final BorderRule borderRules;
 	private CellGrid cellGrid;
 	private int generation = 1;
 	private GameFieldGuiHandler gameControlHandler;
 	private NeighbourFinder neighbourFinder;
+
+	// Zu Testzwecken
+	// public static int FRAME = 0;
+	// public static long STARTTIME;
 
 	public GameController(final CellGrid cellGrid, GameRule gameRules,
 			BorderRule borderRules) {
@@ -41,9 +44,11 @@ public class GameController implements Runnable {
 
 	private void checkRulesForBearingAndMarkCell(Cell cell,
 			List<Cell> cellsToBear) {
-		int neighbours = countLivingNeighbours(cell);
-		if (gameRules.isCellBorn(neighbours)) {
-			cellsToBear.add(cell);
+		if (!cell.isAlive()) {
+			int neighbours = countLivingNeighbours(cell);
+			if (gameRules.isCellBorn(neighbours)) {
+				cellsToBear.add(cell);
+			}
 		}
 	}
 
@@ -113,19 +118,25 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
+		// STARTTIME = System.currentTimeMillis();
 		while (isCellGridChanging()) {
 			try {
-				Thread.sleep(getSettetTime());
+				Thread.sleep(getSettedTime());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray());
 			calculateNextGeneration();
+			// FRAME++;
+			//
+			// if (System.currentTimeMillis() - STARTTIME > 1000) {
+			// System.out.println(FRAME);
+			// System.exit(0);
+			// }
 		}
-
 	}
 
-	private long getSettetTime() {
+	private long getSettedTime() {
 		return (1000 * gameControlHandler.getSliderPosition()) / 100;
 	}
 

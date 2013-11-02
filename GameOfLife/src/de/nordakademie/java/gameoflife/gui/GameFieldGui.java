@@ -2,13 +2,13 @@ package de.nordakademie.java.gameoflife.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.business.Cell;
@@ -34,12 +34,6 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
 		// setWindowIntoScreenCenter();
 
-		// JScrollPane gameFieldScrollPane = new JScrollPane();
-		// gameFieldScrollPane.setViewportView(gameFieldPanel);
-		// gameFieldScrollPane.setVisible(true);
-		//
-		// add(gameFieldScrollPane, BorderLayout.CENTER);
-
 		add(createJMenuBar(), BorderLayout.NORTH);
 	}
 
@@ -59,6 +53,12 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 			gameFieldPanel = new GameFieldPanel(currentCellArray);
 			add(gameFieldPanel, BorderLayout.CENTER);
 			gameFieldPanel.setPreferredSize(getDimension(currentCellArray));
+
+			JScrollPane gameFieldScrollPane = new JScrollPane();
+			gameFieldScrollPane.setViewportView(gameFieldPanel);
+			gameFieldScrollPane.setVisible(true);
+			add(gameFieldScrollPane, BorderLayout.CENTER);
+
 			pack();
 			setVisible(true);
 		} else {
@@ -96,12 +96,6 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		speedChooser.setMaximum(100);
 		speedChooser.setValue(50);
 		return speedChooser;
-	}
-
-	private void setWindowIntoScreenCenter() {
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		setLocation((d.width - getSize().width) / 2,
-				(d.height - getSize().height) / 2);
 	}
 
 	@Override

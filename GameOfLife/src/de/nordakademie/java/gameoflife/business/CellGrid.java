@@ -8,6 +8,7 @@ public class CellGrid {
 	private int columns;
 	private int rows;
 	private Cell[][] cellArray;
+	private List<Cell> cellList;
 
 	public CellGrid(int[][] initinalArray) {
 		rows = initinalArray.length;
@@ -19,6 +20,17 @@ public class CellGrid {
 				checkSetupAndBearCell(currentSetup, row, column);
 			}
 		}
+		cellList = converCellArrayToList();
+	}
+
+	private List<Cell> converCellArrayToList() {
+		List<Cell> cells = new ArrayList<Cell>();
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
+				cells.add(getCellAtPosition(row, column));
+			}
+		}
+		return cells;
 	}
 
 	private void checkSetupAndBearCell(int currentSetup, int row, int column) {
@@ -54,13 +66,7 @@ public class CellGrid {
 	}
 
 	public List<Cell> getCellsAsList() {
-		List<Cell> cells = new ArrayList<Cell>();
-		for (int row = 0; row < rows; row++) {
-			for (int column = 0; column < columns; column++) {
-				cells.add(getCellAtPosition(row, column));
-			}
-		}
-		return cells;
+		return cellList;
 	}
 
 	public Cell getCellAtPosition(int row, int column) {
