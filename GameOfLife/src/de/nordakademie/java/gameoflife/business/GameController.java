@@ -26,6 +26,9 @@ public class GameController implements Runnable {
 	}
 
 	private boolean isCellGridChanging() {
+		if(findCellsToBear().isEmpty() && findCellsToKill().isEmpty()){
+			return false;
+		}
 		return true;
 	}
 
