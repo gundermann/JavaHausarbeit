@@ -34,19 +34,19 @@ public class CellGridTest {
 
 		Cell[][] cellArray = cellGrid.getCellArray();
 
-		assertTrue(cellArray[1][2] == cellGrid.getCellAtCoordinates(y, x));
+		assertTrue(cellArray[1][2] == cellGrid.getCellAtPosition(y, x));
 
 		x = 4;
 		y = 4;
 
-		assertNull(cellGrid.getCellAtCoordinates(y, x));
+		assertNull(cellGrid.getCellAtPosition(y, x));
 	}
 
 	@Test
 	public void cellsInitinalized() {
 		for (int row = 0; row < cellGrid.getRowCount(); row++) {
 			for (int column = 0; column < cellGrid.getColumnCount(); column++) {
-				assertNotNull(cellGrid.getCellAtCoordinates(row, column));
+				assertNotNull(cellGrid.getCellAtPosition(row, column));
 			}
 		}
 
@@ -61,12 +61,12 @@ public class CellGridTest {
 
 	@Test
 	public void shouldGetRightRowOfCell() {
-		Cell cell1 = cellGrid.getCellAtCoordinates(0, 0);
-		Cell cell2 = cellGrid.getCellAtCoordinates(0, 2);
-		Cell cell3 = cellGrid.getCellAtCoordinates(1, 0);
-		Cell cell4 = cellGrid.getCellAtCoordinates(1, 2);
-		Cell cell5 = cellGrid.getCellAtCoordinates(2, 0);
-		Cell cell6 = cellGrid.getCellAtCoordinates(2, 2);
+		Cell cell1 = cellGrid.getCellAtPosition(0, 0);
+		Cell cell2 = cellGrid.getCellAtPosition(0, 2);
+		Cell cell3 = cellGrid.getCellAtPosition(1, 0);
+		Cell cell4 = cellGrid.getCellAtPosition(1, 2);
+		Cell cell5 = cellGrid.getCellAtPosition(2, 0);
+		Cell cell6 = cellGrid.getCellAtPosition(2, 2);
 
 		assertTrue(cellGrid.getRowOfCell(cell1) == 0);
 		assertTrue(cellGrid.getRowOfCell(cell2) == 0);
@@ -79,12 +79,12 @@ public class CellGridTest {
 
 	@Test
 	public void shouldGetRightColumnOfCell() {
-		Cell cell1 = cellGrid.getCellAtCoordinates(0, 0);
-		Cell cell2 = cellGrid.getCellAtCoordinates(0, 0);
-		Cell cell3 = cellGrid.getCellAtCoordinates(1, 1);
-		Cell cell4 = cellGrid.getCellAtCoordinates(1, 1);
-		Cell cell5 = cellGrid.getCellAtCoordinates(2, 2);
-		Cell cell6 = cellGrid.getCellAtCoordinates(2, 2);
+		Cell cell1 = cellGrid.getCellAtPosition(0, 0);
+		Cell cell2 = cellGrid.getCellAtPosition(0, 0);
+		Cell cell3 = cellGrid.getCellAtPosition(1, 1);
+		Cell cell4 = cellGrid.getCellAtPosition(1, 1);
+		Cell cell5 = cellGrid.getCellAtPosition(2, 2);
+		Cell cell6 = cellGrid.getCellAtPosition(2, 2);
 
 		assertTrue(cellGrid.getColumnOfCell(cell1) == 0);
 		assertTrue(cellGrid.getColumnOfCell(cell2) == 0);
@@ -111,8 +111,8 @@ public class CellGridTest {
 
 	@Test
 	public void shouldKillAndBearCellAtPosition() {
-		Cell cell1 = cellGrid.getCellAtCoordinates(0, 1);
-		Cell cell2 = cellGrid.getCellAtCoordinates(1, 1);
+		Cell cell1 = cellGrid.getCellAtPosition(0, 1);
+		Cell cell2 = cellGrid.getCellAtPosition(1, 1);
 
 		cellGrid.bearCell(cell1);
 		cellGrid.bearCell(cell2);

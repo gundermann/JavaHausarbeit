@@ -94,15 +94,15 @@ public class GamePadTest {
 	}
 
 	private void initGetCellAtPosition() {
-		Mockito.when(cellGrid.getCellAtCoordinates(0, 0)).thenReturn(cell1);
-		Mockito.when(cellGrid.getCellAtCoordinates(0, 1)).thenReturn(cell2);
-		Mockito.when(cellGrid.getCellAtCoordinates(0, 2)).thenReturn(cell3);
-		Mockito.when(cellGrid.getCellAtCoordinates(1, 0)).thenReturn(cell4);
-		Mockito.when(cellGrid.getCellAtCoordinates(1, 1)).thenReturn(cell5);
-		Mockito.when(cellGrid.getCellAtCoordinates(1, 2)).thenReturn(cell6);
-		Mockito.when(cellGrid.getCellAtCoordinates(2, 0)).thenReturn(cell7);
-		Mockito.when(cellGrid.getCellAtCoordinates(2, 1)).thenReturn(cell8);
-		Mockito.when(cellGrid.getCellAtCoordinates(2, 2)).thenReturn(cell9);
+		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
+		Mockito.when(cellGrid.getCellAtPosition(0, 1)).thenReturn(cell2);
+		Mockito.when(cellGrid.getCellAtPosition(0, 2)).thenReturn(cell3);
+		Mockito.when(cellGrid.getCellAtPosition(1, 0)).thenReturn(cell4);
+		Mockito.when(cellGrid.getCellAtPosition(1, 1)).thenReturn(cell5);
+		Mockito.when(cellGrid.getCellAtPosition(1, 2)).thenReturn(cell6);
+		Mockito.when(cellGrid.getCellAtPosition(2, 0)).thenReturn(cell7);
+		Mockito.when(cellGrid.getCellAtPosition(2, 1)).thenReturn(cell8);
+		Mockito.when(cellGrid.getCellAtPosition(2, 2)).thenReturn(cell9);
 	}
 
 	private void initGetColumnOfCell() {

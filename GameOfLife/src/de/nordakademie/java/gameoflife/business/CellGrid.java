@@ -38,7 +38,7 @@ public class CellGrid {
 	}
 
 	public boolean isCellAtPositionAlive(int row, int column) {
-		return getCellAtCoordinates(row, column).isAlive();
+		return getCellAtPosition(row, column).isAlive();
 	}
 
 	public int getColumnCount() {
@@ -57,17 +57,16 @@ public class CellGrid {
 		List<Cell> cells = new ArrayList<Cell>();
 		for (int row = 0; row < rows; row++) {
 			for (int column = 0; column < columns; column++) {
-				cells.add(getCellAtCoordinates(row, column));
+				cells.add(getCellAtPosition(row, column));
 			}
 		}
 		return cells;
 	}
 
-	// TODO Koordinaten umdrehen
-	public Cell getCellAtCoordinates(int y, int x) {
+	public Cell getCellAtPosition(int row, int column) {
 		Cell cellAtPosition;
 		try {
-			cellAtPosition = cellArray[y][x];
+			cellAtPosition = cellArray[row][column];
 		} catch (ArrayIndexOutOfBoundsException borderOverflow) {
 			cellAtPosition = null;
 		}

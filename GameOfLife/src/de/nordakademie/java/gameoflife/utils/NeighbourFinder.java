@@ -126,7 +126,7 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbour(int row, int column) {
-		Cell neighbour = cellGrid.getCellAtCoordinates(row, column);
+		Cell neighbour = cellGrid.getCellAtPosition(row, column);
 		return neighbour;
 	}
 }
