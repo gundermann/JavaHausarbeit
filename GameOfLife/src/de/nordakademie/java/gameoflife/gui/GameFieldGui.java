@@ -16,6 +16,7 @@ import de.nordakademie.java.gameoflife.business.GameFieldGuiHandler;
 
 public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
+	private int cellGeneration = 1;
 	GameFieldPanel gameFieldPanel;
 	JMenuBar menuBar;
 	JMenu options;
@@ -63,6 +64,8 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 			setVisible(true);
 		} else {
 			gameFieldPanel.updateCellArray(currentCellArray);
+			cellGeneration++;
+			currentCellGenerationLabel.setText(cellGeneration + "");
 			repaint();
 		}
 	}
@@ -86,7 +89,6 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		menuBar.add(oneSecondLabel);
 		menuBar.add(cellGenerationTitleLabel);
 		menuBar.add(currentCellGenerationLabel);
-
 		return menuBar;
 	}
 

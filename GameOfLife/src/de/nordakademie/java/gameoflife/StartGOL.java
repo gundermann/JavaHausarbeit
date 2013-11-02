@@ -23,7 +23,7 @@ import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
 
 public class StartGOL implements StartGOLHandler {
-	private StartMenuGui startGui;
+	private final StartMenuGui startGui;
 	private int[][] cellArray;
 	private GameController gamePad;
 
@@ -57,11 +57,14 @@ public class StartGOL implements StartGOLHandler {
 		if (cellArray != null) {
 
 			GameFieldGui gameField = new GameFieldGui();
-
 			gamePad = new GameController(new CellGrid(cellArray),
 					getSelectedGameRule(), getSelectedBorderRule());
 			gamePad.setGameControlHandler(gameField);
 			new Thread(gamePad).start();
+		} else {
+			int errorCode;
+			errorCode = ErrorCodes.No_File_Found;
+			new ErrorGui(ErrorTexts.getTextToErrorCode(errorCode));
 		}
 	}
 
