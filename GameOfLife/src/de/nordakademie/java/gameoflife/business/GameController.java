@@ -115,15 +115,18 @@ public class GameController implements Runnable {
 	public void run() {
 		while (isCellGridChanging()) {
 			try {
-				Thread.sleep(400);
+				Thread.sleep(getSettetTime());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-
 			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray());
 			calculateNextGeneration();
 		}
 
+	}
+
+	private long getSettetTime() {
+		return (1000 * gameControlHandler.getSliderPosition()) / 100;
 	}
 
 }

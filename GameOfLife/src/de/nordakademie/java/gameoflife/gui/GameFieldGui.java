@@ -16,32 +16,31 @@ import de.nordakademie.java.gameoflife.business.GameFieldGuiHandler;
 
 public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
-	private int cellGeneration;
 	GameFieldPanel gameFieldPanel;
+	JMenuBar menuBar;
+	JMenu options;
+	JMenuItem closeItem;
+	JLabel generationChangeLabel;
+	JSlider speedChooser;
+	private JLabel highspeedLabel;
+	private JLabel oneSecondLabel;
+	private JLabel cellGenerationTitleLabel;
+	private JLabel currentCellGenerationLabel;
 
 	public GameFieldGui() {
 		setTitle("Game Of Life");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 
-		cellGeneration = 1;
-
-		setWindowIntoScreenCenter();
-
-		
-		//gameFieldPanel.updateCellArray(cellsArray);
-		//gameFieldPanel.setPreferredSize(getDimension(cellsArray));
+		// setWindowIntoScreenCenter();
 
 		// JScrollPane gameFieldScrollPane = new JScrollPane();
 		// gameFieldScrollPane.setViewportView(gameFieldPanel);
 		// gameFieldScrollPane.setVisible(true);
 		//
 		// add(gameFieldScrollPane, BorderLayout.CENTER);
-		
-		add(createJMenuBar(), BorderLayout.NORTH);
-		//pack();
-		//setVisible(true);
 
+		add(createJMenuBar(), BorderLayout.NORTH);
 	}
 
 	private Dimension getDimension(Cell[][] cellsArray) {
@@ -54,46 +53,49 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize));
 	}
 
+	@Override
 	public void updateGameFieldGui(Cell[][] currentCellArray) {
-		if(gameFieldPanel == null){
+		if (gameFieldPanel == null) {
 			gameFieldPanel = new GameFieldPanel(currentCellArray);
 			add(gameFieldPanel, BorderLayout.CENTER);
 			gameFieldPanel.setPreferredSize(getDimension(currentCellArray));
 			pack();
 			setVisible(true);
-		}
-		else{
-		gameFieldPanel.updateCellArray(currentCellArray);
-		repaint();
+		} else {
+			gameFieldPanel.updateCellArray(currentCellArray);
+			repaint();
 		}
 	}
 
 	private JMenuBar createJMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-		JMenu options = new JMenu("Spieloptionen");
+		menuBar = new JMenuBar();
+		options = new JMenu("Spieloptionen");
+		closeItem = new JMenuItem("Beenden");
+		generationChangeLabel = new JLabel("Dauer Generationswechsel:");
+		highspeedLabel = new JLabel("schnellstmÃ¶glich");
+		oneSecondLabel = new JLabel("1sek");
+		cellGenerationTitleLabel = new JLabel("Zellengeneration: ");
+		currentCellGenerationLabel = new JLabel();
 
-		options.add(new JMenuItem("Beenden"));
+		options.add(closeItem);
 		menuBar.add(options);
-		menuBar.add(new JLabel(
-				"     Dauer Generationswechsel: schnellstmöglich "));
+		menuBar.add(generationChangeLabel);
+		menuBar.add(highspeedLabel);
 		menuBar.add(createSpeedChooser());
-		menuBar.add(new JLabel(" 1sek   "));
-		menuBar.add(new JLabel("Zellengeneration: " + cellGeneration + " "));
+		menuBar.add(oneSecondLabel);
+		menuBar.add(oneSecondLabel);
+		menuBar.add(cellGenerationTitleLabel);
+		menuBar.add(currentCellGenerationLabel);
 
 		return menuBar;
 	}
 
 	private JSlider createSpeedChooser() {
-		JSlider speedChooser = new JSlider();
+		speedChooser = new JSlider();
 		speedChooser.setMinimum(0);
 		speedChooser.setMaximum(100);
-		speedChooser.setMajorTickSpacing(5);
+		speedChooser.setValue(50);
 		return speedChooser;
-	}
-
-	public void increaseGeneration() {
-		cellGeneration++;
-		gameFieldPanel.repaint();
 	}
 
 	private void setWindowIntoScreenCenter() {
@@ -104,9 +106,7 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
 	@Override
 	public long getSliderPosition() {
-		// TODO Auto-generated method stub
-		return 0;
+		return speedChooser.getValue();
 	}
-
 
 }
