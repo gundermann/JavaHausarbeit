@@ -10,5 +10,6 @@ public abstract class ErrorCodes {
 	public static final int Exception_While_File_Readed = 5;
 	public static final int Filechoosing_Was_Aborted = 6;
 	public static final int Not_All_Lines_Have_Equal_Length = 7;
+	public static final int No_File_Found = 8;
 
 }

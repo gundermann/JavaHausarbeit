@@ -21,6 +21,9 @@ public class ErrorTexts {
 		if (errorCode == ErrorCodes.Not_All_Lines_Have_Equal_Length) {
 			return "Nicht alle Zeilen in der Datei sind gleich lang";
 		}
+		if (errorCode == ErrorCodes.No_File_Found) {
+			return "Es wurde keine Datei gefunden";
+		}
 		return "";
 	}
 
