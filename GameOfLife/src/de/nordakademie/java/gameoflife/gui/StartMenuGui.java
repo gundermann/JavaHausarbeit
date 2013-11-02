@@ -10,30 +10,16 @@ import java.awt.Insets;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-import de.nordakademie.java.gameoflife.business.CellGrid;
-import de.nordakademie.java.gameoflife.business.GamePad;
-import de.nordakademie.java.gameoflife.business.rules.BorderRule;
-import de.nordakademie.java.gameoflife.business.rules.GameRule;
-import de.nordakademie.java.gameoflife.business.rules.border.PacmanStyle;
-import de.nordakademie.java.gameoflife.business.rules.border.WallOfDeath;
-import de.nordakademie.java.gameoflife.business.rules.game.GameOfLife;
-import de.nordakademie.java.gameoflife.business.rules.game.GameWithoutDeath;
-import de.nordakademie.java.gameoflife.business.rules.game.HighLife;
-import de.nordakademie.java.gameoflife.business.rules.game.ThreeOrFourLife;
-import de.nordakademie.java.gameoflife.constants.ErrorCodes;
-import de.nordakademie.java.gameoflife.constants.ErrorTexts;
-import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
+import de.nordakademie.java.gameoflife.StartGOLHandler;
 
 public class StartMenuGui {
 
@@ -48,7 +34,8 @@ public class StartMenuGui {
 	private JLabel gameConstructions;
 	private JButton explaneGameRules;
 	private JButton explaneBorderRules;
-	private int[][] cellArray;
+	private StartGOLHandler handler; 
+	
 
 	public StartMenuGui() {
 		frame = new JFrame("Game of Life");
@@ -85,13 +72,7 @@ public class StartMenuGui {
 		startButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				if (cellArray != null) {
-
-					GamePad gamePad = new GamePad(new CellGrid(cellArray),
-							getSelectedGameRule(), getSelectedBorderRule());
-					frame.dispose();
-					gamePad.startGame();
-				}
+				handler.handleStartButtonPressedEvent();
 			}
 		});
 
@@ -100,28 +81,12 @@ public class StartMenuGui {
 		return buttonPanel;
 	}
 
-	private GameRule getSelectedGameRule() {
-		String ruleName = (String) chooseGameRule.getSelectedItem();
-		if (ruleName.equals("Game of Life")) {
-			return new GameOfLife();
-		}
-		if (ruleName.equals("Game without Death")) {
-			return new GameWithoutDeath();
-		}
-		if (ruleName.equals("Three or four to life")) {
-			return new ThreeOrFourLife();
-		} else {
-			return new HighLife();
-		}
+	public String getSelectedGameRule(){
+		return chooseGameRule.getSelectedItem().toString();
 	}
-
-	private BorderRule getSelectedBorderRule() {
-		String ruleName = (String) chooseBorderRule.getSelectedItem();
-		if (ruleName.equals("Wall of Death")) {
-			return new WallOfDeath();
-		} else {
-			return new PacmanStyle();
-		}
+	
+	public String getSelectedBorderRule(){
+		return chooseBorderRule.getSelectedItem().toString();
 	}
 
 	private JLabel initHeadline() {
@@ -173,16 +138,9 @@ public class StartMenuGui {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.showOpenDialog(frame);
-				File file = chooser.getSelectedFile();
-				int errorCode = FileLoader.readFileAndReturnErrorCode(file);
-				if (errorCode == ErrorCodes.No_Error) {
-					fileUploadPath.setText(file.getName());
-					cellArray = FileLoader.getCells();
-				} else if (errorCode != ErrorCodes.Filechoosing_Was_Aborted) {
-					new ErrorGui(ErrorTexts.getTextToErrorCode(errorCode));
-				}
+				setFileUploadPathText(handler.handleFileUplod());
+				
+
 			}
 		});
 		gameChooseOptionLayout
@@ -215,6 +173,10 @@ public class StartMenuGui {
 		gameChooseOptionLayout
 				.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
 	}
+	
+	public void setFileUploadPathText(String path) {
+		fileUploadPath.setText(path);
+	}
 
 	public JComboBox<String> getChooseGameRule() {
 		return chooseGameRule;
@@ -222,10 +184,6 @@ public class StartMenuGui {
 
 	public JComboBox<String> getChooseBorderRule() {
 		return chooseBorderRule;
-	}
-
-	public int[][] getCellArray() {
-		return cellArray;
 	}
 
 	private static GridBagConstraints set(int gridx, int gridy, int fill,
@@ -238,5 +196,9 @@ public class StartMenuGui {
 		dummy.fill = GridBagConstraints.HORIZONTAL;
 		dummy.gridwidth = width;
 		return dummy;
+	}
+	
+	public void setHandler(StartGOLHandler startGOLHandler){
+		handler = startGOLHandler;
 	}
 }

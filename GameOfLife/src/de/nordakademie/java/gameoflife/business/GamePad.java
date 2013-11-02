@@ -24,6 +24,7 @@ public class GamePad {
 		neighbourFinder = new NeighbourFinder(borderRules.isGridBorderDead());
 		final GameFieldGui gameField = new GameFieldGui(cellGrid.getCellArray());
 		gameField.repaint();
+		// machen wir anders
 		gameThread = new Runnable() {
 
 			@Override
