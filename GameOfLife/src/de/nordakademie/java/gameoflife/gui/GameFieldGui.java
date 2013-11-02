@@ -12,13 +12,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.business.GameFieldGuiHandler;
 
-public class GameFieldGui extends JFrame {
+public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
 	private int cellGeneration;
 	GameFieldPanel gameFieldPanel;
 
-	public GameFieldGui(Cell[][] cellsArray) {
+	public GameFieldGui() {
 		setTitle("Game Of Life");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
@@ -27,19 +28,19 @@ public class GameFieldGui extends JFrame {
 
 		setWindowIntoScreenCenter();
 
-		gameFieldPanel = new GameFieldPanel();
-		gameFieldPanel.updateCellArray(cellsArray);
-		gameFieldPanel.setPreferredSize(getDimension(cellsArray));
+		
+		//gameFieldPanel.updateCellArray(cellsArray);
+		//gameFieldPanel.setPreferredSize(getDimension(cellsArray));
 
 		// JScrollPane gameFieldScrollPane = new JScrollPane();
 		// gameFieldScrollPane.setViewportView(gameFieldPanel);
 		// gameFieldScrollPane.setVisible(true);
 		//
 		// add(gameFieldScrollPane, BorderLayout.CENTER);
-		add(gameFieldPanel, BorderLayout.CENTER);
+		
 		add(createJMenuBar(), BorderLayout.NORTH);
-		pack();
-		setVisible(true);
+		//pack();
+		//setVisible(true);
 
 	}
 
@@ -53,9 +54,18 @@ public class GameFieldGui extends JFrame {
 		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize));
 	}
 
-	public void update(Cell[][] currentCellArray) {
+	public void updateGameFieldGui(Cell[][] currentCellArray) {
+		if(gameFieldPanel == null){
+			gameFieldPanel = new GameFieldPanel(currentCellArray);
+			add(gameFieldPanel, BorderLayout.CENTER);
+			gameFieldPanel.setPreferredSize(getDimension(currentCellArray));
+			pack();
+			setVisible(true);
+		}
+		else{
 		gameFieldPanel.updateCellArray(currentCellArray);
 		repaint();
+		}
 	}
 
 	private JMenuBar createJMenuBar() {
@@ -91,5 +101,12 @@ public class GameFieldGui extends JFrame {
 		setLocation((d.width - getSize().width) / 2,
 				(d.height - getSize().height) / 2);
 	}
+
+	@Override
+	public long getSliderPosition() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 
 }

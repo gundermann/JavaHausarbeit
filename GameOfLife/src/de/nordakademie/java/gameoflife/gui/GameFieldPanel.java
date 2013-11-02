@@ -11,7 +11,11 @@ class GameFieldPanel extends JPanel {
 
 	private Cell[][] cellsArray;
 	private final int cellDrawingSize = 10;
-
+	
+	public GameFieldPanel(Cell[][] currentCellArray){
+		cellsArray = currentCellArray;
+	}
+	
 	public void updateCellArray(Cell[][] currentCellArray) {
 		cellsArray = currentCellArray;
 	}

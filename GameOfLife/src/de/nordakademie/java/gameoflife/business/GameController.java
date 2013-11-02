@@ -5,45 +5,28 @@ import java.util.List;
 
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
-import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
-public class GamePad {
+public class GameController implements Runnable {
 
+	// TODO Sichbarkeiten bestimmter Methoden
 	private final GameRule gameRules;
 	private final BorderRule borderRules;
-	private final CellGrid cellGrid;
+	private CellGrid cellGrid;
 	private int generation = 1;
-	private final Runnable gameThread;
-	private final NeighbourFinder neighbourFinder;
+	private GameFieldGuiHandler gameControlHandler;
+	private NeighbourFinder neighbourFinder;
 
-	public GamePad(CellGrid cellGrid, GameRule gameRules, BorderRule borderRules) {
+	public GameController(final CellGrid cellGrid, GameRule gameRules,
+			BorderRule borderRules) {
 		this.cellGrid = cellGrid;
 		this.gameRules = gameRules;
 		this.borderRules = borderRules;
 		neighbourFinder = new NeighbourFinder(borderRules.isGridBorderDead());
-		final GameFieldGui gameField = new GameFieldGui(cellGrid.getCellArray());
-		gameField.repaint();
-		// machen wir anders
-		gameThread = new Runnable() {
-
-			@Override
-			public void run() {
-				while (gameField.isVisible()) {
-					try {
-						Thread.sleep(400);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					calculateNextGeneration();
-					gameField.update(GamePad.this.cellGrid.getCellArray());
-				}
-			}
-		};
 	}
 
-	public void startGame() {
-		new Thread(gameThread).start();
+	private boolean isCellGridChanging() {
+		return true;
 	}
 
 	public List<Cell> findCellsToBear() {
@@ -122,6 +105,25 @@ public class GamePad {
 
 	public BorderRule getBorderRules() {
 		return borderRules;
+	}
+
+	public void setGameControlHandler(GameFieldGuiHandler gameFieldGui) {
+		gameControlHandler = gameFieldGui;
+	}
+
+	@Override
+	public void run() {
+		while (isCellGridChanging()) {
+			try {
+				Thread.sleep(400);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray());
+			calculateNextGeneration();
+		}
+
 	}
 
 }

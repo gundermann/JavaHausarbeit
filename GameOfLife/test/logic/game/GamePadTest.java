@@ -11,7 +11,7 @@ import org.mockito.Mockito;
 
 import de.nordakademie.java.gameoflife.business.Cell;
 import de.nordakademie.java.gameoflife.business.CellGrid;
-import de.nordakademie.java.gameoflife.business.GamePad;
+import de.nordakademie.java.gameoflife.business.GameController;
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
 import de.nordakademie.java.gameoflife.business.rules.border.PacmanStyle;
@@ -19,7 +19,7 @@ import de.nordakademie.java.gameoflife.business.rules.game.GameOfLife;
 
 public class GamePadTest {
 
-	GamePad gameControl;
+	GameController gameControl;
 	Integer[][] initinalArray = { { 0, 1, 1, 1 }, { 0, 0, 0, 0 },
 			{ 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 	GameRule gameRules;
@@ -50,7 +50,7 @@ public class GamePadTest {
 		cell8 = Mockito.mock(Cell.class);
 		cell9 = Mockito.mock(Cell.class);
 		initMockedMethod();
-		gameControl = new GamePad(cellGrid, gameRules, borderRules);
+		gameControl = new GameController(cellGrid, gameRules, borderRules);
 	}
 
 	private void initMockedMethod() {
