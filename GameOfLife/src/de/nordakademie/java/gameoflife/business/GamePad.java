@@ -23,6 +23,7 @@ public class GamePad {
 		this.borderRules = borderRules;
 		final GameFieldGui gameField = new GameFieldGui(cellGrid.getCellArray());
 		gameField.repaint();
+		// machen wir anders
 		gameThread = new Runnable() {
 
 			@Override
