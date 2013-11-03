@@ -110,7 +110,6 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
-		STARTTIME = System.currentTimeMillis();
 		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());
@@ -120,12 +119,6 @@ public class GameController implements Runnable {
 			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray());
 			calculateNextGeneration();
 
-			FRAME++;
-
-			// if (System.currentTimeMillis() - STARTTIME > 1000) {
-			// System.out.println(FRAME);
-			// System.exit(0);
-			// }
 		}
 		new GameFinishedGui();
 	}

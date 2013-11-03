@@ -34,7 +34,7 @@ public class CellGrid {
 	}
 
 	private void checkSetupAndBearCell(int currentSetup, int row, int column) {
-		Cell cell = new Cell();
+		Cell cell = new Cell(row, column);
 		if (currentSetup == 1) {
 			bearCell(cell);
 		}

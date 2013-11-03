@@ -12,6 +12,8 @@ public class NeighbourFinder {
 	private boolean isGridBorderDead;
 	private Cell celltoCheck;
 	int[] positionOfCurrentCell;
+	int row;
+	int column;
 	private List<Cell> neighbours = new ArrayList<Cell>();
 
 	public NeighbourFinder(boolean isGridBorderDead) {
@@ -22,7 +24,9 @@ public class NeighbourFinder {
 	public List<Cell> getNeighbours(Cell cell, CellGrid cellGrid) {
 		this.cellGrid = cellGrid;
 		celltoCheck = cell;
-		positionOfCurrentCell = cellGrid.getPositionOfCell(cell);
+		positionOfCurrentCell = cell.getPosition();
+		row = positionOfCurrentCell[0];
+		column = positionOfCurrentCell[1];
 		neighbours.clear();
 
 		neighbours.add(getNeighbourAtNorth(celltoCheck));
@@ -36,15 +40,14 @@ public class NeighbourFinder {
 
 		for (Cell neighbour : neighbours) {
 			if (neighbour == null) {
-				neighbours.set(neighbours.indexOf(neighbour), new Cell());
+				neighbours.set(neighbours.indexOf(neighbour), new Cell(-1, -1));
 			}
 		}
 		return neighbours;
 	}
 
 	private Cell getNeighbourAtNorth(Cell cell) {
-		int row = positionOfCurrentCell[0];
-		int column = positionOfCurrentCell[1];
+		
 		Cell neighbour = getNeighbour(row - 1, column);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -54,20 +57,21 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtNorthEast(Cell cell) {
-		Cell neighbour;
-		Cell neighbourAtNorth = neighbours.get(0);
-		positionOfCurrentCell = cellGrid.getPositionOfCell(neighbourAtNorth);
-		if (neighbourAtNorth != null) {
-			neighbour = getNeighbourAtEast(neighbourAtNorth);
-		} else {
-			neighbour = null;
+		Cell neighbour = getNeighbour(row - 1, column + 1);
+
+		if (neighbour == null && !isGridBorderDead) {
+			neighbour = getNeighbour(row - 1, 0);
+			if(neighbour == null){
+				neighbour = getNeighbour(cellGrid.getRowCount() - 1, column + 1);
+			}
+			if(neighbour == null){
+				neighbour = getNeighbour(cellGrid.getRowCount() - 1, 0);
+			}
 		}
 		return neighbour;
 	}
 
 	private Cell getNeighbourAtEast(Cell cell) {
-		int row = positionOfCurrentCell[0];
-		int column = positionOfCurrentCell[1];
 		Cell neighbour = getNeighbour(row, column + 1);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -77,20 +81,21 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtSouthEast(Cell cell) {
-		Cell neighbour;
-		Cell neighbourAtSouth = neighbours.get(2);
-		positionOfCurrentCell = cellGrid.getPositionOfCell(neighbourAtSouth);
-		if (neighbourAtSouth != null) {
-			neighbour = getNeighbourAtEast(neighbourAtSouth);
-		} else {
-			neighbour = null;
+		Cell neighbour = getNeighbour(row + 1, column + 1);
+
+		if (neighbour == null && !isGridBorderDead) {
+			neighbour = getNeighbour(row + 1, 0);
+			if(neighbour == null){
+				neighbour = getNeighbour(0, column + 1);
+			}
+			if(neighbour == null){
+				neighbour = getNeighbour(0, 0);
+			}
 		}
 		return neighbour;
 	}
 
 	private Cell getNeighbourAtSouth(Cell cell) {
-		int row = positionOfCurrentCell[0];
-		int column = positionOfCurrentCell[1];
 		Cell neighbour = getNeighbour(row + 1, column);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -100,19 +105,21 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtSouthWest(Cell cell) {
-		Cell neighbour;
-		Cell neighbourAtSouth = neighbours.get(2);
-		if (neighbourAtSouth != null) {
-			neighbour = getNeighbourAtWest(neighbourAtSouth);
-		} else {
-			neighbour = null;
+		Cell neighbour = getNeighbour(row + 1, column - 1);
+
+		if (neighbour == null && !isGridBorderDead) {
+			neighbour = getNeighbour(row + 1, cellGrid.getColumnCount() - 1);
+			if(neighbour == null){
+				neighbour = getNeighbour(0, column - 1);
+			}
+			if(neighbour == null){
+				neighbour = getNeighbour(0, cellGrid.getColumnCount() - 1);
+			}
 		}
 		return neighbour;
 	}
 
 	private Cell getNeighbourAtWest(Cell cell) {
-		int row = positionOfCurrentCell[0];
-		int column = positionOfCurrentCell[1];
 		Cell neighbour = getNeighbour(row, column - 1);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -122,12 +129,16 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtNorthWest(Cell cell) {
-		Cell neighbour;
-		Cell neighbourAtNorth = neighbours.get(0);
-		if (neighbourAtNorth != null) {
-			neighbour = getNeighbourAtWest(neighbourAtNorth);
-		} else {
-			neighbour = null;
+		Cell neighbour = getNeighbour(row - 1, column - 1);
+
+		if (neighbour == null && !isGridBorderDead) {
+			neighbour = getNeighbour(row - 1, cellGrid.getColumnCount() - 1);
+			if(neighbour == null){
+				neighbour = getNeighbour(cellGrid.getRowCount() - 1, column - 1);
+			}
+			if(neighbour == null){
+				neighbour = getNeighbour(cellGrid.getRowCount() - 1, cellGrid.getColumnCount() - 1);
+			}
 		}
 		return neighbour;
 	}
