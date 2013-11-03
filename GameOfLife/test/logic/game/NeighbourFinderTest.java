@@ -47,8 +47,7 @@ public class NeighbourFinderTest {
 	private void initMockedMethod() {
 		initGetCellAtPosition();
 		initRowAndColumnCount();
-		initGetColumnOfCell();
-		initGetRowOfCell();
+		initGetPositionOfCell();
 	}
 
 	private void initGetCellAtPosition() {
@@ -68,28 +67,25 @@ public class NeighbourFinderTest {
 		Mockito.when(cellGrid.getRowCount()).thenReturn(3);
 	}
 
-	private void initGetColumnOfCell() {
-		Mockito.when(cellGrid.getColumnOfCell(cell1)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell2)).thenReturn(1);
-		Mockito.when(cellGrid.getColumnOfCell(cell3)).thenReturn(2);
-		Mockito.when(cellGrid.getColumnOfCell(cell4)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell5)).thenReturn(1);
-		Mockito.when(cellGrid.getColumnOfCell(cell6)).thenReturn(2);
-		Mockito.when(cellGrid.getColumnOfCell(cell7)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell8)).thenReturn(1);
-		Mockito.when(cellGrid.getColumnOfCell(cell9)).thenReturn(2);
-	}
-
-	private void initGetRowOfCell() {
-		Mockito.when(cellGrid.getRowOfCell(cell1)).thenReturn(0);
-		Mockito.when(cellGrid.getRowOfCell(cell2)).thenReturn(0);
-		Mockito.when(cellGrid.getRowOfCell(cell3)).thenReturn(0);
-		Mockito.when(cellGrid.getRowOfCell(cell4)).thenReturn(1);
-		Mockito.when(cellGrid.getRowOfCell(cell5)).thenReturn(1);
-		Mockito.when(cellGrid.getRowOfCell(cell6)).thenReturn(1);
-		Mockito.when(cellGrid.getRowOfCell(cell7)).thenReturn(2);
-		Mockito.when(cellGrid.getRowOfCell(cell8)).thenReturn(2);
-		Mockito.when(cellGrid.getRowOfCell(cell9)).thenReturn(2);
+	private void initGetPositionOfCell() {
+		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
+				new int[] { 0, 0 });
+		Mockito.when(cellGrid.getPositionOfCell(cell2)).thenReturn(
+				new int[] { 0, 1 });
+		Mockito.when(cellGrid.getPositionOfCell(cell3)).thenReturn(
+				new int[] { 0, 2 });
+		Mockito.when(cellGrid.getPositionOfCell(cell4)).thenReturn(
+				new int[] { 1, 0 });
+		Mockito.when(cellGrid.getPositionOfCell(cell5)).thenReturn(
+				new int[] { 1, 1 });
+		Mockito.when(cellGrid.getPositionOfCell(cell6)).thenReturn(
+				new int[] { 1, 2 });
+		Mockito.when(cellGrid.getPositionOfCell(cell7)).thenReturn(
+				new int[] { 2, 0 });
+		Mockito.when(cellGrid.getPositionOfCell(cell8)).thenReturn(
+				new int[] { 2, 1 });
+		Mockito.when(cellGrid.getPositionOfCell(cell9)).thenReturn(
+				new int[] { 2, 2 });
 	}
 
 	@Test
@@ -114,8 +110,8 @@ public class NeighbourFinderTest {
 	public void shouldFindNoNeighbours() {
 		cellGrid = Mockito.mock(CellGrid.class);
 		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
-		Mockito.when(cellGrid.getRowOfCell(cell1)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell1)).thenReturn(0);
+		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
+				new int[] { 0, 0 });
 		Mockito.when(cellGrid.getColumnCount()).thenReturn(1);
 		Mockito.when(cellGrid.getRowCount()).thenReturn(1);
 
@@ -134,8 +130,8 @@ public class NeighbourFinderTest {
 	public void shouldFindYourselfAsNeighbours() {
 		cellGrid = Mockito.mock(CellGrid.class);
 		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
-		Mockito.when(cellGrid.getRowOfCell(cell1)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell1)).thenReturn(0);
+		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
+				new int[] { 0, 0 });
 		Mockito.when(cellGrid.getColumnCount()).thenReturn(1);
 		Mockito.when(cellGrid.getRowCount()).thenReturn(1);
 

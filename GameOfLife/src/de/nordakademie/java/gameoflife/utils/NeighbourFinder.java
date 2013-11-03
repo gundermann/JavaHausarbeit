@@ -10,6 +10,9 @@ public class NeighbourFinder {
 
 	private CellGrid cellGrid;
 	private boolean isGridBorderDead;
+	private Cell celltoCheck;
+	int[] positionOfCurrentCell;
+	private List<Cell> neighbours = new ArrayList<Cell>();
 
 	public NeighbourFinder(boolean isGridBorderDead) {
 		this.isGridBorderDead = isGridBorderDead;
@@ -18,16 +21,18 @@ public class NeighbourFinder {
 
 	public List<Cell> getNeighbours(Cell cell, CellGrid cellGrid) {
 		this.cellGrid = cellGrid;
-		List<Cell> neighbours = new ArrayList<Cell>();
+		celltoCheck = cell;
+		positionOfCurrentCell = cellGrid.getPositionOfCell(cell);
+		neighbours.clear();
 
-		neighbours.add(getNeighbourAtNorth(cell));
-		neighbours.add(getNeighbourAtNorthEast(cell));
-		neighbours.add(getNeighbourAtEast(cell));
-		neighbours.add(getNeighbourAtSouthEast(cell));
-		neighbours.add(getNeighbourAtSouth(cell));
-		neighbours.add(getNeighbourAtSouthWest(cell));
-		neighbours.add(getNeighbourAtWest(cell));
-		neighbours.add(getNeighbourAtNorthWest(cell));
+		neighbours.add(getNeighbourAtNorth(celltoCheck));
+		neighbours.add(getNeighbourAtEast(celltoCheck));
+		neighbours.add(getNeighbourAtSouth(celltoCheck));
+		neighbours.add(getNeighbourAtWest(celltoCheck));
+		neighbours.add(getNeighbourAtNorthEast(celltoCheck));
+		neighbours.add(getNeighbourAtNorthWest(celltoCheck));
+		neighbours.add(getNeighbourAtSouthEast(celltoCheck));
+		neighbours.add(getNeighbourAtSouthWest(celltoCheck));
 
 		for (Cell neighbour : neighbours) {
 			if (neighbour == null) {
@@ -38,8 +43,8 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtNorth(Cell cell) {
-		int row = cellGrid.getRowOfCell(cell);
-		int column = cellGrid.getColumnOfCell(cell);
+		int row = positionOfCurrentCell[0];
+		int column = positionOfCurrentCell[1];
 		Cell neighbour = getNeighbour(row - 1, column);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -50,7 +55,8 @@ public class NeighbourFinder {
 
 	private Cell getNeighbourAtNorthEast(Cell cell) {
 		Cell neighbour;
-		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
+		Cell neighbourAtNorth = neighbours.get(0);
+		positionOfCurrentCell = cellGrid.getPositionOfCell(neighbourAtNorth);
 		if (neighbourAtNorth != null) {
 			neighbour = getNeighbourAtEast(neighbourAtNorth);
 		} else {
@@ -60,8 +66,8 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtEast(Cell cell) {
-		int row = cellGrid.getRowOfCell(cell);
-		int column = cellGrid.getColumnOfCell(cell);
+		int row = positionOfCurrentCell[0];
+		int column = positionOfCurrentCell[1];
 		Cell neighbour = getNeighbour(row, column + 1);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -72,7 +78,8 @@ public class NeighbourFinder {
 
 	private Cell getNeighbourAtSouthEast(Cell cell) {
 		Cell neighbour;
-		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
+		Cell neighbourAtSouth = neighbours.get(2);
+		positionOfCurrentCell = cellGrid.getPositionOfCell(neighbourAtSouth);
 		if (neighbourAtSouth != null) {
 			neighbour = getNeighbourAtEast(neighbourAtSouth);
 		} else {
@@ -82,8 +89,8 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtSouth(Cell cell) {
-		int row = cellGrid.getRowOfCell(cell);
-		int column = cellGrid.getColumnOfCell(cell);
+		int row = positionOfCurrentCell[0];
+		int column = positionOfCurrentCell[1];
 		Cell neighbour = getNeighbour(row + 1, column);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -94,7 +101,7 @@ public class NeighbourFinder {
 
 	private Cell getNeighbourAtSouthWest(Cell cell) {
 		Cell neighbour;
-		Cell neighbourAtSouth = getNeighbourAtSouth(cell);
+		Cell neighbourAtSouth = neighbours.get(2);
 		if (neighbourAtSouth != null) {
 			neighbour = getNeighbourAtWest(neighbourAtSouth);
 		} else {
@@ -104,8 +111,8 @@ public class NeighbourFinder {
 	}
 
 	private Cell getNeighbourAtWest(Cell cell) {
-		int row = cellGrid.getRowOfCell(cell);
-		int column = cellGrid.getColumnOfCell(cell);
+		int row = positionOfCurrentCell[0];
+		int column = positionOfCurrentCell[1];
 		Cell neighbour = getNeighbour(row, column - 1);
 
 		if (neighbour == null && !isGridBorderDead) {
@@ -116,7 +123,7 @@ public class NeighbourFinder {
 
 	private Cell getNeighbourAtNorthWest(Cell cell) {
 		Cell neighbour;
-		Cell neighbourAtNorth = getNeighbourAtNorth(cell);
+		Cell neighbourAtNorth = neighbours.get(0);
 		if (neighbourAtNorth != null) {
 			neighbour = getNeighbourAtWest(neighbourAtNorth);
 		} else {

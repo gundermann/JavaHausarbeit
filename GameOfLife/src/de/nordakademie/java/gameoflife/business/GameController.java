@@ -13,13 +13,14 @@ public class GameController implements Runnable {
 	private final GameRule gameRules;
 	private final BorderRule borderRules;
 	private CellGrid cellGrid;
+	private boolean gameIsOngoing = true;
 	private int generation = 1;
 	private GameFieldGuiHandler gameControlHandler;
 	private NeighbourFinder neighbourFinder;
 
 	// Zu Testzwecken
-	// public static int FRAME = 0;
-	// public static long STARTTIME;
+	public static int FRAME = 0;
+	public static long STARTTIME;
 
 	public GameController(final CellGrid cellGrid, GameRule gameRules,
 			BorderRule borderRules) {
@@ -29,41 +30,29 @@ public class GameController implements Runnable {
 		neighbourFinder = new NeighbourFinder(borderRules.isGridBorderDead());
 	}
 
-	private boolean isCellGridChanging() {
-		if(findCellsToBear().isEmpty() && findCellsToKill().isEmpty()){
-			return false;
-		}
-		return true;
-	}
-
-	public List<Cell> findCellsToBear() {
-		List<Cell> cellsToBear = new ArrayList<Cell>();
+	public List<Cell> findCellsToBearOrKill() {
+		List<Cell> cellsToBearOrKill = new ArrayList<Cell>();
 		for (Cell cell : cellGrid.getCellsAsList()) {
 			if (!cell.isAlive()) {
-				checkRulesForBearingAndMarkCell(cell, cellsToBear);
+				checkRulesForBearingAndMarkCell(cell, cellsToBearOrKill);
+			} else {
+				checkRulesForKillingAndMarkCell(cell, cellsToBearOrKill);
 			}
 		}
-		return cellsToBear;
+
+		if (cellsToBearOrKill.isEmpty()) {
+			gameIsOngoing = false;
+		}
+
+		return cellsToBearOrKill;
 	}
 
 	private void checkRulesForBearingAndMarkCell(Cell cell,
 			List<Cell> cellsToBear) {
-		if (!cell.isAlive()) {
-			int neighbours = countLivingNeighbours(cell);
-			if (gameRules.isCellBorn(neighbours)) {
-				cellsToBear.add(cell);
-			}
+		int neighbours = countLivingNeighbours(cell);
+		if (gameRules.isCellBorn(neighbours)) {
+			cellsToBear.add(cell);
 		}
-	}
-
-	public List<Cell> findCellsToKill() {
-		List<Cell> cellsToKill = new ArrayList<Cell>();
-		for (Cell cell : cellGrid.getCellsAsList()) {
-			if (cell.isAlive()) {
-				checkRulesForKillingAndMarkCell(cell, cellsToKill);
-			}
-		}
-		return cellsToKill;
 	}
 
 	private void checkRulesForKillingAndMarkCell(Cell cell,
@@ -90,15 +79,14 @@ public class GameController implements Runnable {
 	}
 
 	public void calculateNextGeneration() {
-		List<Cell> cellsToBear = findCellsToBear();
-		List<Cell> cellToKill = findCellsToKill();
+		List<Cell> cellsToChange = findCellsToBearOrKill();
 
-		for (Cell cell : cellsToBear) {
-			cellGrid.bearCell(cell);
-		}
-
-		for (Cell cell : cellToKill) {
-			cellGrid.killCell(cell);
+		for (Cell cell : cellsToChange) {
+			if (cell.isAlive()) {
+				cellGrid.killCell(cell);
+			} else {
+				cellGrid.bearCell(cell);
+			}
 		}
 
 		generation = generation + 1;
@@ -122,8 +110,8 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
-		// STARTTIME = System.currentTimeMillis();
-		while (isCellGridChanging()) {
+		STARTTIME = System.currentTimeMillis();
+		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());
 			} catch (InterruptedException e) {
@@ -131,14 +119,15 @@ public class GameController implements Runnable {
 			}
 			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray());
 			calculateNextGeneration();
-			// FRAME++;
-			//
+
+			FRAME++;
+
 			// if (System.currentTimeMillis() - STARTTIME > 1000) {
 			// System.out.println(FRAME);
 			// System.exit(0);
 			// }
 		}
-		GameFinishedGui finish = new GameFinishedGui();
+		new GameFinishedGui();
 	}
 
 	private long getSettedTime() {

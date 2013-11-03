@@ -60,7 +60,7 @@ public class CellGridTest {
 	}
 
 	@Test
-	public void shouldGetRightRowOfCell() {
+	public void shouldGetRightPositionOfCell() {
 		Cell cell1 = cellGrid.getCellAtPosition(0, 0);
 		Cell cell2 = cellGrid.getCellAtPosition(0, 2);
 		Cell cell3 = cellGrid.getCellAtPosition(1, 0);
@@ -68,46 +68,20 @@ public class CellGridTest {
 		Cell cell5 = cellGrid.getCellAtPosition(2, 0);
 		Cell cell6 = cellGrid.getCellAtPosition(2, 2);
 
-		assertTrue(cellGrid.getRowOfCell(cell1) == 0);
-		assertTrue(cellGrid.getRowOfCell(cell2) == 0);
-		assertTrue(cellGrid.getRowOfCell(cell3) == 1);
-		assertTrue(cellGrid.getRowOfCell(cell4) == 1);
-		assertTrue(cellGrid.getRowOfCell(cell5) == 2);
-		assertTrue(cellGrid.getRowOfCell(cell6) == 2);
-		assertTrue(cellGrid.getRowOfCell(new Cell()) == -1);
+		assertTrue(cellGrid.getPositionOfCell(cell1)[0] == 0);
+		assertTrue(cellGrid.getPositionOfCell(cell2)[0] == 0);
+		assertTrue(cellGrid.getPositionOfCell(cell3)[0] == 1);
+		assertTrue(cellGrid.getPositionOfCell(cell4)[0] == 1);
+		assertTrue(cellGrid.getPositionOfCell(cell5)[0] == 2);
+		assertTrue(cellGrid.getPositionOfCell(cell6)[0] == 2);
+
+		assertTrue(cellGrid.getPositionOfCell(cell1)[1] == 0);
+		assertTrue(cellGrid.getPositionOfCell(cell2)[1] == 2);
+		assertTrue(cellGrid.getPositionOfCell(cell3)[1] == 0);
+		assertTrue(cellGrid.getPositionOfCell(cell4)[1] == 2);
+		assertTrue(cellGrid.getPositionOfCell(cell5)[1] == 0);
+		assertTrue(cellGrid.getPositionOfCell(cell6)[1] == 2);
 	}
-
-	@Test
-	public void shouldGetRightColumnOfCell() {
-		Cell cell1 = cellGrid.getCellAtPosition(0, 0);
-		Cell cell2 = cellGrid.getCellAtPosition(0, 0);
-		Cell cell3 = cellGrid.getCellAtPosition(1, 1);
-		Cell cell4 = cellGrid.getCellAtPosition(1, 1);
-		Cell cell5 = cellGrid.getCellAtPosition(2, 2);
-		Cell cell6 = cellGrid.getCellAtPosition(2, 2);
-
-		assertTrue(cellGrid.getColumnOfCell(cell1) == 0);
-		assertTrue(cellGrid.getColumnOfCell(cell2) == 0);
-		assertTrue(cellGrid.getColumnOfCell(cell3) == 1);
-		assertTrue(cellGrid.getColumnOfCell(cell4) == 1);
-		assertTrue(cellGrid.getColumnOfCell(cell5) == 2);
-		assertTrue(cellGrid.getColumnOfCell(cell6) == 2);
-		assertTrue(cellGrid.getColumnOfCell(new Cell()) == -1);
-	}
-
-	// @Test
-	// public void shouldConvertToBooleanArray() {
-	// boolean[][] boolArray = cellGrid.convertCellGridToBooleanArray();
-	// assertTrue(boolArray[0][0]);
-	// assertFalse(boolArray[0][1]);
-	// assertTrue(boolArray[0][2]);
-	// assertFalse(boolArray[1][0]);
-	// assertTrue(boolArray[1][1]);
-	// assertFalse(boolArray[1][2]);
-	// assertTrue(boolArray[2][0]);
-	// assertFalse(boolArray[2][1]);
-	// assertTrue(boolArray[2][2]);
-	// }
 
 	@Test
 	public void shouldKillAndBearCellAtPosition() {

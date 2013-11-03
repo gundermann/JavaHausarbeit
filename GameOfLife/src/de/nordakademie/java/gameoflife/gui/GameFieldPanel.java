@@ -10,18 +10,18 @@ import de.nordakademie.java.gameoflife.business.Cell;
 class GameFieldPanel extends JPanel {
 
 	private Cell[][] cellsArray;
-	private final int cellDrawingSize = 10;
-	
-	public GameFieldPanel(Cell[][] currentCellArray){
+	private final int CELL_DRAWING_SIZE = 10;
+
+	public GameFieldPanel(Cell[][] currentCellArray) {
 		cellsArray = currentCellArray;
 	}
-	
+
 	public void updateCellArray(Cell[][] currentCellArray) {
 		cellsArray = currentCellArray;
 	}
 
 	public int getCellsDrawingSize() {
-		return cellDrawingSize;
+		return CELL_DRAWING_SIZE;
 	}
 
 	@Override
@@ -33,20 +33,21 @@ class GameFieldPanel extends JPanel {
 			columns = cellsArray[0].length;
 		}
 
+		g.setColor(Color.RED);
 		for (int currentColumn = 0; currentColumn < rows; currentColumn++) {
 			for (int currentRow = 0; currentRow < columns; currentRow++) {
 				if (cellsArray[currentColumn][currentRow].isAlive()) {
-					g.setColor(Color.RED);
-				} else {
-					g.setColor(Color.BLACK);
+					// else {
+					// g.setColor(Color.BLACK);
+					// }
+					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
+							* CELL_DRAWING_SIZE, g);
 				}
-				paintCell(currentRow * cellDrawingSize, currentColumn
-						* cellDrawingSize, g);
 			}
 		}
 	}
 
 	private void paintCell(Integer xCoordinate, Integer yCoordinate, Graphics g) {
-		g.fillRect(xCoordinate, yCoordinate, cellDrawingSize, cellDrawingSize);
+		g.fillRect(xCoordinate, yCoordinate, CELL_DRAWING_SIZE, CELL_DRAWING_SIZE);
 	}
 }

@@ -79,35 +79,18 @@ public class CellGrid {
 		return cellAtPosition;
 	}
 
-	public int getColumnOfCell(Cell cell) {
+	public int[] getPositionOfCell(Cell cell) {
+		int[] position = new int[2];
 		for (int row = 0; row < rows; row++) {
 			for (int column = 0; column < columns; column++) {
 				if (cell == cellArray[row][column]) {
-					return column;
+					position[0] = row;
+					position[1] = column;
+					break;
 				}
 			}
 		}
-		return -1;
+		return position;
 	}
 
-	public int getRowOfCell(Cell cell) {
-		for (int row = 0; row < rows; row++) {
-			for (int column = 0; column < columns; column++) {
-				if (cell == cellArray[row][column]) {
-					return row;
-				}
-			}
-		}
-		return -1;
-	}
-
-	// public boolean[][] convertCellGridToBooleanArray() {
-	// boolean[][] integerArray = new boolean[columns][rows];
-	// for (int row = 0; row < columns; row++) {
-	// for (int column = 0; column < rows; column++) {
-	// integerArray[row][column] = isCellAtPositionAlive(row, column);
-	// }
-	// }
-	// return integerArray;
-	// }
 }

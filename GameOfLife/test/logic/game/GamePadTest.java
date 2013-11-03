@@ -55,8 +55,7 @@ public class GamePadTest {
 
 	private void initMockedMethod() {
 		initGetCellAtPosition();
-		initGetColumnOfCell();
-		initGetRowOfCell();
+		initGetPositionOfCell();
 		initGetCellsAsList();
 		initIsAlive();
 		int count = 3;
@@ -105,28 +104,25 @@ public class GamePadTest {
 		Mockito.when(cellGrid.getCellAtPosition(2, 2)).thenReturn(cell9);
 	}
 
-	private void initGetColumnOfCell() {
-		Mockito.when(cellGrid.getColumnOfCell(cell1)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell2)).thenReturn(1);
-		Mockito.when(cellGrid.getColumnOfCell(cell3)).thenReturn(2);
-		Mockito.when(cellGrid.getColumnOfCell(cell4)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell5)).thenReturn(1);
-		Mockito.when(cellGrid.getColumnOfCell(cell6)).thenReturn(2);
-		Mockito.when(cellGrid.getColumnOfCell(cell7)).thenReturn(0);
-		Mockito.when(cellGrid.getColumnOfCell(cell8)).thenReturn(1);
-		Mockito.when(cellGrid.getColumnOfCell(cell9)).thenReturn(2);
-	}
-
-	private void initGetRowOfCell() {
-		Mockito.when(cellGrid.getRowOfCell(cell1)).thenReturn(0);
-		Mockito.when(cellGrid.getRowOfCell(cell2)).thenReturn(0);
-		Mockito.when(cellGrid.getRowOfCell(cell3)).thenReturn(0);
-		Mockito.when(cellGrid.getRowOfCell(cell4)).thenReturn(1);
-		Mockito.when(cellGrid.getRowOfCell(cell5)).thenReturn(1);
-		Mockito.when(cellGrid.getRowOfCell(cell6)).thenReturn(1);
-		Mockito.when(cellGrid.getRowOfCell(cell7)).thenReturn(2);
-		Mockito.when(cellGrid.getRowOfCell(cell8)).thenReturn(2);
-		Mockito.when(cellGrid.getRowOfCell(cell9)).thenReturn(2);
+	private void initGetPositionOfCell() {
+		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
+				new int[] { 0, 0 });
+		Mockito.when(cellGrid.getPositionOfCell(cell2)).thenReturn(
+				new int[] { 0, 1 });
+		Mockito.when(cellGrid.getPositionOfCell(cell3)).thenReturn(
+				new int[] { 0, 2 });
+		Mockito.when(cellGrid.getPositionOfCell(cell4)).thenReturn(
+				new int[] { 1, 0 });
+		Mockito.when(cellGrid.getPositionOfCell(cell5)).thenReturn(
+				new int[] { 1, 1 });
+		Mockito.when(cellGrid.getPositionOfCell(cell6)).thenReturn(
+				new int[] { 1, 2 });
+		Mockito.when(cellGrid.getPositionOfCell(cell7)).thenReturn(
+				new int[] { 2, 0 });
+		Mockito.when(cellGrid.getPositionOfCell(cell8)).thenReturn(
+				new int[] { 2, 1 });
+		Mockito.when(cellGrid.getPositionOfCell(cell9)).thenReturn(
+				new int[] { 2, 2 });
 	}
 
 	@Test
@@ -139,15 +135,15 @@ public class GamePadTest {
 
 	@Test
 	public void shouldFindCellsToBear() {
-		assertTrue(gameControl.findCellsToBear().contains(cell5));
-		assertTrue(gameControl.findCellsToBear().contains(cell8));
+		assertTrue(gameControl.findCellsToBearOrKill().contains(cell5));
+		assertTrue(gameControl.findCellsToBearOrKill().contains(cell8));
 	}
 
 	@Test
 	public void shouldFindCellsToKill() {
-		assertTrue(gameControl.findCellsToKill().contains(cell1));
-		assertTrue(gameControl.findCellsToKill().contains(cell2));
-		assertTrue(gameControl.findCellsToKill().contains(cell3));
+		assertTrue(gameControl.findCellsToBearOrKill().contains(cell1));
+		assertTrue(gameControl.findCellsToBearOrKill().contains(cell2));
+		assertTrue(gameControl.findCellsToBearOrKill().contains(cell3));
 	}
 
 	@Test
