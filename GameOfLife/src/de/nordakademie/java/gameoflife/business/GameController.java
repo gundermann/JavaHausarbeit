@@ -91,14 +91,6 @@ public class GameController implements Runnable {
 		return generation;
 	}
 
-	public GameRule getGameRules() {
-		return gameRules;
-	}
-
-	public BorderRule getBorderRules() {
-		return borderRules;
-	}
-
 	public void setGameControlHandler(GameFieldGuiHandler gameFieldGui) {
 		gameControlHandler = gameFieldGui;
 	}

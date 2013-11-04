@@ -10,8 +10,8 @@ public class NeighbourFinder {
 
 	private CellGrid cellGrid;
 	private boolean isGridBorderDead;
-	int rowOfCurrentCell;
-	int columnOfCurrentCell;
+	private int rowOfCurrentCell;
+	private int columnOfCurrentCell;
 	private List<Cell> neighbours = new ArrayList<Cell>();
 
 	public NeighbourFinder(boolean isGridBorderDead) {

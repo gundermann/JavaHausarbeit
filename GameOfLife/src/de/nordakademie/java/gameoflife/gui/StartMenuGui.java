@@ -71,7 +71,7 @@ public class StartMenuGui {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				handler.handleStartButtonPressedEvent();
-				closeStartGui();
+				frame.dispose();
 			}
 		});
 
@@ -80,11 +80,6 @@ public class StartMenuGui {
 		return buttonPanel;
 	}
 	
-	private void closeStartGui(){
-		//TODO: gibt es eine bessere Variante?
-		frame.setVisible(false);
-	}
-
 	public String getSelectedGameRule(){
 		return chooseGameRule.getSelectedItem().toString();
 	}

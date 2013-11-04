@@ -1,6 +1,5 @@
 package business;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -99,14 +98,6 @@ public class GamePadTest {
 		Mockito.when(cellGrid.getCellAtPosition(2, 0)).thenReturn(cell7);
 		Mockito.when(cellGrid.getCellAtPosition(2, 1)).thenReturn(cell8);
 		Mockito.when(cellGrid.getCellAtPosition(2, 2)).thenReturn(cell9);
-	}
-
-	@Test
-	public void shouldBeInitinalized() {
-		assertNotNull(gameControl.getGameRules());
-		assertNotNull(gameControl.getBorderRules());
-		assertTrue(gameControl.getGeneration() == 1);
-		assertTrue(cell1.isAlive());
 	}
 
 	@Test
