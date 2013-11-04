@@ -80,17 +80,7 @@ public class CellGrid {
 	}
 
 	public int[] getPositionOfCell(Cell cell) {
-		int[] position = new int[2];
-		for (int row = 0; row < rows; row++) {
-			for (int column = 0; column < columns; column++) {
-				if (cell == cellArray[row][column]) {
-					position[0] = row;
-					position[1] = column;
-					break;
-				}
-			}
-		}
-		return position;
+		return cell.getPosition();
 	}
 
 }

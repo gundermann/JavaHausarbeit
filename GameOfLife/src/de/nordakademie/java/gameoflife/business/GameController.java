@@ -110,16 +110,18 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
+		STARTTIME = System.currentTimeMillis();
 		while (gameIsOngoing) {
-			try {
-				Thread.sleep(getSettedTime());
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			// try {
+			// Thread.sleep(getSettedTime());
+			// } catch (InterruptedException e) {
+			// e.printStackTrace();
+			// }
 			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray());
 			calculateNextGeneration();
 
 		}
+		System.out.println((System.currentTimeMillis() - STARTTIME) / 1000);
 		new GameFinishedGui();
 	}
 

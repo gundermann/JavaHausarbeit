@@ -1,4 +1,4 @@
-package logic.game;
+package business;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

@@ -1,4 +1,4 @@
-package logic.game;
+package business;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -15,7 +15,7 @@ public class CellTest {
 
 	@Before
 	public void setUp() {
-		cell = new Cell();
+		cell = new Cell(1, 1);
 	}
 
 	@Test
@@ -26,6 +26,12 @@ public class CellTest {
 	@Test
 	public void newCellIsDead() {
 		assertFalse(cell.isAlive());
+	}
+
+	@Test
+	public void getPostitionOfCell() {
+		assertTrue(cell.getPosition()[0] == 1);
+		assertTrue(cell.getPosition()[1] == 1);
 	}
 
 	@Test

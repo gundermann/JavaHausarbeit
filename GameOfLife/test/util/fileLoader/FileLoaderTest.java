@@ -1,4 +1,4 @@
-package logic.fileLoader;
+package util.fileLoader;
 
 import static org.junit.Assert.assertTrue;
 
