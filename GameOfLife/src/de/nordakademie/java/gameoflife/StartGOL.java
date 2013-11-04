@@ -15,8 +15,7 @@ import de.nordakademie.java.gameoflife.business.rules.game.GameOfLife;
 import de.nordakademie.java.gameoflife.business.rules.game.GameWithoutDeath;
 import de.nordakademie.java.gameoflife.business.rules.game.HighLife;
 import de.nordakademie.java.gameoflife.business.rules.game.ThreeOrFourLife;
-import de.nordakademie.java.gameoflife.constants.ErrorCodes;
-import de.nordakademie.java.gameoflife.constants.ErrorTexts;
+import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 import de.nordakademie.java.gameoflife.gui.ErrorGui;
 import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
@@ -42,14 +41,14 @@ public class StartGOL implements StartGOLHandler {
 		JFileChooser chooser = new JFileChooser();
 		chooser.showOpenDialog(new JFrame());
 		File file = chooser.getSelectedFile();
-		int errorCode = FileLoader.readFileAndReturnErrorCode(file);
-		if (errorCode == ErrorCodes.No_Error) {
+		try {
+			FileLoader.readFile(file);
 			cellArray = FileLoader.getCells();
 			return file.getPath();
-		} else {
-			new ErrorGui(ErrorTexts.getTextToErrorCode(errorCode));
-			return "";
+		} catch (FileReadingErrorException exception) {
+			new ErrorGui(exception.getErrorMessage());
 		}
+		return "";
 	}
 
 	@Override
@@ -62,9 +61,7 @@ public class StartGOL implements StartGOLHandler {
 			gamePad.setGameControlHandler(gameField);
 			new Thread(gamePad).start();
 		} else {
-			int errorCode;
-			errorCode = ErrorCodes.No_File_Found;
-			new ErrorGui(ErrorTexts.getTextToErrorCode(errorCode));
+			new ErrorGui("Es wurde keine Datei gefunden");
 		}
 	}
 

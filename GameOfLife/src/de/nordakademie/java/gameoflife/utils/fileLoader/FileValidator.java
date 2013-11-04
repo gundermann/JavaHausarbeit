@@ -5,30 +5,35 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import de.nordakademie.java.gameoflife.constants.ErrorCodes;
+import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
 public abstract class FileValidator {
 
 	private static FileReader fileReader;
 	private static BufferedReader bufferedReader;
 
-	public static int validateAndReturnErrorCode(File file) throws IOException {
+	public static void validate(File file) throws IOException,
+			FileReadingErrorException {
 		if (isFileToLarge(file)) {
-			return ErrorCodes.File_To_Large;
+			throw new FileReadingErrorException(
+					"Die hochgeladene Datei ist zu groﬂ");
 		}
 		if (!isFileTypeCorrect(file)) {
-			return ErrorCodes.Wrong_Type;
+			throw new FileReadingErrorException(
+					"Die hochgeladene Datei ist keine .gol");
 		}
 		if (fileContainsNonASCIICharacter(file)) {
-			return ErrorCodes.File_Contains_Non_ASCII_Characters;
+			throw new FileReadingErrorException(
+					"Die hochgeladene Datei besteht nicht nur aus ASCII-Zeichen");
 		}
 		if (fileContainsNotJustZerosAndOnes(file)) {
-			return ErrorCodes.File_Contains_Wrong_Characters;
+			throw new FileReadingErrorException(
+					"Die hochgeladene Datei enth‰llt nicht nur 1en und 0en");
 		}
 		if (notAllLinesEquallyLong(file)) {
-			return ErrorCodes.Not_All_Lines_Have_Equal_Length;
+			throw new FileReadingErrorException(
+					"Nicht alle Zeilen in der Datei sind gleich lang");
 		}
-		return ErrorCodes.No_Error;
 	}
 
 	private static boolean notAllLinesEquallyLong(File file) throws IOException {

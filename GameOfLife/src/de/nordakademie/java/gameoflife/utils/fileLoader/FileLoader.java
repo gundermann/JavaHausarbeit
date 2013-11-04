@@ -5,7 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-import de.nordakademie.java.gameoflife.constants.ErrorCodes;
+import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
 public abstract class FileLoader {
 
@@ -13,34 +13,32 @@ public abstract class FileLoader {
 	private static BufferedReader bufferedReader;
 	private static int[][] cells = null;
 
-	public static int readFileAndReturnErrorCode(File file) {
-		int errorCode = ErrorCodes.Filechoosing_Was_Aborted;
+	public static void readFile(File file) throws FileReadingErrorException {
 		if (file != null) {
 			try {
-				errorCode = FileValidator.validateAndReturnErrorCode(file);
-				readFile(file, errorCode);
+				FileValidator.validate(file);
+				readCellsFromFile(file);
 			} catch (IOException e) {
-				e.printStackTrace();
-				errorCode = ErrorCodes.Exception_While_File_Readed;
+				throw new FileReadingErrorException(
+						"Während des Einlesens der Datei ist eine Exception geworfen worden");
 			}
+		} else {
+			throw new FileReadingErrorException("Es wurde kein File ausgewählt");
 		}
-		return errorCode;
 	}
 
-	private static void readFile(File file, int errorCode) throws IOException {
-		if (errorCode == ErrorCodes.No_Error) {
-			int lineNumber = countLines(file);
-			fileReader = new FileReader(file);
-			bufferedReader = new BufferedReader(fileReader);
-			String line = bufferedReader.readLine();
-			int charactersPerLine = line.length();
-			cells = new int[lineNumber][charactersPerLine];
-			for (int currentLineNumber = 0; currentLineNumber < lineNumber; currentLineNumber++) {
-				writeLineInCells(line, currentLineNumber, charactersPerLine);
-				line = bufferedReader.readLine();
-			}
-			bufferedReader.close();
+	private static void readCellsFromFile(File file) throws IOException {
+		int lineNumber = countLines(file);
+		fileReader = new FileReader(file);
+		bufferedReader = new BufferedReader(fileReader);
+		String line = bufferedReader.readLine();
+		int charactersPerLine = line.length();
+		cells = new int[lineNumber][charactersPerLine];
+		for (int currentLineNumber = 0; currentLineNumber < lineNumber; currentLineNumber++) {
+			writeLineInCells(line, currentLineNumber, charactersPerLine);
+			line = bufferedReader.readLine();
 		}
+		bufferedReader.close();
 	}
 
 	private static void writeLineInCells(String line, int lineNumber,

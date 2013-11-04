@@ -9,7 +9,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import de.nordakademie.java.gameoflife.constants.ErrorCodes;
+import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
 
 public class FileLoaderTest {
@@ -45,23 +45,42 @@ public class FileLoaderTest {
 
 	@Test
 	public void testNullFileReading() {
-		assertTrue(
-				"Abbruch der Fileauswahl gibt richtigen ErrorCode zurï¿½ck",
-				FileLoader.readFileAndReturnErrorCode(null) == ErrorCodes.Filechoosing_Was_Aborted);
+		String errorMessage = "";
+		try {
+			FileLoader.readFile(null);
+		} catch (FileReadingErrorException e) {
+			errorMessage = e.getErrorMessage();
+		}
+		assertTrue("Abbruch der Fileauswahl gibt richtigen ErrorCode zurï¿½ck",
+				errorMessage.equals("Es wurde kein File ausgewählt"));
 		assertTrue("cells sind null nach fehlerhaftem Einlesen",
 				FileLoader.getCells() == null);
 	}
 
 	@Test
 	public void testExceptionWhileFileReading() {
+		String errorMessage = "";
+		try {
+			FileLoader.readFile(testFileNotExisting);
+		} catch (FileReadingErrorException e) {
+			errorMessage = e.getErrorMessage();
+		}
 		assertTrue(
 				"Bei Exception fliegt richtiger ErrorCode",
-				FileLoader.readFileAndReturnErrorCode(testFileNotExisting) == ErrorCodes.Exception_While_File_Readed);
+				errorMessage
+						.equals("Während des Einlesens der Datei ist eine Exception geworfen worden"));
 	}
 
 	@Test
 	public void testCorrectFileReading() {
-		assertTrue(FileLoader.readFileAndReturnErrorCode(testFileGOL) == ErrorCodes.No_Error);
+		boolean didntThrowException = true;
+		try {
+			FileLoader.readFile(testFileGOL);
+		} catch (FileReadingErrorException e) {
+			e.printStackTrace();
+			didntThrowException = false;
+		}
+		assertTrue(didntThrowException == true);
 		assertTrue("cells sind nicht null nach korrektem Einlesen",
 				FileLoader.getCells() != null);
 	}
