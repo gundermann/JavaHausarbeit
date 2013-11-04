@@ -1,4 +1,6 @@
-package de.nordakademie.java.gameoflife.business;
+package de.nordakademie.java.gameoflife.gui;
+
+import de.nordakademie.java.gameoflife.business.Cell;
 
 public interface GameFieldGuiHandler {
    

@@ -5,13 +5,13 @@ import java.util.List;
 
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
+import de.nordakademie.java.gameoflife.gui.GameFieldGuiHandler;
 import de.nordakademie.java.gameoflife.gui.GameFinishedGui;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class GameController implements Runnable {
 
 	private final GameRule gameRules;
-	private final BorderRule borderRules;
 	private CellGrid cellGrid;
 	private boolean gameIsOngoing = true;
 	private int generation = 1;
@@ -26,7 +26,6 @@ public class GameController implements Runnable {
 			BorderRule borderRules) {
 		this.cellGrid = cellGrid;
 		this.gameRules = gameRules;
-		this.borderRules = borderRules;
 		neighbourFinder = new NeighbourFinder(borderRules.isGridBorderDead());
 	}
 

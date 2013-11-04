@@ -14,7 +14,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.business.Cell;
-import de.nordakademie.java.gameoflife.business.GameFieldGuiHandler;
 
 public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
