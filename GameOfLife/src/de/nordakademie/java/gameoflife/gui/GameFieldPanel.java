@@ -48,6 +48,7 @@ class GameFieldPanel extends JPanel {
 	}
 
 	private void paintCell(Integer xCoordinate, Integer yCoordinate, Graphics g) {
-		g.fillRect(xCoordinate, yCoordinate, CELL_DRAWING_SIZE, CELL_DRAWING_SIZE);
+		g.fillRect(xCoordinate, yCoordinate, CELL_DRAWING_SIZE,
+				CELL_DRAWING_SIZE);
 	}
 }

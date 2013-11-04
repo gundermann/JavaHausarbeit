@@ -1,7 +1,6 @@
 package business;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -40,47 +39,6 @@ public class CellGridTest {
 		y = 4;
 
 		assertNull(cellGrid.getCellAtPosition(y, x));
-	}
-
-	@Test
-	public void cellsInitinalized() {
-		for (int row = 0; row < cellGrid.getRowCount(); row++) {
-			for (int column = 0; column < cellGrid.getColumnCount(); column++) {
-				assertNotNull(cellGrid.getCellAtPosition(row, column));
-			}
-		}
-
-		// TODO alle Zellen testen
-		assertFalse(cellGrid.isCellAtPositionAlive(0, 1));
-	}
-
-	@Test
-	public void shouldGetAllCells() {
-		assertTrue(cellGrid.getCellsAsList().size() == 9);
-	}
-
-	@Test
-	public void shouldGetRightPositionOfCell() {
-		Cell cell1 = cellGrid.getCellAtPosition(0, 0);
-		Cell cell2 = cellGrid.getCellAtPosition(0, 2);
-		Cell cell3 = cellGrid.getCellAtPosition(1, 0);
-		Cell cell4 = cellGrid.getCellAtPosition(1, 2);
-		Cell cell5 = cellGrid.getCellAtPosition(2, 0);
-		Cell cell6 = cellGrid.getCellAtPosition(2, 2);
-
-		assertTrue(cellGrid.getPositionOfCell(cell1)[0] == 0);
-		assertTrue(cellGrid.getPositionOfCell(cell2)[0] == 0);
-		assertTrue(cellGrid.getPositionOfCell(cell3)[0] == 1);
-		assertTrue(cellGrid.getPositionOfCell(cell4)[0] == 1);
-		assertTrue(cellGrid.getPositionOfCell(cell5)[0] == 2);
-		assertTrue(cellGrid.getPositionOfCell(cell6)[0] == 2);
-
-		assertTrue(cellGrid.getPositionOfCell(cell1)[1] == 0);
-		assertTrue(cellGrid.getPositionOfCell(cell2)[1] == 2);
-		assertTrue(cellGrid.getPositionOfCell(cell3)[1] == 0);
-		assertTrue(cellGrid.getPositionOfCell(cell4)[1] == 2);
-		assertTrue(cellGrid.getPositionOfCell(cell5)[1] == 0);
-		assertTrue(cellGrid.getPositionOfCell(cell6)[1] == 2);
 	}
 
 	@Test

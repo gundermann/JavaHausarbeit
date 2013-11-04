@@ -2,6 +2,8 @@ package de.nordakademie.java.gameoflife.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -33,9 +35,18 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new BorderLayout());
 
-		// setWindowIntoScreenCenter();
-
 		add(createJMenuBar(), BorderLayout.NORTH);
+		initActionListener();
+	}
+
+	private void initActionListener() {
+		closeItem.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
 	}
 
 	private Dimension getDimension(Cell[][] cellsArray) {
@@ -51,23 +62,28 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 	@Override
 	public void updateGameFieldGui(Cell[][] currentCellArray) {
 		if (gameFieldPanel == null) {
-			gameFieldPanel = new GameFieldPanel(currentCellArray);
-			add(gameFieldPanel, BorderLayout.CENTER);
-			gameFieldPanel.setPreferredSize(getDimension(currentCellArray));
+			initGameFieldPanel(currentCellArray);
 
-			JScrollPane gameFieldScrollPane = new JScrollPane();
-			gameFieldScrollPane.setViewportView(gameFieldPanel);
-			gameFieldScrollPane.setVisible(true);
-			add(gameFieldScrollPane, BorderLayout.CENTER);
-
-			pack();
-			setVisible(true);
 		} else {
 			gameFieldPanel.updateCellArray(currentCellArray);
 			cellGeneration++;
 			currentCellGenerationLabel.setText(cellGeneration + "");
 			repaint();
 		}
+	}
+
+	private void initGameFieldPanel(Cell[][] currentCellArray) {
+		gameFieldPanel = new GameFieldPanel(currentCellArray);
+		add(gameFieldPanel, BorderLayout.CENTER);
+		gameFieldPanel.setPreferredSize(getDimension(currentCellArray));
+
+		JScrollPane gameFieldScrollPane = new JScrollPane();
+		gameFieldScrollPane.setViewportView(gameFieldPanel);
+		gameFieldScrollPane.setVisible(true);
+		add(gameFieldScrollPane, BorderLayout.CENTER);
+
+		pack();
+		setVisible(true);
 	}
 
 	private JMenuBar createJMenuBar() {

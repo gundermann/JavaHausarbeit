@@ -3,8 +3,6 @@ package business;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -20,8 +18,6 @@ import de.nordakademie.java.gameoflife.business.rules.game.GameOfLife;
 public class GamePadTest {
 
 	GameController gameControl;
-	Integer[][] initinalArray = { { 0, 1, 1, 1 }, { 0, 0, 0, 0 },
-			{ 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 	GameRule gameRules;
 	BorderRule borderRules;
 	CellGrid cellGrid;
@@ -55,8 +51,7 @@ public class GamePadTest {
 
 	private void initMockedMethod() {
 		initGetCellAtPosition();
-		initGetPositionOfCell();
-		initGetCellsAsList();
+		initGetCellArray();
 		initIsAlive();
 		int count = 3;
 		Mockito.when(cellGrid.getColumnCount()).thenReturn(count);
@@ -64,6 +59,22 @@ public class GamePadTest {
 		Mockito.when(borderRules.isGridBorderDead()).thenReturn(false);
 		Mockito.when(gameRules.isCellBorn(3)).thenReturn(true);
 
+	}
+
+	private void initGetCellArray() {
+		Cell[][] cellArray = new Cell[3][3];
+
+		cellArray[0][0] = cell1;
+		cellArray[0][1] = cell2;
+		cellArray[0][2] = cell3;
+		cellArray[1][0] = cell4;
+		cellArray[1][1] = cell5;
+		cellArray[1][2] = cell6;
+		cellArray[2][0] = cell7;
+		cellArray[2][1] = cell8;
+		cellArray[2][2] = cell9;
+
+		Mockito.when(cellGrid.getCellArray()).thenReturn(cellArray);
 	}
 
 	private void initIsAlive() {
@@ -78,20 +89,6 @@ public class GamePadTest {
 		Mockito.when(cell9.isAlive()).thenReturn(false);
 	}
 
-	private void initGetCellsAsList() {
-		ArrayList<Cell> cellList = new ArrayList<Cell>();
-		cellList.add(cell1);
-		cellList.add(cell2);
-		cellList.add(cell3);
-		cellList.add(cell4);
-		cellList.add(cell5);
-		cellList.add(cell6);
-		cellList.add(cell7);
-		cellList.add(cell8);
-		cellList.add(cell9);
-		Mockito.when(cellGrid.getCellsAsList()).thenReturn(cellList);
-	}
-
 	private void initGetCellAtPosition() {
 		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
 		Mockito.when(cellGrid.getCellAtPosition(0, 1)).thenReturn(cell2);
@@ -102,27 +99,6 @@ public class GamePadTest {
 		Mockito.when(cellGrid.getCellAtPosition(2, 0)).thenReturn(cell7);
 		Mockito.when(cellGrid.getCellAtPosition(2, 1)).thenReturn(cell8);
 		Mockito.when(cellGrid.getCellAtPosition(2, 2)).thenReturn(cell9);
-	}
-
-	private void initGetPositionOfCell() {
-		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
-				new int[] { 0, 0 });
-		Mockito.when(cellGrid.getPositionOfCell(cell2)).thenReturn(
-				new int[] { 0, 1 });
-		Mockito.when(cellGrid.getPositionOfCell(cell3)).thenReturn(
-				new int[] { 0, 2 });
-		Mockito.when(cellGrid.getPositionOfCell(cell4)).thenReturn(
-				new int[] { 1, 0 });
-		Mockito.when(cellGrid.getPositionOfCell(cell5)).thenReturn(
-				new int[] { 1, 1 });
-		Mockito.when(cellGrid.getPositionOfCell(cell6)).thenReturn(
-				new int[] { 1, 2 });
-		Mockito.when(cellGrid.getPositionOfCell(cell7)).thenReturn(
-				new int[] { 2, 0 });
-		Mockito.when(cellGrid.getPositionOfCell(cell8)).thenReturn(
-				new int[] { 2, 1 });
-		Mockito.when(cellGrid.getPositionOfCell(cell9)).thenReturn(
-				new int[] { 2, 2 });
 	}
 
 	@Test

@@ -47,7 +47,6 @@ public class NeighbourFinderTest {
 	private void initMockedMethod() {
 		initGetCellAtPosition();
 		initRowAndColumnCount();
-		initGetPositionOfCell();
 	}
 
 	private void initGetCellAtPosition() {
@@ -67,33 +66,11 @@ public class NeighbourFinderTest {
 		Mockito.when(cellGrid.getRowCount()).thenReturn(3);
 	}
 
-	private void initGetPositionOfCell() {
-		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
-				new int[] { 0, 0 });
-		Mockito.when(cellGrid.getPositionOfCell(cell2)).thenReturn(
-				new int[] { 0, 1 });
-		Mockito.when(cellGrid.getPositionOfCell(cell3)).thenReturn(
-				new int[] { 0, 2 });
-		Mockito.when(cellGrid.getPositionOfCell(cell4)).thenReturn(
-				new int[] { 1, 0 });
-		Mockito.when(cellGrid.getPositionOfCell(cell5)).thenReturn(
-				new int[] { 1, 1 });
-		Mockito.when(cellGrid.getPositionOfCell(cell6)).thenReturn(
-				new int[] { 1, 2 });
-		Mockito.when(cellGrid.getPositionOfCell(cell7)).thenReturn(
-				new int[] { 2, 0 });
-		Mockito.when(cellGrid.getPositionOfCell(cell8)).thenReturn(
-				new int[] { 2, 1 });
-		Mockito.when(cellGrid.getPositionOfCell(cell9)).thenReturn(
-				new int[] { 2, 2 });
-	}
-
 	@Test
 	public void shouldFindNeighboursInTheMiddle() {
-		Cell cell = cellGrid.getCellAtPosition(1, 1);
 		List<Cell> neighbours = new ArrayList<>();
 		neighbourFinder = new NeighbourFinder(false);
-		neighbours.addAll(neighbourFinder.getNeighbours(cell, cellGrid));
+		neighbours.addAll(neighbourFinder.getNeighbours(1, 1, cellGrid));
 
 		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellGrid.getCellAtPosition(0, 0)));
@@ -109,16 +86,13 @@ public class NeighbourFinderTest {
 	@Test
 	public void shouldFindNoNeighbours() {
 		cellGrid = Mockito.mock(CellGrid.class);
-		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
-		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
-				new int[] { 0, 0 });
 		Mockito.when(cellGrid.getColumnCount()).thenReturn(1);
 		Mockito.when(cellGrid.getRowCount()).thenReturn(1);
+		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
 
-		Cell cell = cellGrid.getCellAtPosition(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
 		neighbourFinder = new NeighbourFinder(true);
-		neighbours.addAll(neighbourFinder.getNeighbours(cell, cellGrid));
+		neighbours.addAll(neighbourFinder.getNeighbours(0, 0, cellGrid));
 
 		assertTrue(neighbours.size() == 8);
 		for (Cell neighbour : neighbours) {
@@ -129,16 +103,13 @@ public class NeighbourFinderTest {
 	@Test
 	public void shouldFindYourselfAsNeighbours() {
 		cellGrid = Mockito.mock(CellGrid.class);
-		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
-		Mockito.when(cellGrid.getPositionOfCell(cell1)).thenReturn(
-				new int[] { 0, 0 });
 		Mockito.when(cellGrid.getColumnCount()).thenReturn(1);
 		Mockito.when(cellGrid.getRowCount()).thenReturn(1);
+		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
 
-		Cell cell = cellGrid.getCellAtPosition(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
 		neighbourFinder = new NeighbourFinder(false);
-		neighbours.addAll(neighbourFinder.getNeighbours(cell, cellGrid));
+		neighbours.addAll(neighbourFinder.getNeighbours(0, 0, cellGrid));
 
 		assertTrue(neighbours.size() == 8);
 		for (Cell neighbour : neighbours) {
@@ -148,10 +119,9 @@ public class NeighbourFinderTest {
 
 	@Test
 	public void shouldFindNeighboursOnTheBorderWithWallOfDeath() {
-		Cell cell = cellGrid.getCellAtPosition(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
 		neighbourFinder = new NeighbourFinder(true);
-		neighbours.addAll(neighbourFinder.getNeighbours(cell, cellGrid));
+		neighbours.addAll(neighbourFinder.getNeighbours(0, 0, cellGrid));
 
 		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellGrid.getCellAtPosition(1, 1)));
@@ -166,10 +136,9 @@ public class NeighbourFinderTest {
 
 	@Test
 	public void shouldFindNeighboursOnTheBorderWithPacman() {
-		Cell cell = cellGrid.getCellAtPosition(0, 0);
 		List<Cell> neighbours = new ArrayList<>();
 		neighbourFinder = new NeighbourFinder(false);
-		neighbours.addAll(neighbourFinder.getNeighbours(cell, cellGrid));
+		neighbours.addAll(neighbourFinder.getNeighbours(0, 0, cellGrid));
 
 		assertTrue(neighbours.size() == 8);
 		assertTrue(neighbours.contains(cellGrid.getCellAtPosition(1, 1)));

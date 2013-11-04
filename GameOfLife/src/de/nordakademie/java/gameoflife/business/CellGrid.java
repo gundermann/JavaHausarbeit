@@ -1,14 +1,10 @@
 package de.nordakademie.java.gameoflife.business;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CellGrid {
 
 	private int columns;
 	private int rows;
 	private Cell[][] cellArray;
-	private List<Cell> cellList;
 
 	public CellGrid(int[][] initinalArray) {
 		rows = initinalArray.length;
@@ -20,21 +16,10 @@ public class CellGrid {
 				checkSetupAndBearCell(currentSetup, row, column);
 			}
 		}
-		cellList = converCellArrayToList();
-	}
-
-	private List<Cell> converCellArrayToList() {
-		List<Cell> cells = new ArrayList<Cell>();
-		for (int row = 0; row < rows; row++) {
-			for (int column = 0; column < columns; column++) {
-				cells.add(getCellAtPosition(row, column));
-			}
-		}
-		return cells;
 	}
 
 	private void checkSetupAndBearCell(int currentSetup, int row, int column) {
-		Cell cell = new Cell(row, column);
+		Cell cell = new Cell();
 		if (currentSetup == 1) {
 			bearCell(cell);
 		}
@@ -49,10 +34,6 @@ public class CellGrid {
 		cell.bear();
 	}
 
-	public boolean isCellAtPositionAlive(int row, int column) {
-		return getCellAtPosition(row, column).isAlive();
-	}
-
 	public int getColumnCount() {
 		return columns;
 	}
@@ -65,10 +46,6 @@ public class CellGrid {
 		return cellArray;
 	}
 
-	public List<Cell> getCellsAsList() {
-		return cellList;
-	}
-
 	public Cell getCellAtPosition(int row, int column) {
 		Cell cellAtPosition;
 		try {
@@ -78,9 +55,4 @@ public class CellGrid {
 		}
 		return cellAtPosition;
 	}
-
-	public int[] getPositionOfCell(Cell cell) {
-		return cell.getPosition();
-	}
-
 }
