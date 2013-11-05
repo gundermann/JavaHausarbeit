@@ -12,26 +12,27 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class GameFinishedGui {
-	private final JFrame frame;
+import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
+
+public class GameFinishedGui extends JFrame{
 
 	public GameFinishedGui() {
-		frame = new JFrame("Spielende");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500, 200);
-		frame.setLayout(new BorderLayout());
-		frame.setResizable(false);
+		this.setTitle("Spielende");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(500, 200);
+		this.setLayout(new BorderLayout());
+		this.setResizable(false);
 
-		setWindowIntoScreenCenter(frame);
+		this.setLocation(WindowPositionHelper.getCenterPoint(this));
 
 		JPanel title = createTitlePanel();
 		JPanel textPanel = createErrorTextPanel("Der Spielstand \u00e4ndert sich nicht mehr. Das Spiel ist zuende.");
 
-		frame.add(title, BorderLayout.NORTH);
-		frame.add(textPanel, BorderLayout.CENTER);
-		frame.add(initOkButton(), BorderLayout.SOUTH);
+		this.add(title, BorderLayout.NORTH);
+		this.add(textPanel, BorderLayout.CENTER);
+		this.add(initOkButton(), BorderLayout.SOUTH);
 
-		frame.setVisible(true);
+		this.setVisible(true);
 	}
 
 	private JButton initOkButton() {
@@ -40,11 +41,14 @@ public class GameFinishedGui {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				frame.dispose();
+				closeFinishedGui();
 			}
 		});
 		return okButton;
+	}
+	
+	private void closeFinishedGui() {
+		this.dispose();
 	}
 
 	private JPanel createErrorTextPanel(String errortext) {
@@ -57,12 +61,6 @@ public class GameFinishedGui {
 		JPanel title = new JPanel();
 		title.add(new JLabel("Das Spiel ist beendet!"));
 		return title;
-	}
-
-	private void setWindowIntoScreenCenter(JFrame frame) {
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation((d.width - frame.getSize().width) / 2,
-				(d.height - frame.getSize().height) / 2);
 	}
 }
 

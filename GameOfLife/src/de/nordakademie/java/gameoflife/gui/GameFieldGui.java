@@ -14,16 +14,19 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.business.Cell;
+import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
 
 public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
+	//TODO designfehler
 	private int cellGeneration = 1;
-	GameFieldPanel gameFieldPanel;
-	JMenuBar menuBar;
-	JMenu options;
-	JMenuItem closeItem;
-	JLabel generationChangeLabel;
-	JSlider speedChooser;
+	
+	private GameFieldPanel gameFieldPanel;
+	private JMenuBar menuBar;
+	private JMenu options;
+	private JMenuItem closeItem;
+	private JLabel generationChangeLabel;
+	private JSlider speedChooser;
 	private JLabel highspeedLabel;
 	private JLabel oneSecondLabel;
 	private JLabel cellGenerationTitleLabel;
@@ -43,9 +46,14 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.exit(0);
+				closeGameFieldGui();
 			}
+
 		});
+	}
+
+	private void closeGameFieldGui() {
+		this.dispose();
 	}
 
 	private Dimension getDimension(Cell[][] cellsArray) {
@@ -82,6 +90,8 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		add(gameFieldScrollPane, BorderLayout.CENTER);
 
 		pack();
+		this.setLocation(WindowPositionHelper.getCenterPoint(this));
+		
 		setVisible(true);
 	}
 

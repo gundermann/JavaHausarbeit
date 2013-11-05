@@ -23,8 +23,7 @@ public class ErrorGui extends JFrame{
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
 
-		Point centerPoint = WindowPositionHelper.getCenterPoint(this);
-		this.setLocation(centerPoint);
+		this.setLocation(WindowPositionHelper.getCenterPoint(this));
 		
 		JPanel title = createTitlePanel();
 		JPanel textPanel = createErrorTextPanel(errortext);
