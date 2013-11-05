@@ -14,9 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.business.Cell;
-import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
 
-public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
+public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
 
 	private GameFieldPanel gameFieldPanel;
 	private JMenuBar menuBar;
@@ -43,14 +42,9 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				closeGameFieldGui();
+				closeGui();
 			}
-
 		});
-	}
-
-	private void closeGameFieldGui() {
-		this.dispose();
 	}
 
 	private Dimension getDimension(Cell[][] cellsArray) {
@@ -64,7 +58,8 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 	}
 
 	@Override
-	public void updateGameFieldGui(Cell[][] currentCellArray, Integer cellGeneration) {
+	public void updateGameFieldGui(Cell[][] currentCellArray,
+			Integer cellGeneration) {
 		if (gameFieldPanel == null) {
 			initGameFieldPanel(currentCellArray);
 
@@ -85,10 +80,7 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 		gameFieldScrollPane.setVisible(true);
 		add(gameFieldScrollPane, BorderLayout.CENTER);
 
-		pack();
-		this.setLocation(WindowPositionHelper.getCenterPoint(this));
-		
-		setVisible(true);
+		this.showGui();
 	}
 
 	private JMenuBar createJMenuBar() {
@@ -125,6 +117,5 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 	public long getSliderPosition() {
 		return speedChooser.getValue();
 	}
-
 
 }

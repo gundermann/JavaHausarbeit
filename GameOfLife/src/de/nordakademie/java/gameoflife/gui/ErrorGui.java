@@ -1,7 +1,6 @@
 package de.nordakademie.java.gameoflife.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -11,10 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
-
-public class ErrorGui extends JFrame{
-
+public class ErrorGui extends GolGui {
 
 	public ErrorGui(String errortext) {
 		this.setTitle("Fehlermeldung");
@@ -23,8 +19,6 @@ public class ErrorGui extends JFrame{
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
 
-		this.setLocation(WindowPositionHelper.getCenterPoint(this));
-		
 		JPanel title = createTitlePanel();
 		JPanel textPanel = createErrorTextPanel(errortext);
 
@@ -32,7 +26,7 @@ public class ErrorGui extends JFrame{
 		this.add(textPanel, BorderLayout.CENTER);
 		this.add(initOkButton(), BorderLayout.SOUTH);
 
-		this.setVisible(true);
+		this.showGui();
 	}
 
 	private JButton initOkButton() {
@@ -41,15 +35,11 @@ public class ErrorGui extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				closeErrorGui();
+				closeGui();
 			}
 
 		});
 		return okButton;
-	}
-
-	private void closeErrorGui() {
-		this.dispose();
 	}
 
 	private JPanel createErrorTextPanel(String errortext) {

@@ -10,9 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
-
-public class GameFinishedGui extends JFrame{
+public class GameFinishedGui extends GolGui {
 
 	public GameFinishedGui() {
 		this.setTitle("Spielende");
@@ -21,8 +19,6 @@ public class GameFinishedGui extends JFrame{
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
 
-		this.setLocation(WindowPositionHelper.getCenterPoint(this));
-
 		JPanel title = createTitlePanel();
 		JPanel textPanel = createErrorTextPanel("Der Spielstand \u00e4ndert sich nicht mehr. Das Spiel ist zuende.");
 
@@ -30,7 +26,7 @@ public class GameFinishedGui extends JFrame{
 		this.add(textPanel, BorderLayout.CENTER);
 		this.add(initOkButton(), BorderLayout.SOUTH);
 
-		this.setVisible(true);
+		this.showGui();
 	}
 
 	private JButton initOkButton() {
@@ -39,14 +35,10 @@ public class GameFinishedGui extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				closeFinishedGui();
+				closeGui();
 			}
 		});
 		return okButton;
-	}
-	
-	private void closeFinishedGui() {
-		this.dispose();
 	}
 
 	private JPanel createErrorTextPanel(String errortext) {
@@ -61,5 +53,3 @@ public class GameFinishedGui extends JFrame{
 		return title;
 	}
 }
-
-

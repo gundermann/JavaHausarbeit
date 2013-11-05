@@ -18,9 +18,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import de.nordakademie.java.gameoflife.StartGOLHandler;
-import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
 
-public class StartMenuGui extends JFrame {
+public class StartMenuGui extends GolGui {
 
 	private JComboBox<String> chooseGameRule;
 	private JComboBox<String> chooseBorderRule;
@@ -36,7 +35,6 @@ public class StartMenuGui extends JFrame {
 		this.setTitle("Game of Life");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
-		
 
 		JLabel headline = initHeadline();
 		JPanel buttonPanel = initButtonPanel();
@@ -45,9 +43,7 @@ public class StartMenuGui extends JFrame {
 		this.add(headline, BorderLayout.NORTH);
 		this.add(gameChooseOptions, BorderLayout.CENTER);
 		this.add(buttonPanel, BorderLayout.SOUTH);
-		this.pack();
-		this.setLocation(WindowPositionHelper.getCenterPoint(this));
-		this.setVisible(true);
+		this.showGui();
 	}
 
 	private JPanel initButtonPanel() {
@@ -58,7 +54,7 @@ public class StartMenuGui extends JFrame {
 		closeButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				closeStartMenuGui();
+				closeGui();
 			}
 		});
 
@@ -73,10 +69,6 @@ public class StartMenuGui extends JFrame {
 		buttonPanel.add(startButton);
 		buttonPanel.add(closeButton);
 		return buttonPanel;
-	}
-
-	private void closeStartMenuGui() {
-		this.dispose();
 	}
 
 	public String getSelectedGameRule() {
