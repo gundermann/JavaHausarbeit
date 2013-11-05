@@ -18,10 +18,6 @@ public class GameController implements Runnable {
 	private GameFieldGuiHandler gameControlHandler;
 	private NeighbourFinder neighbourFinder;
 
-	// Zu Testzwecken
-	public static int FRAME = 0;
-	public static long STARTTIME;
-
 	public GameController(final CellGrid cellGrid, GameRule gameRules,
 			BorderRule borderRules) {
 		this.cellGrid = cellGrid;
@@ -96,7 +92,6 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
-		STARTTIME = System.currentTimeMillis();
 		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());
@@ -107,7 +102,6 @@ public class GameController implements Runnable {
 			calculateNextGeneration();
 
 		}
-		System.out.println((System.currentTimeMillis() - STARTTIME) / 1000);
 		new GameFinishedGui();
 	}
 
