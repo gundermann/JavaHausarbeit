@@ -19,7 +19,7 @@ import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 import de.nordakademie.java.gameoflife.gui.ErrorGui;
 import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
-import de.nordakademie.java.gameoflife.utils.fileLoader.FileLoader;
+import de.nordakademie.java.gameoflife.utils.fileloader.FileLoader;
 
 public class StartGOL implements StartGOLHandler {
 	private final StartMenuGui startGui;

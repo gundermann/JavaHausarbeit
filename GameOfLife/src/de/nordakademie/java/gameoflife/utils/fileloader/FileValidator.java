@@ -1,4 +1,4 @@
-package de.nordakademie.java.gameoflife.utils.fileLoader;
+package de.nordakademie.java.gameoflife.utils.fileloader;
 
 import java.io.BufferedReader;
 import java.io.File;

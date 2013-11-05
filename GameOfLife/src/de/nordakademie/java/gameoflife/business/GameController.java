@@ -94,19 +94,17 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
-
 		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());
+				gameControlHandler.updateGameFieldGui(cellGrid.getCellArray(), generation);
+				calculateNextGeneration();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray(), generation);
-			calculateNextGeneration();
-
 		}
 		new GameFinishedGui();
-		while(true){
+		while(!gameIsOngoing){
 			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray(), generation);
 		}
 	}

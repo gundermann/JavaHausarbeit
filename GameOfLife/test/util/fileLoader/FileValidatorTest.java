@@ -18,7 +18,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
-import de.nordakademie.java.gameoflife.utils.fileLoader.FileValidator;
+import de.nordakademie.java.gameoflife.utils.fileloader.FileValidator;
 
 public class FileValidatorTest {
 
