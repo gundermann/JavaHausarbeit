@@ -49,9 +49,10 @@ public class GameController implements Runnable {
 
 	private void checkRules(Cell cell, int neighbours,
 			List<Cell> cellsToBearOrKill) {
-		if (!cell.isAlive() && gameRules.isCellBorn(neighbours)) {
+		if (!cellGrid.isCellAlive(cell) && gameRules.isCellBorn(neighbours)) {
 			cellsToBearOrKill.add(cell);
-		} else if (cell.isAlive() && !gameRules.isCellStayingAlive(neighbours)) {
+		} else if (cellGrid.isCellAlive(cell)
+				&& !gameRules.isCellStayingAlive(neighbours)) {
 			cellsToBearOrKill.add(cell);
 		}
 
@@ -61,7 +62,7 @@ public class GameController implements Runnable {
 		int livingNeighbours = 0;
 		List<Cell> neighbours = getNeighbours(row, column);
 		for (Cell neighbourCell : neighbours) {
-			if (neighbourCell.isAlive()) {
+			if (cellGrid.isCellAlive(neighbourCell)) {
 				livingNeighbours++;
 			}
 		}
@@ -74,15 +75,13 @@ public class GameController implements Runnable {
 
 	public void calculateNextGeneration() {
 		List<Cell> cellsToChange = findCellsToBearOrKill();
-
 		for (Cell cell : cellsToChange) {
-			if (cell.isAlive()) {
+			if (cellGrid.isCellAlive(cell)) {
 				cellGrid.killCell(cell);
 			} else {
 				cellGrid.bearCell(cell);
 			}
 		}
-
 		generation = generation + 1;
 	}
 
@@ -99,8 +98,7 @@ public class GameController implements Runnable {
 		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());
-				gameControlHandler.updateGameFieldGui(
-						cellGrid.getCellGridAsBooleanArray(), generation);
+				updateGui();
 				calculateNextGeneration();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -108,9 +106,13 @@ public class GameController implements Runnable {
 		}
 		new GameFinishedGui();
 		while (!gameIsOngoing) {
-			gameControlHandler.updateGameFieldGui(
-					cellGrid.getCellGridAsBooleanArray(), generation);
+			updateGui();
 		}
+	}
+
+	private void updateGui() {
+		gameControlHandler.updateGameFieldGui(
+				cellGrid.getCellGridAsBooleanArray(), generation);
 	}
 
 	private long getSettedTime() {

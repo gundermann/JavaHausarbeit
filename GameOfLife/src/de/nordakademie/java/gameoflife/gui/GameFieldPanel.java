@@ -41,11 +41,12 @@ class GameFieldPanel extends JPanel {
 			for (int currentRow = 0; currentRow < columns; currentRow++) {
 				if (cellsArray[currentColumn][currentRow]) {
 					g.setColor(Color.RED);
-				} else {
-					g.setColor(Color.BLACK);
+					// TODO würde ich gerne rauslassen, aber wie sonst?
+					// } else {
+					// g.setColor(Color.BLACK);
+					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
+							* CELL_DRAWING_SIZE, g);
 				}
-				paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
-						* CELL_DRAWING_SIZE, g);
 			}
 		}
 	}

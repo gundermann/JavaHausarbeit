@@ -51,8 +51,8 @@ public class CellGrid {
 		return cellArray;
 	}
 
-	public boolean isCellOnPositionAlive(int row, int column) {
-		return getCellAtPosition(row, column).isAlive();
+	public boolean isCellAlive(Cell cell) {
+		return cell.isAlive();
 	}
 
 	public Cell getCellAtPosition(int row, int column) {
@@ -69,9 +69,11 @@ public class CellGrid {
 		boolean[][] boolArray = new boolean[rows][columns];
 		for (int row = 0; row < rows; row++) {
 			for (int column = 0; column < columns; column++) {
-				boolArray[row][column] = isCellOnPositionAlive(row, column);
+				Cell cell = getCellAtPosition(row, column);
+				boolArray[row][column] = isCellAlive(cell);
 			}
 		}
 		return boolArray;
 	}
+
 }
