@@ -37,9 +37,6 @@ class GameFieldPanel extends JPanel {
 		for (int currentColumn = 0; currentColumn < rows; currentColumn++) {
 			for (int currentRow = 0; currentRow < columns; currentRow++) {
 				if (cellsArray[currentColumn][currentRow].isAlive()) {
-					// else {
-					// g.setColor(Color.BLACK);
-					// }
 					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
 							* CELL_DRAWING_SIZE, g);
 				}
