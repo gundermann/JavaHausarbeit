@@ -21,9 +21,8 @@ public class FileLoader {
 				validator.validate(file);
 				readCellsFromFile(file);
 			} catch (IOException e) {
-				//TODO Prüfen - komische Fehlermeldung
 				throw new FileReadingErrorException(
-						"Während des Einlesens der Datei ist eine Exception geworfen worden");
+						"Während des Einlesens der Datei ist ein Fehler aufgetreten");
 			}
 		} else {
 			throw new FileReadingErrorException("Abbruch");
