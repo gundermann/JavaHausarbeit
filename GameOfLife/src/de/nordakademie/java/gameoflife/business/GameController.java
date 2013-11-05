@@ -1,3 +1,4 @@
+
 package de.nordakademie.java.gameoflife.business;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class GameController implements Runnable {
 	private int generation = 1;
 	private GameFieldGuiHandler gameControlHandler;
 	private NeighbourFinder neighbourFinder;
+	
 
 	public GameController(final CellGrid cellGrid, GameRule gameRules,
 			BorderRule borderRules) {
@@ -92,17 +94,21 @@ public class GameController implements Runnable {
 
 	@Override
 	public void run() {
+
 		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray());
+			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray(), generation);
 			calculateNextGeneration();
 
 		}
 		new GameFinishedGui();
+		while(true){
+			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray(), generation);
+		}
 	}
 
 	private long getSettedTime() {

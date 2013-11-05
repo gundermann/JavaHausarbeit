@@ -4,6 +4,6 @@ import de.nordakademie.java.gameoflife.business.Cell;
 
 public interface GameFieldGuiHandler {
    
-    void updateGameFieldGui(Cell[][] cells);
+    void updateGameFieldGui(Cell[][] cells, Integer cellGeneration);
     long getSliderPosition();
 }

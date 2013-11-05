@@ -18,9 +18,6 @@ import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
 
 public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 
-	//TODO designfehler
-	private int cellGeneration = 1;
-	
 	private GameFieldPanel gameFieldPanel;
 	private JMenuBar menuBar;
 	private JMenu options;
@@ -67,13 +64,12 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 	}
 
 	@Override
-	public void updateGameFieldGui(Cell[][] currentCellArray) {
+	public void updateGameFieldGui(Cell[][] currentCellArray, Integer cellGeneration) {
 		if (gameFieldPanel == null) {
 			initGameFieldPanel(currentCellArray);
 
 		} else {
 			gameFieldPanel.updateCellArray(currentCellArray);
-			cellGeneration++;
 			currentCellGenerationLabel.setText(cellGeneration + "");
 			repaint();
 		}
@@ -129,5 +125,6 @@ public class GameFieldGui extends JFrame implements GameFieldGuiHandler {
 	public long getSliderPosition() {
 		return speedChooser.getValue();
 	}
+
 
 }
