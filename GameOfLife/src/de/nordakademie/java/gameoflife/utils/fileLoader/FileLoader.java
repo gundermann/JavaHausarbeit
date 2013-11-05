@@ -23,7 +23,7 @@ public abstract class FileLoader {
 						"Während des Einlesens der Datei ist eine Exception geworfen worden");
 			}
 		} else {
-			throw new FileReadingErrorException("Es wurde kein File ausgewählt");
+			throw new FileReadingErrorException("Abbruch");
 		}
 	}
 
