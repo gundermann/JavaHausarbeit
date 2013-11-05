@@ -14,13 +14,13 @@ public class FileValidator {
 
 	public void validate(File file) throws IOException,
 			FileReadingErrorException {
-		if (isFileToLarge(file)) {
-			throw new FileReadingErrorException(
-					"Die hochgeladene Datei ist zu groﬂ");
-		}
 		if (!isFileTypeCorrect(file)) {
 			throw new FileReadingErrorException(
 					"Die hochgeladene Datei ist keine .gol");
+		}
+		if (isFileToLarge(file)) {
+			throw new FileReadingErrorException(
+					"Die hochgeladene Datei ist zu groﬂ");
 		}
 		if (fileContainsNonASCIICharacter(file)) {
 			throw new FileReadingErrorException(

@@ -1,8 +1,7 @@
 package de.nordakademie.java.gameoflife.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,27 +11,29 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-public class ErrorGui {
+import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
 
-	private final JFrame frame;
+public class ErrorGui extends JFrame{
+
 
 	public ErrorGui(String errortext) {
-		frame = new JFrame("Fehlermeldung");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(500, 200);
-		frame.setLayout(new BorderLayout());
-		frame.setResizable(false);
+		this.setTitle("Fehlermeldung");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setSize(500, 200);
+		this.setLayout(new BorderLayout());
+		this.setResizable(false);
 
-		setWindowIntoScreenCenter(frame);
-
+		Point centerPoint = WindowPositionHelper.getCenterPoint(this);
+		this.setLocation(centerPoint);
+		
 		JPanel title = createTitlePanel();
 		JPanel textPanel = createErrorTextPanel(errortext);
 
-		frame.add(title, BorderLayout.NORTH);
-		frame.add(textPanel, BorderLayout.CENTER);
-		frame.add(initOkButton(), BorderLayout.SOUTH);
+		this.add(title, BorderLayout.NORTH);
+		this.add(textPanel, BorderLayout.CENTER);
+		this.add(initOkButton(), BorderLayout.SOUTH);
 
-		frame.setVisible(true);
+		this.setVisible(true);
 	}
 
 	private JButton initOkButton() {
@@ -41,11 +42,15 @@ public class ErrorGui {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				frame.dispose();
+				closeErrorGui();
 			}
+
 		});
 		return okButton;
+	}
+
+	private void closeErrorGui() {
+		this.dispose();
 	}
 
 	private JPanel createErrorTextPanel(String errortext) {
@@ -60,9 +65,4 @@ public class ErrorGui {
 		return title;
 	}
 
-	private void setWindowIntoScreenCenter(JFrame frame) {
-		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation((d.width - frame.getSize().width) / 2,
-				(d.height - frame.getSize().height) / 2);
-	}
 }
