@@ -65,6 +65,7 @@ public class StartGOL implements StartGOLHandler {
 					getSelectedGameRule(), getSelectedBorderRule());
 			gamePad.setGameControlHandler(gameField);
 			new Thread(gamePad).start();
+			startGui.dispose();
 		} else {
 			new ErrorGui("Es wurde keine Datei gefunden");
 		}

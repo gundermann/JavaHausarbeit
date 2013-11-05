@@ -21,9 +21,8 @@ import javax.swing.border.EtchedBorder;
 
 import de.nordakademie.java.gameoflife.StartGOLHandler;
 
-public class StartMenuGui {
+public class StartMenuGui extends JFrame {
 
-	private JFrame frame;
 	private JComboBox<String> chooseGameRule;
 	private JComboBox<String> chooseBorderRule;
 	private GridBagLayout gameChooseOptionLayout;
@@ -32,26 +31,25 @@ public class StartMenuGui {
 	private JLabel gameChoose;
 	private JLabel borderChoose;
 	private JLabel gameConstructions;
-	private StartGOLHandler handler; 
-	
+	private StartGOLHandler handler;
 
 	public StartMenuGui() {
-		frame = new JFrame("Game of Life");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLayout(new BorderLayout());
+		this.setTitle("Game of Life");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new BorderLayout());
 		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
-		frame.setLocation((d.width - frame.getSize().width) / 2,
-				(d.height - frame.getSize().height) / 2);
+		this.setLocation((d.width - this.getSize().width) / 2,
+				(d.height - this.getSize().height) / 2);
 
 		JLabel headline = initHeadline();
 		JPanel buttonPanel = initButtonPanel();
 		JPanel gameChooseOptions = initGameChooseOptions();
 
-		frame.add(headline, BorderLayout.NORTH);
-		frame.add(gameChooseOptions, BorderLayout.CENTER);
-		frame.add(buttonPanel, BorderLayout.SOUTH);
-		frame.setVisible(true);
-		frame.pack();
+		this.add(headline, BorderLayout.NORTH);
+		this.add(gameChooseOptions, BorderLayout.CENTER);
+		this.add(buttonPanel, BorderLayout.SOUTH);
+		this.setVisible(true);
+		this.pack();
 	}
 
 	private JPanel initButtonPanel() {
@@ -71,7 +69,6 @@ public class StartMenuGui {
 			@Override
 			public void actionPerformed(ActionEvent event) {
 				handler.handleStartButtonPressedEvent();
-				frame.dispose();
 			}
 		});
 
@@ -79,12 +76,12 @@ public class StartMenuGui {
 		buttonPanel.add(closeButton);
 		return buttonPanel;
 	}
-	
-	public String getSelectedGameRule(){
+
+	public String getSelectedGameRule() {
 		return chooseGameRule.getSelectedItem().toString();
 	}
-	
-	public String getSelectedBorderRule(){
+
+	public String getSelectedBorderRule() {
 		return chooseBorderRule.getSelectedItem().toString();
 	}
 
@@ -157,9 +154,10 @@ public class StartMenuGui {
 		chooseBorderRule = new JComboBox<String>();
 		chooseBorderRule.addItem("Wall of Death");
 		chooseBorderRule.addItem("Pacman Sytle");
-		gameChooseOptionLayout.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
+		gameChooseOptionLayout
+				.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
 	}
-	
+
 	public void setFileUploadPathText(String path) {
 		fileUploadPath.setText(path);
 	}
@@ -183,8 +181,8 @@ public class StartMenuGui {
 		dummy.gridwidth = width;
 		return dummy;
 	}
-	
-	public void setHandler(StartGOLHandler startGOLHandler){
+
+	public void setHandler(StartGOLHandler startGOLHandler) {
 		handler = startGOLHandler;
 	}
 }
