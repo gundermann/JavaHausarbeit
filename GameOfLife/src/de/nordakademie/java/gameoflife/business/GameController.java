@@ -99,8 +99,8 @@ public class GameController implements Runnable {
 		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());
-				gameControlHandler.updateGameFieldGui(cellGrid.getCellArray(),
-						generation);
+				gameControlHandler.updateGameFieldGui(
+						cellGrid.getCellGridAsBooleanArray(), generation);
 				calculateNextGeneration();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -108,8 +108,8 @@ public class GameController implements Runnable {
 		}
 		new GameFinishedGui();
 		while (!gameIsOngoing) {
-			gameControlHandler.updateGameFieldGui(cellGrid.getCellArray(),
-					generation);
+			gameControlHandler.updateGameFieldGui(
+					cellGrid.getCellGridAsBooleanArray(), generation);
 		}
 	}
 

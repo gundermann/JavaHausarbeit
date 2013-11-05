@@ -13,8 +13,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
-import de.nordakademie.java.gameoflife.business.Cell;
-
 /*
  * GUI für das Spielfeld mit dem Universum
  * 
@@ -53,18 +51,18 @@ public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
 		});
 	}
 
-	private Dimension getDimension(Cell[][] cellsArray) {
-		int columns = cellsArray.length;
-		int rows = 0;
-		if (columns > 0) {
-			rows = cellsArray[0].length;
+	private Dimension getDimension(boolean[][] cellsArray) {
+		int rows = cellsArray.length;
+		int columns = 0;
+		if (rows > 0) {
+			columns = cellsArray[0].length;
 		}
 		int cellDrawingSize = gameFieldPanel.getCellsDrawingSize();
 		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize));
 	}
 
 	@Override
-	public void updateGameFieldGui(Cell[][] currentCellArray,
+	public void updateGameFieldGui(boolean[][] currentCellArray,
 			Integer cellGeneration) {
 		if (gameFieldPanel == null) {
 			initGameFieldPanel(currentCellArray);
@@ -76,7 +74,7 @@ public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
 		}
 	}
 
-	private void initGameFieldPanel(Cell[][] currentCellArray) {
+	private void initGameFieldPanel(boolean[][] currentCellArray) {
 		gameFieldPanel = new GameFieldPanel(currentCellArray);
 		add(gameFieldPanel, BorderLayout.CENTER);
 		gameFieldPanel.setPreferredSize(getDimension(currentCellArray));

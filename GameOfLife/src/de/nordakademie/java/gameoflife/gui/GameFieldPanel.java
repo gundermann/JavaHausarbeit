@@ -5,8 +5,6 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-import de.nordakademie.java.gameoflife.business.Cell;
-
 /*
  * GUI-Komponente auf der das Universum abgebildet wird.
  * 
@@ -15,14 +13,14 @@ import de.nordakademie.java.gameoflife.business.Cell;
 
 class GameFieldPanel extends JPanel {
 
-	private Cell[][] cellsArray;
+	private boolean[][] cellsArray;
 	private final int CELL_DRAWING_SIZE = 10;
 
-	public GameFieldPanel(Cell[][] currentCellArray) {
+	public GameFieldPanel(boolean[][] currentCellArray) {
 		cellsArray = currentCellArray;
 	}
 
-	public void updateCellArray(Cell[][] currentCellArray) {
+	public void updateCellArray(boolean[][] currentCellArray) {
 		cellsArray = currentCellArray;
 	}
 
@@ -39,13 +37,15 @@ class GameFieldPanel extends JPanel {
 			columns = cellsArray[0].length;
 		}
 
-		g.setColor(Color.RED);
 		for (int currentColumn = 0; currentColumn < rows; currentColumn++) {
 			for (int currentRow = 0; currentRow < columns; currentRow++) {
-				if (cellsArray[currentColumn][currentRow].isAlive()) {
-					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
-							* CELL_DRAWING_SIZE, g);
+				if (cellsArray[currentColumn][currentRow]) {
+					g.setColor(Color.RED);
+				} else {
+					g.setColor(Color.BLACK);
 				}
+				paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
+						* CELL_DRAWING_SIZE, g);
 			}
 		}
 	}
