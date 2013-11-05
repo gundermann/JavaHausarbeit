@@ -13,6 +13,7 @@ import java.io.OutputStreamWriter;
 import javax.imageio.ImageIO;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -21,13 +22,14 @@ import de.nordakademie.java.gameoflife.utils.fileLoader.FileValidator;
 
 public class FileValidatorTest {
 
+	private FileValidator validator;
 	private static File testFileGOL;
 	private static File testFileJPG;
 	private static File testFileNothing;
 	private static FileWriter fileWriter;
 
 	@BeforeClass
-	public static void setUp() throws Exception {
+	public static void setUpBefore() throws Exception {
 		testFileGOL = new File("test.gol");
 		if (!testFileGOL.exists()) {
 			testFileGOL.createNewFile();
@@ -41,9 +43,14 @@ public class FileValidatorTest {
 			testFileNothing.createNewFile();
 		}
 	}
+	
+	@Before
+	public void SetUp(){
+		validator = new FileValidator();
+	}
 
 	@AfterClass
-	public static void tearDown() throws Exception {
+	public static void tearDownAfter() throws Exception {
 		testFileGOL.delete();
 		testFileJPG.delete();
 		testFileNothing.delete();
@@ -59,7 +66,7 @@ public class FileValidatorTest {
 			fileWriter.write("0010010");
 			fileWriter.flush();
 			fileWriter.close();
-			FileValidator.validate(testFileGOL);
+			validator.validate(testFileGOL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
@@ -74,7 +81,7 @@ public class FileValidatorTest {
 	public void validateFiletypeTest() {
 		String errorMessage = "";
 		try {
-			FileValidator.validate(testFileGOL);
+			validator.validate(testFileGOL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
@@ -85,7 +92,7 @@ public class FileValidatorTest {
 				!errorMessage.equals("Die hochgeladene Datei ist keine .gol"));
 
 		try {
-			FileValidator.validate(testFileJPG);
+			validator.validate(testFileJPG);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
@@ -96,7 +103,7 @@ public class FileValidatorTest {
 				errorMessage.equals("Die hochgeladene Datei ist keine .gol"));
 
 		try {
-			FileValidator.validate(testFileNothing);
+			validator.validate(testFileNothing);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
@@ -114,7 +121,7 @@ public class FileValidatorTest {
 			BufferedImage bimage = new BufferedImage(4500, 4500,
 					BufferedImage.TYPE_INT_RGB);
 			ImageIO.write(bimage, "jpg", testFileJPG);
-			FileValidator.validate(testFileJPG);
+			validator.validate(testFileJPG);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
@@ -138,7 +145,7 @@ public class FileValidatorTest {
 			fileWriter.write("10010011");
 			fileWriter.flush();
 			fileWriter.close();
-			FileValidator.validate(testFileGOL);
+			validator.validate(testFileGOL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
@@ -161,7 +168,7 @@ public class FileValidatorTest {
 			fileWriter.write("1001001A");
 			fileWriter.flush();
 			fileWriter.close();
-			FileValidator.validate(testFileGOL);
+			validator.validate(testFileGOL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
@@ -188,7 +195,7 @@ public class FileValidatorTest {
 			bufferedWriter.write("0100101");
 			bufferedWriter.close();
 			bufferedWriter = null;
-			FileValidator.validate(testFileGOL);
+			validator.validate(testFileGOL);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -206,7 +213,7 @@ public class FileValidatorTest {
 			bufferedWriter.write("0100101");
 			bufferedWriter.close();
 			bufferedWriter = null;
-			FileValidator.validate(testFileGOL);
+			validator.validate(testFileGOL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
