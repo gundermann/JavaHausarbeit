@@ -1,3 +1,4 @@
+
 package de.nordakademie.java.gameoflife.business;
 
 import java.util.ArrayList;
