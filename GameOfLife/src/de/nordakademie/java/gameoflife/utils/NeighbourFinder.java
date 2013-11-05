@@ -6,6 +6,11 @@ import java.util.List;
 import de.nordakademie.java.gameoflife.business.Cell;
 import de.nordakademie.java.gameoflife.business.CellGrid;
 
+/*
+ * Sucht nach den Nachbarn einer Zelle
+ * 
+ * @author Niels Gundermann
+ */
 public class NeighbourFinder {
 
 	private CellGrid cellGrid;

@@ -7,6 +7,12 @@ import javax.swing.JPanel;
 
 import de.nordakademie.java.gameoflife.business.Cell;
 
+/*
+ * GUI-Komponente auf der das Universum abgebildet wird.
+ * 
+ * @author Christian Leppelt
+ */
+
 class GameFieldPanel extends JPanel {
 
 	private Cell[][] cellsArray;

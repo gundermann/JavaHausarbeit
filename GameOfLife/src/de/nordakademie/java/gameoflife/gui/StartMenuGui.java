@@ -19,6 +19,11 @@ import javax.swing.border.EtchedBorder;
 
 import de.nordakademie.java.gameoflife.StartGOLHandler;
 
+/*
+ * GUI die beim Starten des Programms angezeigt wird.
+ * 
+ * @author Frauke Trautmann
+ */
 public class StartMenuGui extends GolGui {
 
 	private JComboBox<String> chooseGameRule;

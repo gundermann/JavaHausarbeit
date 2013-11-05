@@ -7,6 +7,11 @@ import java.io.IOException;
 
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
+/*
+ * PrÃ¼ft die ausgewÃ¤hlte Datei.
+ * 
+ * @author Christian Leppelt
+ */
 public class FileValidator {
 
 	private FileReader fileReader;
@@ -20,7 +25,7 @@ public class FileValidator {
 		}
 		if (isFileToLarge(file)) {
 			throw new FileReadingErrorException(
-					"Die hochgeladene Datei ist zu groß");
+					"Die hochgeladene Datei ist zu groï¿½");
 		}
 		if (fileContainsNonASCIICharacter(file)) {
 			throw new FileReadingErrorException(
@@ -28,7 +33,7 @@ public class FileValidator {
 		}
 		if (fileContainsNotJustZerosAndOnes(file)) {
 			throw new FileReadingErrorException(
-					"Die hochgeladene Datei enthällt nicht nur 1en und 0en");
+					"Die hochgeladene Datei enthï¿½llt nicht nur 1en und 0en");
 		}
 		if (notAllLinesEquallyLong(file)) {
 			throw new FileReadingErrorException(
@@ -75,8 +80,7 @@ public class FileValidator {
 		return false;
 	}
 
-	private boolean fileContainsNonASCIICharacter(File file)
-			throws IOException {
+	private boolean fileContainsNonASCIICharacter(File file) throws IOException {
 		boolean fileContainsNonASCIICharacter = false;
 		fileReader = new FileReader(file);
 		bufferedReader = new BufferedReader(fileReader);

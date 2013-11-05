@@ -21,6 +21,11 @@ import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 import de.nordakademie.java.gameoflife.utils.fileloader.FileLoader;
 
+/*
+ * Initialisiert und startet das Spiel
+ * 
+ * @author Frauke Trautmann
+ */
 public class StartGOL implements StartGOLHandler {
 	private final StartMenuGui startGui;
 	private int[][] cellArray;
@@ -47,9 +52,8 @@ public class StartGOL implements StartGOLHandler {
 			return file.getPath();
 		} catch (FileReadingErrorException exception) {
 			System.out.println(exception);
-			if(exception.getErrorMessage().equals("Abbruch")){
-			}
-			else{
+			if (exception.getErrorMessage().equals("Abbruch")) {
+			} else {
 				new ErrorGui(exception.getErrorMessage());
 			}
 		}

@@ -1,5 +1,10 @@
 package de.nordakademie.java.gameoflife.business;
 
+/*
+ * Abbildung des Universums.
+ * 
+ * @autor Niels Gundermann
+ */
 public class CellGrid {
 
 	private int columns;

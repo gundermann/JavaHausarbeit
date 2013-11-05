@@ -15,6 +15,12 @@ import javax.swing.JSlider;
 
 import de.nordakademie.java.gameoflife.business.Cell;
 
+/*
+ * GUI für das Spielfeld mit dem Universum
+ * 
+ * @author Kathrin Kurtz
+ */
+
 public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
 
 	private GameFieldPanel gameFieldPanel;

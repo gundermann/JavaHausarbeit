@@ -7,6 +7,11 @@ import java.io.IOException;
 
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
+/*
+ * Lädt die ausgwählte Datei hoch
+ * 
+ * @author Christian Leppelt
+ */
 public class FileLoader {
 
 	private FileReader fileReader;
@@ -16,13 +21,13 @@ public class FileLoader {
 	public void readFile(File file) throws FileReadingErrorException {
 		if (file != null) {
 			try {
-				
+
 				FileValidator validator = new FileValidator();
 				validator.validate(file);
 				readCellsFromFile(file);
 			} catch (IOException e) {
 				throw new FileReadingErrorException(
-						"W�hrend des Einlesens der Datei ist ein Fehler aufgetreten");
+						"W�hrend des Einlesens der Datei ist ein Fehler aufgetreten");
 			}
 		} else {
 			throw new FileReadingErrorException("Abbruch");
