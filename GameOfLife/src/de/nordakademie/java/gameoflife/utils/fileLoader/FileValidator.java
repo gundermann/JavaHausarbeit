@@ -7,12 +7,12 @@ import java.io.IOException;
 
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
-public abstract class FileValidator {
+public class FileValidator {
 
-	private static FileReader fileReader;
-	private static BufferedReader bufferedReader;
+	private FileReader fileReader;
+	private BufferedReader bufferedReader;
 
-	public static void validate(File file) throws IOException,
+	public void validate(File file) throws IOException,
 			FileReadingErrorException {
 		if (isFileToLarge(file)) {
 			throw new FileReadingErrorException(
@@ -36,7 +36,7 @@ public abstract class FileValidator {
 		}
 	}
 
-	private static boolean notAllLinesEquallyLong(File file) throws IOException {
+	private boolean notAllLinesEquallyLong(File file) throws IOException {
 		fileReader = new FileReader(file);
 		bufferedReader = new BufferedReader(fileReader);
 		String line = bufferedReader.readLine();
@@ -57,7 +57,7 @@ public abstract class FileValidator {
 		return false;
 	}
 
-	private static boolean fileContainsNotJustZerosAndOnes(File file)
+	private boolean fileContainsNotJustZerosAndOnes(File file)
 			throws IOException {
 		fileReader = new FileReader(file);
 		bufferedReader = new BufferedReader(fileReader);
@@ -75,8 +75,9 @@ public abstract class FileValidator {
 		return false;
 	}
 
-	private static boolean fileContainsNonASCIICharacter(File file)
+	private boolean fileContainsNonASCIICharacter(File file)
 			throws IOException {
+		boolean fileContainsNonASCIICharacter = false;
 		fileReader = new FileReader(file);
 		bufferedReader = new BufferedReader(fileReader);
 		String line = bufferedReader.readLine();
@@ -84,40 +85,43 @@ public abstract class FileValidator {
 			if (stringContainsAnNoASCIICharacter(line)) {
 				bufferedReader.close();
 				fileReader.close();
-				return true;
+				fileContainsNonASCIICharacter = true;
+				break;
 			}
 			line = bufferedReader.readLine();
 		}
 		bufferedReader.close();
 		fileReader.close();
-		return false;
+		return fileContainsNonASCIICharacter;
 
 	}
 
-	private static boolean stringContainsAnNoASCIICharacter(String string) {
+	private boolean stringContainsAnNoASCIICharacter(String string) {
 		return !string.matches("\\p{ASCII}*");
 	}
 
-	private static boolean isFileToLarge(File file) {
+	private boolean isFileToLarge(File file) {
 		return file.length() > 256000;
 	}
 
-	private static boolean isFileTypeCorrect(File file) {
+	private boolean isFileTypeCorrect(File file) {
+		boolean isFileTypeCorrent = false;
 		String fileName = file.getName();
-		if (fileName.lastIndexOf(".") == -1) {
-			return false;
+		if (fileName.lastIndexOf(".") != -1) {
+			String fileType = fileName.substring(fileName.lastIndexOf("."));
+			isFileTypeCorrent = fileType.equals(".gol");
 		}
-		String fileType = fileName.substring(fileName.lastIndexOf("."));
-		return fileType.equals(".gol");
+		return isFileTypeCorrent;
 	}
 
-	private static boolean stringContainsNotOnlyZerosAndOnes(String string) {
+	private boolean stringContainsNotOnlyZerosAndOnes(String string) {
+		boolean stringContainsWrongCharacter = false;
 		for (char character : string.toCharArray()) {
 			if (character != '1' && character != '0') {
-				return true;
+				stringContainsWrongCharacter = true;
 			}
 		}
-		return false;
+		return stringContainsWrongCharacter;
 	}
 
 }

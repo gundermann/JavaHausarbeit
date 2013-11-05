@@ -35,15 +35,15 @@ public class StartGOL implements StartGOLHandler {
 		startGui.setHandler(this);
 	}
 
-	// TODO nach Umstellung auf Exceptionhandling noch einmal überarbeiten
 	@Override
 	public String handleFileUplod() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.showOpenDialog(new JFrame());
 		File file = chooser.getSelectedFile();
 		try {
-			FileLoader.readFile(file);
-			cellArray = FileLoader.getCells();
+			FileLoader fileLoader = new FileLoader();
+			fileLoader.readFile(file);
+			cellArray = fileLoader.getCells();
 			return file.getPath();
 		} catch (FileReadingErrorException exception) {
 			System.out.println(exception);
@@ -59,7 +59,6 @@ public class StartGOL implements StartGOLHandler {
 	@Override
 	public void handleStartButtonPressedEvent() {
 		if (cellArray != null) {
-
 			GameFieldGui gameField = new GameFieldGui();
 			gamePad = new GameController(new CellGrid(cellArray),
 					getSelectedGameRule(), getSelectedBorderRule());

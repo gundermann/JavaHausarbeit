@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileWriter;
 
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,9 +17,10 @@ public class FileLoaderTest {
 
 	private static File testFileGOL;
 	private static File testFileNotExisting;
+	private FileLoader fileLoader;
 
 	@BeforeClass
-	public static void setUp() throws Exception {
+	public static void setUpBefore() throws Exception {
 		testFileGOL = new File("test.gol");
 		if (!testFileGOL.exists()) {
 			testFileGOL.createNewFile();
@@ -31,6 +33,12 @@ public class FileLoaderTest {
 		fileWriter.flush();
 		fileWriter.close();
 	}
+	
+	@Before
+	public void setUp(){
+		fileLoader = new FileLoader();
+		
+	}
 
 	@AfterClass
 	public static void tearDown() throws Exception {
@@ -40,28 +48,28 @@ public class FileLoaderTest {
 	@Test
 	public void testGettingCellsWithoutReadingFile() {
 		assertTrue("cells sind null initialisiert",
-				FileLoader.getCells() == null);
+				fileLoader.getCells() == null);
 	}
 
 	@Test
 	public void testNullFileReading() {
 		String errorMessage = "";
 		try {
-			FileLoader.readFile(null);
+			fileLoader.readFile(null);
 		} catch (FileReadingErrorException e) {
 			errorMessage = e.getErrorMessage();
 		}
 		assertTrue("Abbruch der Fileauswahl gibt richtigen ErrorCode zurï¿½ck",
 				errorMessage.equals("Es wurde kein File ausgewählt"));
 		assertTrue("cells sind null nach fehlerhaftem Einlesen",
-				FileLoader.getCells() == null);
+				fileLoader.getCells() == null);
 	}
 
 	@Test
 	public void testExceptionWhileFileReading() {
 		String errorMessage = "";
 		try {
-			FileLoader.readFile(testFileNotExisting);
+			fileLoader.readFile(testFileNotExisting);
 		} catch (FileReadingErrorException e) {
 			errorMessage = e.getErrorMessage();
 		}
@@ -75,13 +83,13 @@ public class FileLoaderTest {
 	public void testCorrectFileReading() {
 		boolean didntThrowException = true;
 		try {
-			FileLoader.readFile(testFileGOL);
+			fileLoader.readFile(testFileGOL);
 		} catch (FileReadingErrorException e) {
 			e.printStackTrace();
 			didntThrowException = false;
 		}
 		assertTrue(didntThrowException == true);
 		assertTrue("cells sind nicht null nach korrektem Einlesen",
-				FileLoader.getCells() != null);
+				fileLoader.getCells() != null);
 	}
 }

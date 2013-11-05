@@ -7,18 +7,21 @@ import java.io.IOException;
 
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
-public abstract class FileLoader {
+public class FileLoader {
 
-	private static FileReader fileReader;
-	private static BufferedReader bufferedReader;
-	private static int[][] cells = null;
+	private FileReader fileReader;
+	private BufferedReader bufferedReader;
+	private int[][] cells = null;
 
-	public static void readFile(File file) throws FileReadingErrorException {
+	public void readFile(File file) throws FileReadingErrorException {
 		if (file != null) {
 			try {
-				FileValidator.validate(file);
+				
+				FileValidator validator = new FileValidator();
+				validator.validate(file);
 				readCellsFromFile(file);
 			} catch (IOException e) {
+				//TODO Prüfen - komische Fehlermeldung
 				throw new FileReadingErrorException(
 						"Während des Einlesens der Datei ist eine Exception geworfen worden");
 			}
@@ -27,7 +30,7 @@ public abstract class FileLoader {
 		}
 	}
 
-	private static void readCellsFromFile(File file) throws IOException {
+	private void readCellsFromFile(File file) throws IOException {
 		int lineNumber = countLines(file);
 		fileReader = new FileReader(file);
 		bufferedReader = new BufferedReader(fileReader);
@@ -41,7 +44,7 @@ public abstract class FileLoader {
 		bufferedReader.close();
 	}
 
-	private static void writeLineInCells(String line, int lineNumber,
+	private void writeLineInCells(String line, int lineNumber,
 			int charactersInLine) {
 		for (int currentCharNumber = 0; currentCharNumber < charactersInLine; currentCharNumber++) {
 			char currentChar = line.charAt(currentCharNumber);
@@ -50,7 +53,7 @@ public abstract class FileLoader {
 		}
 	}
 
-	private static int countLines(File file) throws IOException {
+	private int countLines(File file) throws IOException {
 		fileReader = new FileReader(file);
 		bufferedReader = new BufferedReader(fileReader);
 		String line = bufferedReader.readLine();
@@ -62,7 +65,7 @@ public abstract class FileLoader {
 		return lineNumber;
 	}
 
-	public static int[][] getCells() {
+	public int[][] getCells() {
 		return cells;
 	}
 }
