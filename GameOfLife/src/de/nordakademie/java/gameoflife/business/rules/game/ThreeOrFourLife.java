@@ -2,9 +2,8 @@ package de.nordakademie.java.gameoflife.business.rules.game;
 
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
 
-/*
- * Game of Life Regeln
- * Zelle wir belebt wenn sie 3 oder 4 lebende Nachbarn hat.
+/**
+ * Game of Life Regeln. Zelle wir belebt wenn sie 3 oder 4 lebende Nachbarn hat.
  * Zelle bleibt am leben wenn sie 3 oder 4 Nachbarn hat.
  * 
  * @autor Frauke Trautmann

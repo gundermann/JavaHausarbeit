@@ -1,6 +1,6 @@
 package de.nordakademie.java.gameoflife.business;
 
-/*
+/**
  * Abbildung des Universums.
  * 
  * @autor Niels Gundermann

@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-/*
+/**
  * GUI-Komponente auf der das Universum abgebildet wird.
  * 
  * @author Christian Leppelt
@@ -41,9 +41,6 @@ class GameFieldPanel extends JPanel {
 			for (int currentRow = 0; currentRow < columns; currentRow++) {
 				if (cellsArray[currentColumn][currentRow]) {
 					g.setColor(Color.RED);
-					// TODO würde ich gerne rauslassen, aber wie sonst?
-					// } else {
-					// g.setColor(Color.BLACK);
 					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
 							* CELL_DRAWING_SIZE, g);
 				} else {

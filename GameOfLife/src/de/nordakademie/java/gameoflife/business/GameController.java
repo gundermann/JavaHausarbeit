@@ -9,9 +9,8 @@ import de.nordakademie.java.gameoflife.gui.GameFieldGuiHandler;
 import de.nordakademie.java.gameoflife.gui.GameFinishedGui;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
-/*
- * Kontrolliert den Spielablauf. 
- * Läuft in einem eigenen Thread.
+/**
+ * Kontrolliert den Spielablauf. Läuft in einem eigenen Thread.
  */
 public class GameController implements Runnable {
 

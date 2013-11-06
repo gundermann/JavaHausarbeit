@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
-/*
+/**
  * GUI für das Spielfeld mit dem Universum
  * 
  * @author Kathrin Kurtz

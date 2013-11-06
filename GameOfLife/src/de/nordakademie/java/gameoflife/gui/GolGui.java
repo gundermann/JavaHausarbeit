@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
 
-/*
+/**
  * Zusammenfassung allgemeiner GUI-Methoden
  * 
  * @author Niels Gundermann

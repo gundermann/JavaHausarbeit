@@ -1,6 +1,6 @@
 package de.nordakademie.java.gameoflife.business;
 
-/*
+/**
  * Abbildung einer Zelle.
  * 
  * @autor Niels Gundermann

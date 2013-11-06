@@ -6,8 +6,9 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-/*
- * Berechnet die Position eines Frame sodass dieses in der Mitte des Bildschrims steht.
+/**
+ * Berechnet die Position eines Frame sodass dieses in der Mitte des Bildschrims
+ * steht.
  * 
  * @author Niels Gundermann
  */

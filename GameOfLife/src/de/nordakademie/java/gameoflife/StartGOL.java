@@ -21,7 +21,7 @@ import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 import de.nordakademie.java.gameoflife.utils.fileloader.FileLoader;
 
-/*
+/**
  * Initialisiert und startet das Spiel
  * 
  * @author Frauke Trautmann

@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-/*
+/**
  * Meldung für das Ende des Spiels
  * 
  * @autorh Kathrin Kurtz

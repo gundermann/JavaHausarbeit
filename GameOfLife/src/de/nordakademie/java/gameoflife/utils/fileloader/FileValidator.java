@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
-/*
+/**
  * Prüft die ausgewählte Datei.
  * 
  * @author Christian Leppelt
