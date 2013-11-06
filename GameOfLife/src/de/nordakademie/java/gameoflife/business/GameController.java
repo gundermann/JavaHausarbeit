@@ -16,11 +16,11 @@ import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 public class GameController implements Runnable {
 
 	private final GameRule gameRules;
-	private CellGrid cellGrid;
+	private final CellGrid cellGrid;
 	private boolean gameIsOngoing = true;
 	private int generation = 1;
 	private GameFieldGuiHandler gameControlHandler;
-	private NeighbourFinder neighbourFinder;
+	private final NeighbourFinder neighbourFinder;
 
 	public GameController(final CellGrid cellGrid, GameRule gameRules,
 			BorderRule borderRules) {

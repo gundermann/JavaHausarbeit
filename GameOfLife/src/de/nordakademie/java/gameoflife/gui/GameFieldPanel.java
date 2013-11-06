@@ -46,9 +46,15 @@ class GameFieldPanel extends JPanel {
 					// g.setColor(Color.BLACK);
 					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
 							* CELL_DRAWING_SIZE, g);
+				} else {
+					g.setColor(Color.BLACK);
+					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
+							* CELL_DRAWING_SIZE, g);
+
 				}
 			}
 		}
+
 	}
 
 	private void paintCell(Integer xCoordinate, Integer yCoordinate, Graphics g) {
