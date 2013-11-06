@@ -1,8 +1,10 @@
 package de.nordakademie.java.gameoflife.gui;
 
-import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.awt.Point;
+import java.awt.Toolkit;
 
-import de.nordakademie.java.gameoflife.utils.WindowPositionHelper;
+import javax.swing.JFrame;
 
 /**
  * Zusammenfassung allgemeiner GUI-Methoden
@@ -17,7 +19,15 @@ public abstract class GolGui extends JFrame {
 
 	protected void showGui() {
 		this.pack();
-		this.setLocation(WindowPositionHelper.getCenterPoint(this));
+		this.setLocation(getCenteredPoint());
 		this.setVisible(true);
+	}
+
+	private Point getCenteredPoint() {
+		Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (d.width / 2 - this.getSize().width / 2);
+		int y = (d.height / 2 - this.getSize().height / 2);
+		Point centerPoint = new Point(x, y);
+		return centerPoint;
 	}
 }
