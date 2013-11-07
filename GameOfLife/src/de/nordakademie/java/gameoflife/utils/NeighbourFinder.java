@@ -17,7 +17,6 @@ public class NeighbourFinder {
 	private boolean isGridBorderDead;
 	private int rowOfCurrentCell;
 	private int columnOfCurrentCell;
-	private List<Cell> neighbours = new ArrayList<Cell>();
 
 	public NeighbourFinder(boolean isGridBorderDead) {
 		this.isGridBorderDead = isGridBorderDead;
@@ -27,7 +26,7 @@ public class NeighbourFinder {
 		this.cellGrid = cellGrid;
 		rowOfCurrentCell = row;
 		columnOfCurrentCell = column;
-		neighbours.clear();
+		List<Cell> neighbours = new ArrayList<Cell>();
 
 		neighbours.add(getNeighbourAtNorth());
 		neighbours.add(getNeighbourAtEast());

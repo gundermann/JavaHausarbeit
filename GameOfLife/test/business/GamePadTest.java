@@ -77,15 +77,15 @@ public class GamePadTest {
 	}
 
 	private void initIsAlive() {
-		Mockito.when(cell1.isAlive()).thenReturn(true);
-		Mockito.when(cell2.isAlive()).thenReturn(true);
-		Mockito.when(cell3.isAlive()).thenReturn(true);
-		Mockito.when(cell4.isAlive()).thenReturn(false);
-		Mockito.when(cell5.isAlive()).thenReturn(false);
-		Mockito.when(cell6.isAlive()).thenReturn(false);
-		Mockito.when(cell7.isAlive()).thenReturn(false);
-		Mockito.when(cell8.isAlive()).thenReturn(false);
-		Mockito.when(cell9.isAlive()).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell1)).thenReturn(true);
+		Mockito.when(cellGrid.isCellAlive(cell2)).thenReturn(true);
+		Mockito.when(cellGrid.isCellAlive(cell3)).thenReturn(true);
+		Mockito.when(cellGrid.isCellAlive(cell4)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell5)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell6)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell7)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell8)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell9)).thenReturn(false);
 	}
 
 	private void initGetCellAtPosition() {

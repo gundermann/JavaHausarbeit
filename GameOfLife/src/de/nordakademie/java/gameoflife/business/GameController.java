@@ -35,7 +35,9 @@ public class GameController implements Runnable {
 			for (int column = 0; column < cellArray[0].length; column++) {
 				Cell cell = cellGrid.getCellAtPosition(row, column);
 				int neighbours = countLivingNeighbours(row, column);
-				checkRules(cell, neighbours, cellsToBearOrKill);
+				if(cellWillBeKilledOrBeared(cell, neighbours)){
+					cellsToBearOrKill.add(cell);
+				}
 			}
 		}
 
@@ -46,30 +48,26 @@ public class GameController implements Runnable {
 		return cellsToBearOrKill;
 	}
 
-	private void checkRules(Cell cell, int neighbours,
-			List<Cell> cellsToBearOrKill) {
+	private boolean cellWillBeKilledOrBeared(Cell cell, int neighbours) {
+		boolean isAnyRuleApplicable = false;
 		if (!cellGrid.isCellAlive(cell) && gameRules.isCellBorn(neighbours)) {
-			cellsToBearOrKill.add(cell);
+			isAnyRuleApplicable = true;
 		} else if (cellGrid.isCellAlive(cell)
 				&& !gameRules.isCellStayingAlive(neighbours)) {
-			cellsToBearOrKill.add(cell);
+			isAnyRuleApplicable = true;
 		}
-
+		return isAnyRuleApplicable;
 	}
 
 	private int countLivingNeighbours(int row, int column) {
 		int livingNeighbours = 0;
-		List<Cell> neighbours = getNeighbours(row, column);
+		List<Cell> neighbours = neighbourFinder.getNeighbours(row, column, cellGrid);
 		for (Cell neighbourCell : neighbours) {
 			if (cellGrid.isCellAlive(neighbourCell)) {
 				livingNeighbours++;
 			}
 		}
 		return livingNeighbours;
-	}
-
-	private List<Cell> getNeighbours(int row, int column) {
-		return neighbourFinder.getNeighbours(row, column, cellGrid);
 	}
 
 	public void calculateNextGeneration() {
