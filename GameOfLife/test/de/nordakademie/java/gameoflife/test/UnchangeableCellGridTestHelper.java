@@ -5,7 +5,7 @@ import org.mockito.Mockito;
 import de.nordakademie.java.gameoflife.business.Cell;
 import de.nordakademie.java.gameoflife.business.CellGrid;
 
-public class CellGridTestHelper {
+public class UnchangeableCellGridTestHelper {
 
 	private static CellGrid cellGrid;
 	private static Cell cell1;
@@ -58,18 +58,6 @@ public class CellGridTestHelper {
 		Mockito.when(cellGrid.getCellArray()).thenReturn(cellArray);
 	}
 
-	protected static void initIsAlive() {
-		Mockito.when(cellGrid.isCellAlive(cell1)).thenReturn(true);
-		Mockito.when(cellGrid.isCellAlive(cell2)).thenReturn(true);
-		Mockito.when(cellGrid.isCellAlive(cell3)).thenReturn(true);
-		Mockito.when(cellGrid.isCellAlive(cell4)).thenReturn(false);
-		Mockito.when(cellGrid.isCellAlive(cell5)).thenReturn(false);
-		Mockito.when(cellGrid.isCellAlive(cell6)).thenReturn(false);
-		Mockito.when(cellGrid.isCellAlive(cell7)).thenReturn(false);
-		Mockito.when(cellGrid.isCellAlive(cell8)).thenReturn(false);
-		Mockito.when(cellGrid.isCellAlive(cell9)).thenReturn(false);
-	}
-
 	protected static void initGetCellAtPosition() {
 		Mockito.when(cellGrid.getCellAtPosition(0, 0)).thenReturn(cell1);
 		Mockito.when(cellGrid.getCellAtPosition(0, 1)).thenReturn(cell2);
@@ -80,5 +68,17 @@ public class CellGridTestHelper {
 		Mockito.when(cellGrid.getCellAtPosition(2, 0)).thenReturn(cell7);
 		Mockito.when(cellGrid.getCellAtPosition(2, 1)).thenReturn(cell8);
 		Mockito.when(cellGrid.getCellAtPosition(2, 2)).thenReturn(cell9);
+	}
+
+	protected static void initIsAlive() {
+		Mockito.when(cellGrid.isCellAlive(cell1)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell2)).thenReturn(true);
+		Mockito.when(cellGrid.isCellAlive(cell3)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell4)).thenReturn(true);
+		Mockito.when(cellGrid.isCellAlive(cell5)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell6)).thenReturn(true);
+		Mockito.when(cellGrid.isCellAlive(cell7)).thenReturn(false);
+		Mockito.when(cellGrid.isCellAlive(cell8)).thenReturn(true);
+		Mockito.when(cellGrid.isCellAlive(cell9)).thenReturn(false);
 	}
 }

@@ -35,7 +35,7 @@ public class GameController implements Runnable {
 			for (int column = 0; column < cellArray[0].length; column++) {
 				Cell cell = cellGrid.getCellAtPosition(row, column);
 				int neighbours = countLivingNeighbours(row, column);
-				if(cellWillBeKilledOrBeared(cell, neighbours)){
+				if (cellWillBeKilledOrBeared(cell, neighbours)) {
 					cellsToBearOrKill.add(cell);
 				}
 			}
@@ -61,7 +61,8 @@ public class GameController implements Runnable {
 
 	private int countLivingNeighbours(int row, int column) {
 		int livingNeighbours = 0;
-		List<Cell> neighbours = neighbourFinder.getNeighbours(row, column, cellGrid);
+		List<Cell> neighbours = neighbourFinder.getNeighbours(row, column,
+				cellGrid);
 		for (Cell neighbourCell : neighbours) {
 			if (cellGrid.isCellAlive(neighbourCell)) {
 				livingNeighbours++;
@@ -79,7 +80,9 @@ public class GameController implements Runnable {
 				cellGrid.bearCell(cell);
 			}
 		}
-		generation = generation + 1;
+		if (gameIsOngoing) {
+			generation = generation + 1;
+		}
 	}
 
 	public int getGeneration() {
