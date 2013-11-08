@@ -1,5 +1,6 @@
-package business;
+package de.nordakademie.java.gameoflife.test.business;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -55,6 +56,15 @@ public class CellGridTest {
 		cellGrid.killCell(cell2);
 		assertTrue(cell1.isAlive());
 		assertFalse(cell2.isAlive());
+	}
+
+	@Test
+	public void shouldConvertToBooleanArray() {
+		boolean[][] cellArrayAsBooleanArray = { { true, false, true },
+				{ false, true, false }, { true, false, true } };
+
+		assertEquals(cellGrid.getCellGridAsBooleanArray(),
+				cellArrayAsBooleanArray);
 	}
 
 }

@@ -1,4 +1,4 @@
-package business;
+package de.nordakademie.java.gameoflife.test.business;
 
 import static org.junit.Assert.assertTrue;
 
@@ -14,7 +14,7 @@ import de.nordakademie.java.gameoflife.business.rules.GameRule;
 import de.nordakademie.java.gameoflife.business.rules.border.PacmanStyle;
 import de.nordakademie.java.gameoflife.business.rules.game.GameOfLife;
 
-public class GamePadTest {
+public class GameControllerTest {
 
 	GameController gameControl;
 	GameRule gameRules;

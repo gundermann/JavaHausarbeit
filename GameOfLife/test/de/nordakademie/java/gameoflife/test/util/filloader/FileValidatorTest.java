@@ -1,4 +1,4 @@
-package util.fileLoader;
+package de.nordakademie.java.gameoflife.test.util.filloader;
 
 import static org.junit.Assert.assertTrue;
 
@@ -126,11 +126,11 @@ public class FileValidatorTest {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
 			didntThrowException = false;
-			assertTrue("zu große Dateien werfen Fehler", e.getErrorMessage()
-					.equals("Die hochgeladene Datei ist zu groß"));
+			assertTrue("zu groï¿½e Dateien werfen Fehler", e.getErrorMessage()
+					.equals("Die hochgeladene Datei ist zu groï¿½"));
 			e.printStackTrace();
 		}
-		assertTrue("zu große Dateien werfen Fehler",
+		assertTrue("zu groï¿½e Dateien werfen Fehler",
 				didntThrowException == false);
 
 	}
@@ -176,7 +176,7 @@ public class FileValidatorTest {
 			assertTrue(
 					"Zeichen ungleich 0 und 1 werfen Fehler",
 					e.getErrorMessage()
-							.equals("Die hochgeladene Datei enthällt nicht nur 1en und 0en"));
+							.equals("Die hochgeladene Datei enthï¿½llt nicht nur 1en und 0en"));
 			e.printStackTrace();
 		}
 		assertTrue("Zeichen ungleich 0 und 1 werfen Fehler",

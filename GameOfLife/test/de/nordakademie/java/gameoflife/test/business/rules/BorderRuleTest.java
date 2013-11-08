@@ -1,4 +1,4 @@
-package business.rules;
+package de.nordakademie.java.gameoflife.test.business.rules;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

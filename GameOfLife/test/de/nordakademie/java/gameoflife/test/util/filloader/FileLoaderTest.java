@@ -1,4 +1,4 @@
-package util.fileLoader;
+package de.nordakademie.java.gameoflife.test.util.filloader;
 
 import static org.junit.Assert.assertTrue;
 
@@ -60,7 +60,7 @@ public class FileLoaderTest {
 			errorMessage = e.getErrorMessage();
 		}
 		assertTrue("Abbruch der Fileauswahl gibt richtigen ErrorCode zurï¿½ck",
-				errorMessage.equals("Es wurde kein File ausgewählt"));
+				errorMessage.equals("Es wurde kein File ausgewï¿½hlt"));
 		assertTrue("cells sind null nach fehlerhaftem Einlesen",
 				fileLoader.getCells() == null);
 	}
@@ -76,7 +76,7 @@ public class FileLoaderTest {
 		assertTrue(
 				"Bei Exception fliegt richtiger ErrorCode",
 				errorMessage
-						.equals("Während des Einlesens der Datei ist eine Exception geworfen worden"));
+						.equals("Wï¿½hrend des Einlesens der Datei ist eine Exception geworfen worden"));
 	}
 
 	@Test
