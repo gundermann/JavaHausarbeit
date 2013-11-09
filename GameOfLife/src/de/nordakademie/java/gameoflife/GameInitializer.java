@@ -38,8 +38,7 @@ public class GameInitializer implements GameHandler {
 			return file.getPath();
 		} catch (FileReadingErrorException exception) {
 			System.out.println(exception);
-			if (exception.getErrorMessage().equals("Abbruch")) {
-			} else {
+			if (!exception.getErrorMessage().equals("Abbruch")) {
 				new ErrorGui(exception.getErrorMessage());
 			}
 		}

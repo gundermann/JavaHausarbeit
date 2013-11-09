@@ -12,6 +12,10 @@ public class FileValidator {
 	private FileReader fileReader;
 	private BufferedReader bufferedReader;
 
+	public FileValidator() {
+
+	}
+
 	public void validate(File file) throws IOException,
 			FileReadingErrorException {
 		if (isFileToLarge(file)) {
