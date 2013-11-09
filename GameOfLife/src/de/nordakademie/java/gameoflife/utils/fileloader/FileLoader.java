@@ -22,7 +22,7 @@ public class FileLoader {
 				readCellsFromFile(file);
 			} catch (IOException e) {
 				throw new FileReadingErrorException(
-						"W�hrend des Einlesens der Datei ist ein Fehler aufgetreten");
+						"W\u00E4hrend des Einlesens der Datei ist ein Fehler aufgetreten");
 			}
 		} else {
 			throw new FileReadingErrorException("Abbruch");
