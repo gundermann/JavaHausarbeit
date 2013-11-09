@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -36,14 +37,16 @@ public class StartMenuGui extends GolGui {
 	private JLabel gameConstructions;
 	private StartGOLHandler handler;
 
-	public StartMenuGui() {
+	public StartMenuGui(Map<String, Class> gameRuleMap,
+			Map<String, Class> borderRuleMap) {
 		this.setTitle("Game of Life");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 
 		JLabel headline = initHeadline();
 		JPanel buttonPanel = initButtonPanel();
-		JPanel gameChooseOptions = initGameChooseOptions();
+		JPanel gameChooseOptions = initGameChooseOptions(gameRuleMap,
+				borderRuleMap);
 
 		this.add(headline, BorderLayout.NORTH);
 		this.add(gameChooseOptions, BorderLayout.CENTER);
@@ -90,13 +93,14 @@ public class StartMenuGui extends GolGui {
 		return headline;
 	}
 
-	private JPanel initGameChooseOptions() {
+	private JPanel initGameChooseOptions(Map<String, Class> gameRuleMap,
+			Map<String, Class> borderRuleMap) {
 		JPanel gameChooseOptions = new JPanel();
 		gameChooseOptionLayout = new GridBagLayout();
 		gameChooseOptions.setLayout(gameChooseOptionLayout);
 		gameChooseOptions.setBorder(new EtchedBorder(Color.BLACK, Color.BLUE));
 
-		initChooseGameAndBorderVariants();
+		initChooseGameAndBorderVariants(gameRuleMap, borderRuleMap);
 		initGameChooseOptionLabels();
 		initGameChooseOptionButtons();
 		initGameChooseOptionUploadField();
@@ -142,17 +146,17 @@ public class StartMenuGui extends GolGui {
 		gameChooseOptionLayout.setConstraints(borderChoose, set(3, 3, 0, 1));
 	}
 
-	private void initChooseGameAndBorderVariants() {
+	private void initChooseGameAndBorderVariants(
+			Map<String, Class> gameRuleMap, Map<String, Class> borderRuleMap) {
 		chooseGameRule = new JComboBox<String>();
-		chooseGameRule.addItem("Game of Life");
-		chooseGameRule.addItem("Game without Death");
-		chooseGameRule.addItem("Three or four to life");
-		chooseGameRule.addItem("HighLife");
+		for (String ruleTitle : gameRuleMap.keySet()) {
+			chooseGameRule.addItem(ruleTitle.toString());
+		}
 		gameChooseOptionLayout.setConstraints(chooseGameRule, set(0, 2, 0, 3));
-
 		chooseBorderRule = new JComboBox<String>();
-		chooseBorderRule.addItem("Wall of Death");
-		chooseBorderRule.addItem("Pacman Sytle");
+		for (String ruleTitle : borderRuleMap.keySet()) {
+			chooseBorderRule.addItem(ruleTitle.toString());
+		}
 		gameChooseOptionLayout
 				.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
 	}

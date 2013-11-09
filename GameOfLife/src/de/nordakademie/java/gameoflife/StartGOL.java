@@ -1,6 +1,8 @@
 package de.nordakademie.java.gameoflife;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -26,18 +28,27 @@ import de.nordakademie.java.gameoflife.utils.fileloader.FileLoader;
  * 
  * @author Frauke Trautmann
  */
+
 public class StartGOL implements StartGOLHandler {
 	private final StartMenuGui startGui;
 	private int[][] cellArray;
 	private GameController gamePad;
+	private static Map<String, Class> gameRuleMap = new HashMap<String, Class>();
+	private static Map<String, Class> borderRuleMap = new HashMap<String, Class>();
 
-	public static void main(String[] args) throws InstantiationException,
-			IllegalAccessException {
+	public static void main(String[] args) {
+		gameRuleMap.put("Game of Life", GameOfLife.class);
+		gameRuleMap.put("Game without death", GameWithoutDeath.class);
+		gameRuleMap.put("High life", HighLife.class);
+		gameRuleMap.put("Three or four life", ThreeOrFourLife.class);
+
+		borderRuleMap.put("Pacman style", PacmanStyle.class);
+		borderRuleMap.put("Wall of death", WallOfDeath.class);
 		new StartGOL();
 	}
 
 	public StartGOL() {
-		startGui = new StartMenuGui();
+		startGui = new StartMenuGui(gameRuleMap, borderRuleMap);
 		startGui.setHandler(this);
 	}
 
@@ -75,29 +86,26 @@ public class StartGOL implements StartGOLHandler {
 		}
 	}
 
-	// TODO:3 Positionen zu �ndern f�r Regel hinzuf�gen
 	private GameRule getSelectedGameRule() {
+		GameRule gameRule = null;
 		String ruleName = startGui.getSelectedGameRule();
-		if (ruleName.equals("Game of Life")) {
-			return new GameOfLife();
+		try {
+			gameRule = (GameRule) gameRuleMap.get(ruleName).newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
-		if (ruleName.equals("Game without Death")) {
-			return new GameWithoutDeath();
-		}
-		if (ruleName.equals("Three or four to life")) {
-			return new ThreeOrFourLife();
-		} else {
-			return new HighLife();
-		}
+		return gameRule;
 	}
 
 	private BorderRule getSelectedBorderRule() {
+		BorderRule borderRule = null;
 		String ruleName = startGui.getSelectedBorderRule();
-		if (ruleName.equals("Wall of Death")) {
-			return new WallOfDeath();
-		} else {
-			return new PacmanStyle();
+		try {
+			borderRule = (BorderRule) borderRuleMap.get(ruleName).newInstance();
+		} catch (InstantiationException | IllegalAccessException e) {
+			e.printStackTrace();
 		}
+		return borderRule;
 	}
 
 }
