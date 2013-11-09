@@ -2,9 +2,9 @@ package de.nordakademie.java.gameoflife.business;
 
 public class CellGrid {
 
-	private int columns;
-	private int rows;
-	private Cell[][] cellArray;
+	private final int columns;
+	private final int rows;
+	private final Cell[][] cellArray;
 
 	public CellGrid(int[][] initinalArray) {
 		rows = initinalArray.length;

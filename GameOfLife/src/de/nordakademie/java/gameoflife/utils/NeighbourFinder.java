@@ -8,8 +8,8 @@ import de.nordakademie.java.gameoflife.business.CellGrid;
 
 public class NeighbourFinder {
 
+	private final boolean isGridBorderDead;
 	private CellGrid cellGrid;
-	private boolean isGridBorderDead;
 	private int rowOfCurrentCell;
 	private int columnOfCurrentCell;
 

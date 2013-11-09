@@ -86,7 +86,7 @@ public class GameController implements Runnable {
 		return generation;
 	}
 
-	public void setGameControlHandler(GameFieldGuiHandler gameFieldGui) {
+	public void setGameControlHandler(final GameFieldGuiHandler gameFieldGui) {
 		gameControlHandler = gameFieldGui;
 	}
 
