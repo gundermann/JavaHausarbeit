@@ -16,7 +16,7 @@ import de.nordakademie.java.gameoflife.test.CellGridTestHelper;
 import de.nordakademie.java.gameoflife.test.UnchangeableCellGridTestHelper;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
-public class GameControllerTest {
+public class GameThreadTest {
 
 	GameThread gameThread;
 	GameRule gameRules;
@@ -48,6 +48,12 @@ public class GameControllerTest {
 		assertTrue(gameThread.findCellsToBearOrKill().contains(cell5));
 	}
 
+	@Test
+	public void shouldIncrementGeneration(){
+		gameThread.calculateNextGeneration();
+		assertTrue(gameThread.getGeneration() == 2);
+	}
+	
 	@Test
 	public void shouldFindCellsToKill() {
 		Cell cell1 = cellGrid.getCellAtPosition(0, 0);
