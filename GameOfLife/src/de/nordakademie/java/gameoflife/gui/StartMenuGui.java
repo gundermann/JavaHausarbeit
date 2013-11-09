@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
-import de.nordakademie.java.gameoflife.StartGOL;
 import de.nordakademie.java.gameoflife.GameHandler;
+import de.nordakademie.java.gameoflife.StartGOL;
 
 public class StartMenuGui extends GolGui {
 
@@ -143,11 +143,13 @@ public class StartMenuGui extends GolGui {
 		for (String ruleTitle : StartGOL.DEFINED_GAME_RULES.keySet()) {
 			chooseGameRule.addItem(ruleTitle.toString());
 		}
+
 		gameChooseOptionLayout.setConstraints(chooseGameRule, set(0, 2, 0, 3));
 		chooseBorderRule = new JComboBox<String>();
 		for (String ruleTitle : StartGOL.DEFINED_BORDER_RULES.keySet()) {
 			chooseBorderRule.addItem(ruleTitle.toString());
 		}
+
 		gameChooseOptionLayout
 				.setConstraints(chooseBorderRule, set(0, 3, 0, 3));
 	}
@@ -164,19 +166,20 @@ public class StartMenuGui extends GolGui {
 		return chooseBorderRule;
 	}
 
-	private static GridBagConstraints set(int gridx, int gridy, int fill,
-			int width) {
-		GridBagConstraints dummy = new GridBagConstraints();
-
-		dummy.insets = new Insets(15, 10, 15, 10);
-		dummy.gridx = gridx;
-		dummy.gridy = gridy;
-		dummy.fill = GridBagConstraints.HORIZONTAL;
-		dummy.gridwidth = width;
-		return dummy;
-	}
-
 	public void setHandler(GameHandler startGOLHandler) {
 		handler = startGOLHandler;
 	}
+
+	private static GridBagConstraints set(int gridx, int gridy, int fill,
+			int width) {
+		GridBagConstraints gbc = new GridBagConstraints();
+
+		gbc.insets = new Insets(15, 10, 15, 10);
+		gbc.gridx = gridx;
+		gbc.gridy = gridy;
+		gbc.fill = GridBagConstraints.HORIZONTAL;
+		gbc.gridwidth = width;
+		return gbc;
+	}
+
 }
