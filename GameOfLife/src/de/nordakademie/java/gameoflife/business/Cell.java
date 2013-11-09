@@ -1,11 +1,5 @@
 package de.nordakademie.java.gameoflife.business;
 
-/**
- * Abbildung einer Zelle.
- * 
- * @autor Niels Gundermann
- */
-
 public class Cell {
 
 	private boolean alive;

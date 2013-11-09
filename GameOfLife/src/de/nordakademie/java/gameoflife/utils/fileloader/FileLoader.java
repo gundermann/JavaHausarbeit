@@ -7,11 +7,6 @@ import java.io.IOException;
 
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 
-/**
- * Lädt die ausgwählte Datei hoch
- * 
- * @author Christian Leppelt
- */
 public class FileLoader {
 
 	private FileReader fileReader;

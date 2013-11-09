@@ -5,12 +5,6 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-/**
- * GUI-Komponente auf der das Universum abgebildet wird.
- * 
- * @author Christian Leppelt
- */
-
 class GameFieldPanel extends JPanel {
 
 	private boolean[][] cellsArray;

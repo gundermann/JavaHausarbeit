@@ -23,32 +23,26 @@ import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 import de.nordakademie.java.gameoflife.utils.fileloader.FileLoader;
 
-/**
- * Initialisiert und startet das Spiel
- * 
- * @author Frauke Trautmann
- */
-
 public class StartGOL implements StartGOLHandler {
 	private final StartMenuGui startGui;
 	private int[][] cellArray;
-	private GameController gamePad;
-	private static Map<String, Class> gameRuleMap = new HashMap<String, Class>();
-	private static Map<String, Class> borderRuleMap = new HashMap<String, Class>();
+	private GameController gameController;
+	public static final Map<String, Class> DEFINED_GAME_RULES = new HashMap<String, Class>();
+	public static final Map<String, Class> DEFINED_BORDER_RULES = new HashMap<String, Class>();
 
 	public static void main(String[] args) {
-		gameRuleMap.put("Game of Life", GameOfLife.class);
-		gameRuleMap.put("Game without death", GameWithoutDeath.class);
-		gameRuleMap.put("High life", HighLife.class);
-		gameRuleMap.put("Three or four life", ThreeOrFourLife.class);
+		DEFINED_GAME_RULES.put("Game of Life", GameOfLife.class);
+		DEFINED_GAME_RULES.put("Game without death", GameWithoutDeath.class);
+		DEFINED_GAME_RULES.put("High life", HighLife.class);
+		DEFINED_GAME_RULES.put("Three or four life", ThreeOrFourLife.class);
 
-		borderRuleMap.put("Pacman style", PacmanStyle.class);
-		borderRuleMap.put("Wall of death", WallOfDeath.class);
+		DEFINED_BORDER_RULES.put("Pacman style", PacmanStyle.class);
+		DEFINED_BORDER_RULES.put("Wall of death", WallOfDeath.class);
 		new StartGOL();
 	}
 
 	public StartGOL() {
-		startGui = new StartMenuGui(gameRuleMap, borderRuleMap);
+		startGui = new StartMenuGui();
 		startGui.setHandler(this);
 	}
 
@@ -76,10 +70,10 @@ public class StartGOL implements StartGOLHandler {
 	public void handleStartButtonPressedEvent() {
 		if (cellArray != null) {
 			GameFieldGui gameField = new GameFieldGui();
-			gamePad = new GameController(new CellGrid(cellArray),
+			gameController = new GameController(new CellGrid(cellArray),
 					getSelectedGameRule(), getSelectedBorderRule());
-			gamePad.setGameControlHandler(gameField);
-			new Thread(gamePad).start();
+			gameController.setGameControlHandler(gameField);
+			new Thread(gameController).start();
 			startGui.dispose();
 		} else {
 			new ErrorGui("Es wurde keine Datei gefunden");
@@ -90,7 +84,8 @@ public class StartGOL implements StartGOLHandler {
 		GameRule gameRule = null;
 		String ruleName = startGui.getSelectedGameRule();
 		try {
-			gameRule = (GameRule) gameRuleMap.get(ruleName).newInstance();
+			gameRule = (GameRule) DEFINED_GAME_RULES.get(ruleName)
+					.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
@@ -101,7 +96,8 @@ public class StartGOL implements StartGOLHandler {
 		BorderRule borderRule = null;
 		String ruleName = startGui.getSelectedBorderRule();
 		try {
-			borderRule = (BorderRule) borderRuleMap.get(ruleName).newInstance();
+			borderRule = (BorderRule) DEFINED_BORDER_RULES.get(ruleName)
+					.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}

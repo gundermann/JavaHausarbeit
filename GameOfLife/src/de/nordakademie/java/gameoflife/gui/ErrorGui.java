@@ -10,11 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-/**
- * GUI für Fehlermeldungen
- * 
- * @autor Kathrin Kurtz
- */
 public class ErrorGui extends GolGui {
 
 	public ErrorGui(String errortext) {

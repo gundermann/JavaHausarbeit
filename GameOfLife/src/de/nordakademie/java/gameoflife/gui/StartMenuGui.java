@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -18,13 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
+import de.nordakademie.java.gameoflife.StartGOL;
 import de.nordakademie.java.gameoflife.StartGOLHandler;
 
-/**
- * GUI die beim Starten des Programms angezeigt wird.
- * 
- * @author Frauke Trautmann
- */
 public class StartMenuGui extends GolGui {
 
 	private JComboBox<String> chooseGameRule;
@@ -37,16 +32,14 @@ public class StartMenuGui extends GolGui {
 	private JLabel gameConstructions;
 	private StartGOLHandler handler;
 
-	public StartMenuGui(Map<String, Class> gameRuleMap,
-			Map<String, Class> borderRuleMap) {
+	public StartMenuGui() {
 		this.setTitle("Game of Life");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 
 		JLabel headline = initHeadline();
 		JPanel buttonPanel = initButtonPanel();
-		JPanel gameChooseOptions = initGameChooseOptions(gameRuleMap,
-				borderRuleMap);
+		JPanel gameChooseOptions = initGameChooseOptions();
 
 		this.add(headline, BorderLayout.NORTH);
 		this.add(gameChooseOptions, BorderLayout.CENTER);
@@ -93,14 +86,13 @@ public class StartMenuGui extends GolGui {
 		return headline;
 	}
 
-	private JPanel initGameChooseOptions(Map<String, Class> gameRuleMap,
-			Map<String, Class> borderRuleMap) {
+	private JPanel initGameChooseOptions() {
 		JPanel gameChooseOptions = new JPanel();
 		gameChooseOptionLayout = new GridBagLayout();
 		gameChooseOptions.setLayout(gameChooseOptionLayout);
 		gameChooseOptions.setBorder(new EtchedBorder(Color.BLACK, Color.BLUE));
 
-		initChooseGameAndBorderVariants(gameRuleMap, borderRuleMap);
+		initChooseGameAndBorderVariants();
 		initGameChooseOptionLabels();
 		initGameChooseOptionButtons();
 		initGameChooseOptionUploadField();
@@ -146,15 +138,14 @@ public class StartMenuGui extends GolGui {
 		gameChooseOptionLayout.setConstraints(borderChoose, set(3, 3, 0, 1));
 	}
 
-	private void initChooseGameAndBorderVariants(
-			Map<String, Class> gameRuleMap, Map<String, Class> borderRuleMap) {
+	private void initChooseGameAndBorderVariants() {
 		chooseGameRule = new JComboBox<String>();
-		for (String ruleTitle : gameRuleMap.keySet()) {
+		for (String ruleTitle : StartGOL.DEFINED_GAME_RULES.keySet()) {
 			chooseGameRule.addItem(ruleTitle.toString());
 		}
 		gameChooseOptionLayout.setConstraints(chooseGameRule, set(0, 2, 0, 3));
 		chooseBorderRule = new JComboBox<String>();
-		for (String ruleTitle : borderRuleMap.keySet()) {
+		for (String ruleTitle : StartGOL.DEFINED_BORDER_RULES.keySet()) {
 			chooseBorderRule.addItem(ruleTitle.toString());
 		}
 		gameChooseOptionLayout

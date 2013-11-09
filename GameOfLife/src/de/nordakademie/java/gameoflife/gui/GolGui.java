@@ -6,11 +6,6 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-/**
- * Zusammenfassung allgemeiner GUI-Methoden
- * 
- * @author Niels Gundermann
- */
 public abstract class GolGui extends JFrame {
 
 	protected void closeGui() {
