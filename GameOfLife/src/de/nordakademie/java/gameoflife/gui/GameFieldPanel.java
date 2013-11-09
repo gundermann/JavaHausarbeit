@@ -46,7 +46,7 @@ class GameFieldPanel extends JPanel {
 			g.setColor(Color.BLACK);
 		}
 
-		g.fillRect(row * CELL_DRAWING_SIZE, column * CELL_DRAWING_SIZE,
+		g.fillRect(column * CELL_DRAWING_SIZE, row * CELL_DRAWING_SIZE,
 				CELL_DRAWING_SIZE, CELL_DRAWING_SIZE);
 	}
 }

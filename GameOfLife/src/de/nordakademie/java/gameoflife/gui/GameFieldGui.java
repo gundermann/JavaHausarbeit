@@ -13,7 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 
-public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
+public class GameFieldGui extends GolGui {
 
 	private GameFieldPanel gameFieldPanel;
 	private JMenuBar menuBar;
@@ -55,7 +55,6 @@ public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
 		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize));
 	}
 
-	@Override
 	public void updateGameFieldGui(boolean[][] currentLifeStatus,
 			Integer cellGeneration) {
 		if (gameFieldPanel == null) {
@@ -111,7 +110,6 @@ public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
 		return speedChooser;
 	}
 
-	@Override
 	public long getSliderPosition() {
 		return speedChooser.getValue();
 	}

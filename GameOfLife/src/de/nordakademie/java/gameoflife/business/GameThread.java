@@ -3,26 +3,28 @@ package de.nordakademie.java.gameoflife.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nordakademie.java.gameoflife.business.rules.BorderRule;
+import de.nordakademie.java.gameoflife.GameController;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
-import de.nordakademie.java.gameoflife.gui.GameFieldGuiHandler;
-import de.nordakademie.java.gameoflife.gui.GameFinishedGui;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
-public class GameController implements Runnable {
+public class GameThread implements Runnable {
 
-	private final GameRule gameRules;
-	private final CellGrid cellGrid;
 	private boolean gameIsOngoing = true;
-	private int generation = 1;
-	private GameFieldGuiHandler gameControlHandler;
 	private final NeighbourFinder neighbourFinder;
-
-	public GameController(final CellGrid cellGrid, GameRule gameRules,
-			BorderRule borderRules) {
+	private final CellGrid cellGrid;
+	private final GameRule gameRules;
+	private int generation = 1;
+	private GameController gameController;
+	
+	public GameThread(final CellGrid cellGrid, GameRule gameRules,
+			NeighbourFinder neighbourFinder){
 		this.cellGrid = cellGrid;
 		this.gameRules = gameRules;
-		neighbourFinder = new NeighbourFinder(borderRules.isGridBorderDead());
+		this.neighbourFinder = neighbourFinder;
+	}
+	
+	public void setGameController(GameController gameController) {
+		this.gameController = gameController;
 	}
 
 	public List<Cell> findCellsToBearOrKill() {
@@ -36,10 +38,6 @@ public class GameController implements Runnable {
 					cellsToBearOrKill.add(cell);
 				}
 			}
-		}
-
-		if (cellsToBearOrKill.isEmpty()) {
-			gameIsOngoing = false;
 		}
 
 		return cellsToBearOrKill;
@@ -77,19 +75,14 @@ public class GameController implements Runnable {
 				cellGrid.bearCell(cell);
 			}
 		}
-		if (gameIsOngoing) {
+		
+		if (cellsToChange.isEmpty()) {
+			gameIsOngoing = false;
+		}else{
 			generation = generation + 1;
 		}
 	}
-
-	public int getGeneration() {
-		return generation;
-	}
-
-	public void setGameControlHandler(final GameFieldGuiHandler gameFieldGui) {
-		gameControlHandler = gameFieldGui;
-	}
-
+	
 	@Override
 	public void run() {
 		while (gameIsOngoing) {
@@ -98,22 +91,25 @@ public class GameController implements Runnable {
 				updateGui();
 				calculateNextGeneration();
 			} catch (InterruptedException e) {
-				System.out.println(e.getMessage());
+				gameController.showError("Beim Ablauf des Spiels ist ein Fehler aufgetreten.");
 			}
 		}
-		new GameFinishedGui();
+		gameController.showFinishing();
 		while (!gameIsOngoing) {
 			updateGui();
 		}
 	}
 
 	private void updateGui() {
-		gameControlHandler.updateGameFieldGui(
-				cellGrid.getCellGridAsBooleanArray(), generation);
+		gameController.updateGui(cellGrid, generation);
 	}
 
 	private long getSettedTime() {
-		return (1000 * gameControlHandler.getSliderPosition()) / 100;
+		return gameController.getSettedTime();
+	}
+
+	public int getGeneration() {
+		return generation;
 	}
 
 }

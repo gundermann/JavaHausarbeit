@@ -5,13 +5,10 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
-import de.nordakademie.java.gameoflife.business.CellGrid;
-import de.nordakademie.java.gameoflife.business.GameController;
 import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
 import de.nordakademie.java.gameoflife.exceptions.FileReadingErrorException;
 import de.nordakademie.java.gameoflife.gui.ErrorGui;
-import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.gui.StartMenuGui;
 import de.nordakademie.java.gameoflife.utils.fileloader.FileLoader;
 
@@ -19,7 +16,6 @@ public class GameInitializer implements GameHandler {
 
 	private final StartMenuGui startGui;
 	private int[][] cellArray;
-	private GameController gameController;
 
 	public GameInitializer() {
 		startGui = new StartMenuGui();
@@ -47,12 +43,8 @@ public class GameInitializer implements GameHandler {
 
 	@Override
 	public void handleStartButtonPressedEvent() {
-		if (cellArray != null) {
-			GameFieldGui gameField = new GameFieldGui();
-			gameController = new GameController(new CellGrid(cellArray),
-					getSelectedGameRule(), getSelectedBorderRule());
-			gameController.setGameControlHandler(gameField);
-			new Thread(gameController).start();
+		if (cellArray != null) { 
+			new GameController(cellArray, getSelectedGameRule(), getSelectedBorderRule());
 			startGui.dispose();
 		} else {
 			new ErrorGui("Es wurde keine Datei gefunden");
@@ -66,7 +58,7 @@ public class GameInitializer implements GameHandler {
 			gameRule = (GameRule) StartGOL.DEFINED_GAME_RULES.get(ruleName)
 					.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+			new ErrorGui("Beim initialisieren der Regeln ist ein Fehler aufgetreten.");
 		}
 		return gameRule;
 	}
@@ -78,7 +70,7 @@ public class GameInitializer implements GameHandler {
 			borderRule = (BorderRule) StartGOL.DEFINED_BORDER_RULES.get(
 					ruleName).newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
-			e.printStackTrace();
+			new ErrorGui("Beim initialisieren der Regeln ist ein Fehler aufgetreten.");
 		}
 		return borderRule;
 	}
