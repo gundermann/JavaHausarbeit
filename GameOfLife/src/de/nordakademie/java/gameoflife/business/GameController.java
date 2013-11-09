@@ -101,7 +101,7 @@ public class GameController implements Runnable {
 				updateGui();
 				calculateNextGeneration();
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				System.out.println(e.getMessage());
 			}
 		}
 		new GameFinishedGui();

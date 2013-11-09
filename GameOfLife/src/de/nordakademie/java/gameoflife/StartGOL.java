@@ -31,7 +31,8 @@ public class StartGOL implements StartGOLHandler {
 	private int[][] cellArray;
 	private GameController gamePad;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InstantiationException,
+			IllegalAccessException {
 		new StartGOL();
 	}
 
