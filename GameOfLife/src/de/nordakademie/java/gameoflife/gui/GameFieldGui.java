@@ -56,13 +56,13 @@ public class GameFieldGui extends GolGui implements GameFieldGuiHandler {
 	}
 
 	@Override
-	public void updateGameFieldGui(boolean[][] currentCellArray,
+	public void updateGameFieldGui(boolean[][] currentLifeStatus,
 			Integer cellGeneration) {
 		if (gameFieldPanel == null) {
-			initGameFieldPanel(currentCellArray);
+			initGameFieldPanel(currentLifeStatus);
 
 		} else {
-			gameFieldPanel.updateCellArray(currentCellArray);
+			gameFieldPanel.updateCellArray(currentLifeStatus);
 			currentCellGenerationLabel.setText(cellGeneration + "");
 			repaint();
 		}

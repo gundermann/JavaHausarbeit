@@ -7,15 +7,15 @@ import javax.swing.JPanel;
 
 class GameFieldPanel extends JPanel {
 
-	private boolean[][] cellsArray;
+	private boolean[][] lifeStatus;
 	private final int CELL_DRAWING_SIZE = 10;
 
 	public GameFieldPanel(boolean[][] currentCellArray) {
-		cellsArray = currentCellArray;
+		lifeStatus = currentCellArray;
 	}
 
 	public void updateCellArray(boolean[][] currentCellArray) {
-		cellsArray = currentCellArray;
+		lifeStatus = currentCellArray;
 	}
 
 	public int getCellsDrawingSize() {
@@ -25,15 +25,15 @@ class GameFieldPanel extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 
-		int rows = cellsArray.length;
+		int rows = lifeStatus.length;
 		int columns = 0;
 		if (rows > 0) {
-			columns = cellsArray[0].length;
+			columns = lifeStatus[0].length;
 		}
 
 		for (int currentColumn = 0; currentColumn < rows; currentColumn++) {
 			for (int currentRow = 0; currentRow < columns; currentRow++) {
-				if (cellsArray[currentColumn][currentRow]) {
+				if (lifeStatus[currentColumn][currentRow]) {
 					g.setColor(Color.RED);
 					paintCell(currentRow * CELL_DRAWING_SIZE, currentColumn
 							* CELL_DRAWING_SIZE, g);
