@@ -4,6 +4,10 @@ import de.nordakademie.java.gameoflife.business.rules.GameRule;
 
 public class GameWithoutDeath implements GameRule {
 
+	public GameWithoutDeath() {
+
+	}
+
 	@Override
 	public boolean isCellStayingAlive(Integer neighbours) {
 		return true;

@@ -13,6 +13,10 @@ public class FileLoader {
 	private BufferedReader bufferedReader;
 	private int[][] cells = null;
 
+	public FileLoader() {
+
+	}
+
 	public void readFile(File file) throws FileReadingErrorException {
 		if (file != null) {
 			try {
