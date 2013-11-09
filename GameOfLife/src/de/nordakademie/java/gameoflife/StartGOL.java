@@ -16,10 +16,10 @@ public class StartGOL {
 	public static final Map<String, Class> DEFINED_BORDER_RULES = new HashMap<String, Class>();
 
 	public static void main(String[] args) {
-		DEFINED_GAME_RULES.put("Game of Life", GameOfLife.class);
-		DEFINED_GAME_RULES.put("Game without death", GameWithoutDeath.class);
-		DEFINED_GAME_RULES.put("High life", HighLife.class);
 		DEFINED_GAME_RULES.put("Three or four life", ThreeOrFourLife.class);
+		DEFINED_GAME_RULES.put("High life", HighLife.class);
+		DEFINED_GAME_RULES.put("Game without death", GameWithoutDeath.class);
+		DEFINED_GAME_RULES.put("Game of Life", GameOfLife.class);
 
 		DEFINED_BORDER_RULES.put("Pacman style", PacmanStyle.class);
 		DEFINED_BORDER_RULES.put("Wall of death", WallOfDeath.class);
