@@ -23,7 +23,7 @@ public class GameInitializer implements GameHandler {
 	}
 
 	@Override
-	public String handleFileUplod() {
+	public String handleFileUpload() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.showOpenDialog(new JFrame());
 		File file = chooser.getSelectedFile();
@@ -33,7 +33,6 @@ public class GameInitializer implements GameHandler {
 			cellArray = fileLoader.getCells();
 			return file.getPath();
 		} catch (FileReadingErrorException exception) {
-			System.out.println(exception);
 			if (!exception.getErrorMessage().equals("Abbruch")) {
 				new ErrorGui(exception.getErrorMessage());
 			}
@@ -44,7 +43,7 @@ public class GameInitializer implements GameHandler {
 	@Override
 	public void handleStartButtonPressedEvent() {
 		if (cellArray != null) { 
-			new GameController(cellArray, getSelectedGameRule(), getSelectedBorderRule());
+			new GameFieldController(cellArray, getSelectedGameRule(), getSelectedBorderRule());
 			startGui.dispose();
 		} else {
 			new ErrorGui("Es wurde keine Datei gefunden");
@@ -55,8 +54,7 @@ public class GameInitializer implements GameHandler {
 		GameRule gameRule = null;
 		String ruleName = startGui.getSelectedGameRule();
 		try {
-			gameRule = (GameRule) StartGOL.DEFINED_GAME_RULES.get(ruleName)
-					.newInstance();
+			gameRule = (GameRule) StartGOL.DEFINED_GAME_RULES.get(ruleName).newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			new ErrorGui("Beim initialisieren der Regeln ist ein Fehler aufgetreten.");
 		}
@@ -67,8 +65,7 @@ public class GameInitializer implements GameHandler {
 		BorderRule borderRule = null;
 		String ruleName = startGui.getSelectedBorderRule();
 		try {
-			borderRule = (BorderRule) StartGOL.DEFINED_BORDER_RULES.get(
-					ruleName).newInstance();
+			borderRule = (BorderRule) StartGOL.DEFINED_BORDER_RULES.get(ruleName).newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
 			new ErrorGui("Beim initialisieren der Regeln ist ein Fehler aufgetreten.");
 		}

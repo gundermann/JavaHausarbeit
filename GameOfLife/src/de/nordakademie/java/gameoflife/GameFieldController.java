@@ -8,12 +8,12 @@ import de.nordakademie.java.gameoflife.gui.ErrorGui;
 import de.nordakademie.java.gameoflife.gui.GameFieldGui;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
-public class GameController{
+public class GameFieldController{
 	private GameFieldGui gameField;
 	private GameThread gameThread;
 	
 
-	public GameController(int[][] cellArray, GameRule gameRules,
+	public GameFieldController(int[][] cellArray, GameRule gameRules,
 			BorderRule borderRules) {
 		gameField = new GameFieldGui();
 		CellGrid cellGrid = new CellGrid(cellArray);

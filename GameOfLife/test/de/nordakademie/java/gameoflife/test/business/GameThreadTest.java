@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import de.nordakademie.java.gameoflife.GameController;
+import de.nordakademie.java.gameoflife.GameFieldController;
 import de.nordakademie.java.gameoflife.business.Cell;
 import de.nordakademie.java.gameoflife.business.CellGrid;
 import de.nordakademie.java.gameoflife.business.GameThread;
@@ -22,13 +22,13 @@ public class GameThreadTest {
 	GameRule gameRules;
 	NeighbourFinder neighbourFinder;
 	CellGrid cellGrid;
-	GameController gameController;
+	GameFieldController gameController;
 
 	@Before
 	public void setUp() {
 		gameRules = Mockito.mock(GameRule.class);
 		cellGrid = CellGridTestHelper.getMockedCellGrid();
-		gameController = Mockito.mock(GameController.class);
+		gameController = Mockito.mock(GameFieldController.class);
 		neighbourFinder = new NeighbourFinder(true);
 		initMockedMethod();
 		gameThread = new GameThread(cellGrid, gameRules, neighbourFinder);

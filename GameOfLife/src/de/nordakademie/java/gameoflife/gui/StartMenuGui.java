@@ -119,7 +119,7 @@ public class StartMenuGui extends GolGui {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				setFileUploadPathText(handler.handleFileUplod());
+				setFileUploadPathText(handler.handleFileUpload());
 			}
 		});
 		gameChooseOptionLayout

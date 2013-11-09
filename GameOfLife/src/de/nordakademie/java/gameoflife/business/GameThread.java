@@ -3,7 +3,7 @@ package de.nordakademie.java.gameoflife.business;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.nordakademie.java.gameoflife.GameController;
+import de.nordakademie.java.gameoflife.GameFieldController;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
@@ -14,7 +14,7 @@ public class GameThread implements Runnable {
 	private final CellGrid cellGrid;
 	private final GameRule gameRules;
 	private int generation = 1;
-	private GameController gameController;
+	private GameFieldController gameController;
 	
 	public GameThread(final CellGrid cellGrid, GameRule gameRules,
 			NeighbourFinder neighbourFinder){
@@ -23,7 +23,7 @@ public class GameThread implements Runnable {
 		this.neighbourFinder = neighbourFinder;
 	}
 	
-	public void setGameController(GameController gameController) {
+	public void setGameController(GameFieldController gameController) {
 		this.gameController = gameController;
 	}
 
