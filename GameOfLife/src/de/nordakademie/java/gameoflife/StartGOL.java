@@ -57,7 +57,6 @@ public class StartGOL implements StartGOLHandler {
 			cellArray = fileLoader.getCells();
 			return file.getPath();
 		} catch (FileReadingErrorException exception) {
-			System.out.println(exception);
 			if (exception.getErrorMessage().equals("Abbruch")) {
 			} else {
 				new ErrorGui(exception.getErrorMessage());

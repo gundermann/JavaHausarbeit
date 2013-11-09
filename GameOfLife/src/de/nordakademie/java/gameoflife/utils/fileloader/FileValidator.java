@@ -16,7 +16,7 @@ public class FileValidator {
 			FileReadingErrorException {
 		if (isFileToLarge(file)) {
 			throw new FileReadingErrorException(
-					"Die hochgeladene Datei ist zu gro�");
+					"Die hochgeladene Datei ist zu gro\u00df");
 		}
 		if (!isFileTypeCorrect(file)) {
 			throw new FileReadingErrorException(
@@ -28,7 +28,7 @@ public class FileValidator {
 		}
 		if (fileContainsNotJustZerosAndOnes(file)) {
 			throw new FileReadingErrorException(
-					"Die hochgeladene Datei enth�llt nicht nur 1en und 0en");
+					"Die hochgeladene Datei enth\u00e4llt nicht nur 1en und 0en");
 		}
 		if (notAllLinesEquallyLong(file)) {
 			throw new FileReadingErrorException(
