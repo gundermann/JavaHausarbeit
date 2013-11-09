@@ -55,7 +55,7 @@ public class CellGrid {
 		try {
 			cellAtPosition = cellArray[row][column];
 		} catch (ArrayIndexOutOfBoundsException borderOverflow) {
-			cellAtPosition = new Cell();
+			cellAtPosition = null;
 		}
 		return cellAtPosition;
 	}

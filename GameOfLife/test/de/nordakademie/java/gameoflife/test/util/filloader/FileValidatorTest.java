@@ -126,8 +126,8 @@ public class FileValidatorTest {
 			e.printStackTrace();
 		} catch (FileReadingErrorException e) {
 			didntThrowException = false;
-			assertTrue("zu gro�e Dateien werfen Fehler", e.getErrorMessage()
-					.equals("Die hochgeladene Datei ist zu gro�"));
+			assertTrue("zu gro\u00dfe Dateien werfen Fehler", e.getErrorMessage()
+					.equals("Die hochgeladene Datei ist zu gro\u00df"));
 			e.printStackTrace();
 		}
 		assertTrue("zu gro�e Dateien werfen Fehler",
@@ -176,7 +176,7 @@ public class FileValidatorTest {
 			assertTrue(
 					"Zeichen ungleich 0 und 1 werfen Fehler",
 					e.getErrorMessage()
-							.equals("Die hochgeladene Datei enth�llt nicht nur 1en und 0en"));
+							.equals("Die hochgeladene Datei enth\u00e4llt nicht nur 1en und 0en"));
 			e.printStackTrace();
 		}
 		assertTrue("Zeichen ungleich 0 und 1 werfen Fehler",

@@ -59,8 +59,8 @@ public class FileLoaderTest {
 		} catch (FileReadingErrorException e) {
 			errorMessage = e.getErrorMessage();
 		}
-		assertTrue("Abbruch der Fileauswahl gibt richtigen ErrorCode zur�ck",
-				errorMessage.equals("Es wurde kein File ausgew�hlt"));
+		assertTrue("Abbruch der Fileauswahl gibt richtigen ErrorCode zurueck",
+				errorMessage.equals("Abbruch"));
 		assertTrue("cells sind null nach fehlerhaftem Einlesen",
 				fileLoader.getCells() == null);
 	}
@@ -76,7 +76,7 @@ public class FileLoaderTest {
 		assertTrue(
 				"Bei Exception fliegt richtiger ErrorCode",
 				errorMessage
-						.equals("W�hrend des Einlesens der Datei ist eine Exception geworfen worden"));
+						.equals("W\u00E4hrend des Einlesens der Datei ist ein Fehler aufgetreten"));
 	}
 
 	@Test
