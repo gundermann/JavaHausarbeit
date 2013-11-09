@@ -1,6 +1,6 @@
 package de.nordakademie.java.gameoflife;
 
-public interface StartGOLHandler {
+public interface GameHandler {
 
 	String handleFileUplod();
 

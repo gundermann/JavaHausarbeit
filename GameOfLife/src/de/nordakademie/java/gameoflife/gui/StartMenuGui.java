@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import de.nordakademie.java.gameoflife.StartGOL;
-import de.nordakademie.java.gameoflife.StartGOLHandler;
+import de.nordakademie.java.gameoflife.GameHandler;
 
 public class StartMenuGui extends GolGui {
 
@@ -30,7 +30,7 @@ public class StartMenuGui extends GolGui {
 	private JLabel gameChoose;
 	private JLabel borderChoose;
 	private JLabel gameConstructions;
-	private StartGOLHandler handler;
+	private GameHandler handler;
 
 	public StartMenuGui() {
 		this.setTitle("Game of Life");
@@ -176,7 +176,7 @@ public class StartMenuGui extends GolGui {
 		return dummy;
 	}
 
-	public void setHandler(StartGOLHandler startGOLHandler) {
+	public void setHandler(GameHandler startGOLHandler) {
 		handler = startGOLHandler;
 	}
 }
