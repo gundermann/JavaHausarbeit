@@ -46,13 +46,16 @@ public class GameFieldGui extends GolGui {
 	}
 
 	private Dimension getDimension(boolean[][] cellsArray) {
+		int scrollBarHeight = 20;
 		int rows = cellsArray.length;
 		int columns = 0;
 		if (rows > 0) {
 			columns = cellsArray[0].length;
 		}
+
 		int cellDrawingSize = gameFieldPanel.getCellsDrawingSize();
-		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize));
+		return (new Dimension(columns * cellDrawingSize, rows * cellDrawingSize
+				+ scrollBarHeight));
 	}
 
 	public void updateGameFieldGui(boolean[][] currentLifeStatus,

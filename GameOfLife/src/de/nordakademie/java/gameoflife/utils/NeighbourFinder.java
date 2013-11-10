@@ -32,11 +32,11 @@ public class NeighbourFinder {
 		neighbours.add(getNeighbourAtSouthEast());
 		neighbours.add(getNeighbourAtSouthWest());
 
-		 for (Cell neighbour : neighbours) {
-		 if (neighbour == null) {
-		 neighbours.set(neighbours.indexOf(neighbour), new Cell());
-		 }
-		 }
+		for (Cell neighbour : neighbours) {
+			if (neighbour == null) {
+				neighbours.set(neighbours.indexOf(neighbour), new Cell());
+			}
+		}
 		return neighbours;
 	}
 

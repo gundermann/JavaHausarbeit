@@ -52,9 +52,9 @@ public class CellGrid {
 
 	public Cell getCellAtPosition(int row, int column) {
 		Cell cellAtPosition;
-		try {
+		if (row <= rows - 1 && column <= columns - 1 && row >= 0 && column >= 0) {
 			cellAtPosition = cellArray[row][column];
-		} catch (ArrayIndexOutOfBoundsException borderOverflow) {
+		} else {
 			cellAtPosition = null;
 		}
 		return cellAtPosition;
