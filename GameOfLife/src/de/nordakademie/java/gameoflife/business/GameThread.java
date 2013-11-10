@@ -85,6 +85,7 @@ public class GameThread implements Runnable {
 	
 	@Override
 	public void run() {
+		updateGui();
 		while (gameIsOngoing) {
 			try {
 				Thread.sleep(getSettedTime());

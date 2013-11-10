@@ -6,6 +6,7 @@ import de.nordakademie.java.gameoflife.business.rules.BorderRule;
 import de.nordakademie.java.gameoflife.business.rules.GameRule;
 import de.nordakademie.java.gameoflife.gui.ErrorGui;
 import de.nordakademie.java.gameoflife.gui.GameFieldGui;
+import de.nordakademie.java.gameoflife.gui.GameFinishedGui;
 import de.nordakademie.java.gameoflife.utils.NeighbourFinder;
 
 public class GameFieldController{
@@ -24,7 +25,7 @@ public class GameFieldController{
 	}
 
 	public void showFinishing(){
-		new GameFieldGui();
+		new GameFinishedGui();
 	}
 	
 	public void updateGui(CellGrid cellGrid, int generation) {
